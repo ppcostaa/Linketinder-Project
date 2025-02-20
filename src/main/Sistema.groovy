@@ -1,3 +1,7 @@
+package main;
+import model.Candidato
+import model.Empresa
+
 class Sistema {
     List<Candidato> candidatos = []
     List<Empresa> empresas = []

@@ -1,3 +1,7 @@
+package main
+
+import utils.Gerenciador;
+
 static void main(String[] args) {
     def sistema = new Sistema()
     sistema.listarEmpresas()

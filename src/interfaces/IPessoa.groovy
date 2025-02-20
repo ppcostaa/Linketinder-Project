@@ -1,3 +1,5 @@
+package interfaces;
+
 interface IPessoa{
     String getNome()
     String getEmail()
