@@ -1,0 +1,142 @@
+:root {
+  --verde: #90ee90;
+  --verde-pastel: #b8f3af;
+  --vermelho: #e83b31;
+  --vermelho-pastel: #ff574d;
+  --cinza: #242323;
+}
+
+body {
+  background-color: var(--cinza);
+}
+h1 {
+  margin: 0.5rem;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 3rem;
+  transition: color 0.3s ease;
+}
+h1:hover {
+  color: rgb(187, 185, 185);
+}
+
+form,
+#menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  grid-template-rows: auto auto auto auto auto auto auto;
+  max-width: 800px;
+  margin: auto;
+}
+.menu-group {
+  position: relative;
+}
+.button-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  grid-row: 7;
+  text-align: center;
+}
+
+button {
+  transition-duration: 0.4s;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  padding: 8px 16px;
+  width: 50%;
+}
+#botaoCadastrarCandidato,
+#botaoCadastrarEmpresa {
+  color: whitesmoke;
+  border: 2px solid rgb(197, 196, 196);
+}
+#botaoCadastrarCandidato:hover,
+#botaoCadastrarEmpresa:hover {
+  background-color: rgb(197, 196, 196);
+  color: var(--cinza);
+}
+#button-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  grid-row: 7;
+  transform: translateY(-120%) translateX(76%);
+  text-align: center;
+}
+#botaoConfirmar {
+  color: var(--verde-pastel);
+  border: 2px solid var(--verde);
+}
+
+#botaoConfirmar:hover {
+  background-color: var(--verde);
+  color: var(--cinza);
+}
+#botaoCancelar {
+  color: var(--vermelho-pastel);
+  border: 2px solid var(--vermelho);
+}
+#botaoCancelar:hover {
+  background-color: var(--vermelho);
+  color: var(--cinza);
+}
+
+label {
+  color: whitesmoke;
+  padding: 0 5px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 45%;
+  left: 1em;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+input,
+select,
+textarea {
+  color: whitesmoke;
+  border: 2px solid whitesmoke;
+  background: transparent;
+  border-radius: 5px;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+  min-width: 0;
+}
+select,
+input {
+  height: 60px;
+  padding: 0 1rem;
+  margin-bottom: 7px;
+  transition: border-color 0.3s, height 0.3s ease-out;
+}
+
+textarea {
+  height: 150px;
+  padding: 12px 1rem;
+  resize: vertical;
+  margin-top: auto;
+  margin-block: 4px;
+}
+
+input:focus ~ label,
+input:valid ~ label,
+textarea:focus ~ label,
+textarea:valid ~ label,
+select:valid ~ label {
+  top: 0;
+  background-color: var(--cinza);
+  font-size: 0.7rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: whitesmoke;
+}

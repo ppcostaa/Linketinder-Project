@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="eng">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rede Social</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>LinkeTinder</h1>
+    <div id="menu">
+      <div class="button-group">
+        <button id="botaoCadastrarCandidato">Cadastrar Candidato</button>
+        <button id="botaoCadastrarEmpresa">Cadastrar Empresa</button>
+      </div>
+    </div>
+
+    <div id="cadastroCandidato" style="display: none">
+      <h2>Cadastro de Candidato</h2>
+      <form id="formCadastroCandidato" style="display: none">
+        <div class="menu-group">
+          <input required type="text" id="nome" />
+          <label for="nomeCandidato">Nome</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="email" />
+          <label for="emailCandidato">E-mail</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="cep" />
+          <label for="cepCandidato">CEP</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="estado" />
+          <label for="estadoCandidato">Estado</label>
+        </div>
+        <div class="menu-group">
+          <input required type="number" id="idade" />
+          <label for="idade">Idade</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="cpf" />
+          <label for="cpf">Idade</label>
+        </div>
+        <div class="menu-group">
+          <textarea required type="text" id="descricao"></textarea>
+          <label for="descricaoCandidato">Descrição</label>
+        </div>
+        <div class="menu-group">
+          <textarea required type="text" id="competencias"></textarea>
+          <label for="competenciasCandidato">Competências</label>
+        </div>
+        <button type="button" id="botaoConfirmar">Cadastrar</button>
+        <button type="button" id="botaoCancelar">Cancelar</button>
+      </form>
+    </div>
+    <div id="cadastroEmpresa" style="display: none">
+      <h2>Cadastro de Empresa</h2>
+      <form id="formCadastroEmpresa">
+        <div class="menu-group">
+          <input required type="text" id="nome" />
+          <label for="nomeEmpresa">Nome</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="email" />
+          <label for="emailEmpresa">E-mail</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="cep" />
+          <label for="cepEmpresa">CEP</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="estado" />
+          <label for="estadoEmpresa">Estado</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="cnpj" />
+          <label for="cnpj">CNPJ</label>
+        </div>
+        <div class="menu-group">
+          <input required type="text" id="idade" />
+          <label for="pais">País</label>
+        </div>
+        <div class="menu-group">
+          <textarea required type="text" id="descricao"></textarea>
+          <label for="descricaoEmpresa">Descrição</label>
+        </div>
+        <div class="menu-group">
+          <textarea required type="text" id="competencias"></textarea>
+          <label for="competenciasEmpresa">Competências</label>
+        </div>
+        <button type="button" id="botaoConfirmar">Cadastrar</button>
+        <button type="button" id="botaoCancelar">Cancelar</button>
+      </form>
+    </div>
+    <script src="ts/app.js"></script>
+  </body>
+</html>
