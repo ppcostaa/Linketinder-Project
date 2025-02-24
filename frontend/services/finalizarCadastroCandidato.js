@@ -1,5 +1,4 @@
-"use strict";
-class Candidato {
+export class Candidato {
     constructor(nome, email, estado, cep, descricao, competencias, cpf, idade) {
         this.nome = nome;
         this.email = email;
@@ -11,7 +10,8 @@ class Candidato {
         this.idade = idade;
     }
 }
-const candidatos = [];
+export const candidatos = [];
+const formCadastroCandidato = document.getElementById("formCadastroCandidato");
 document.addEventListener("DOMContentLoaded", () => {
     const botao = document.getElementById("botaoConfirmarCandidato");
     if (botao) {
@@ -19,16 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
             botaoConfirmarCandidato("cadastrarCandidato");
         });
-        console.log("Botão encontrado e event listener adicionado");
-    }
-    else {
-        console.error("Botão não encontrado");
     }
 });
 function botaoConfirmarCandidato(page) {
-    console.log("Botão clicado!");
     const content = document.getElementById("cadastroCandidato");
-    const form = document.getElementById("formCadastro");
     if (!content)
         return;
     switch (page) {
@@ -36,7 +30,7 @@ function botaoConfirmarCandidato(page) {
             cadastrarCandidato();
             setTimeout(() => {
                 window.location.href = "../index.html";
-                form === null || form === void 0 ? void 0 : form.reset();
+                formCadastroCandidato === null || formCadastroCandidato === void 0 ? void 0 : formCadastroCandidato.reset();
             }, 3000);
             break;
         default:
@@ -67,7 +61,7 @@ function getSelectedCompetencias() {
     });
     return competencias;
 }
-function mostrarPopup(message) {
+export function mostrarPopup(message) {
     const popup = document.createElement("div");
     popup.className = "popup";
     popup.innerText = message;
@@ -84,4 +78,24 @@ function mostrarPopup(message) {
     setTimeout(() => {
         popup.remove();
     }, 3000);
+}
+export function cancelarCadastro() {
+    mostrarPopup("Cadastro cancelado!");
+    setTimeout(() => {
+        window.location.href = "../index.html";
+    }, 2000);
+}
+const botaoCancelar = document.getElementById("botaoCancelarCandidato");
+if (botaoCancelar) {
+    botaoCancelar.addEventListener("click", (event) => {
+        event.preventDefault();
+        cancelarCadastro();
+    });
+}
+const botaoCancelarCandidato = document.getElementById("botaoCancelarCandidato");
+if (botaoCancelarCandidato) {
+    botaoCancelarCandidato.addEventListener("click", (event) => {
+        event.preventDefault();
+        cancelarCadastro();
+    });
 }

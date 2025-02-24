@@ -70,21 +70,25 @@ button {
   color: transparent;
 }
 
-#botaoConfirmarCandidato {
+#botaoConfirmarCandidato,
+#botaoConfirmarEmpresa {
   color: var(--rosa-claro);
   border: 2px solid var(--rosa-clarinho);
 }
 
-#botaoConfirmarCandidato:hover {
+#botaoConfirmarCandidato:hover,
+#botaoConfirmarEmpresa:hover {
   background-color: var(--rosa-clarinho);
   color: var(--cinza);
 }
 
-#botaoCancelar {
+#botaoCancelarCandidato,
+#botaoCancelarEmpresa {
   color: var(--rosa-escurao);
   border: 2px solid var(--rosa-escurinho);
 }
-#botaoCancelar:hover {
+#botaoCancelarCandidato:hover,
+#botaoCancelarEmpresa:hover {
   background-color: var(--rosa-escurinho);
   color: var(--cinza);
 }

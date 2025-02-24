@@ -1,4 +1,4 @@
-class Candidato {
+export class Candidato {
   constructor(
     public nome: string,
     public email: string,
@@ -11,7 +11,10 @@ class Candidato {
   ) {}
 }
 
-const candidatos: Candidato[] = [];
+export const candidatos: Candidato[] = [];
+const formCadastroCandidato = document.getElementById(
+  "formCadastroCandidato"
+) as HTMLFormElement;
 
 document.addEventListener("DOMContentLoaded", () => {
   const botao = document.getElementById("botaoConfirmarCandidato");
@@ -20,17 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       botaoConfirmarCandidato("cadastrarCandidato");
     });
-    console.log("Botão encontrado e event listener adicionado");
-  } else {
-    console.error("Botão não encontrado");
   }
 });
 
 function botaoConfirmarCandidato(page: string) {
-  console.log("Botão clicado!");
-
   const content = document.getElementById("cadastroCandidato");
-  const form = document.getElementById("formCadastro") as HTMLFormElement;
   if (!content) return;
 
   switch (page) {
@@ -38,7 +35,7 @@ function botaoConfirmarCandidato(page: string) {
       cadastrarCandidato();
       setTimeout(() => {
         window.location.href = "../index.html";
-        form?.reset();
+        formCadastroCandidato?.reset();
       }, 3000);
       break;
     default:
@@ -85,7 +82,7 @@ function getSelectedCompetencias(): string[] {
   return competencias;
 }
 
-function mostrarPopup(message: string) {
+export function mostrarPopup(message: string) {
   const popup = document.createElement("div");
   popup.className = "popup";
   popup.innerText = message;
@@ -103,4 +100,29 @@ function mostrarPopup(message: string) {
   setTimeout(() => {
     popup.remove();
   }, 3000);
+}
+
+export function cancelarCadastro() {
+  mostrarPopup("Cadastro cancelado!");
+  setTimeout(() => {
+    window.location.href = "../index.html";
+  }, 2000);
+}
+
+const botaoCancelar = document.getElementById("botaoCancelarCandidato");
+if (botaoCancelar) {
+  botaoCancelar.addEventListener("click", (event) => {
+    event.preventDefault();
+    cancelarCadastro();
+  });
+}
+
+const botaoCancelarCandidato = document.getElementById(
+  "botaoCancelarCandidato"
+);
+if (botaoCancelarCandidato) {
+  botaoCancelarCandidato.addEventListener("click", (event) => {
+    event.preventDefault();
+    cancelarCadastro();
+  });
 }

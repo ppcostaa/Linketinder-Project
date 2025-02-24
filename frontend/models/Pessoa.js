@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Pessoa = void 0;
-class Pessoa {
+export class Pessoa {
     constructor(nome, email, estado, cep, descricao, competencias) {
         this.nome = nome;
         this.email = email;
@@ -29,4 +26,3 @@ class Pessoa {
         return this.competencias;
     }
 }
-exports.Pessoa = Pessoa;

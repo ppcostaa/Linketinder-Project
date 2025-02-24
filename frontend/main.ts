@@ -1,20 +1,45 @@
+import {
+  type Candidato,
+  candidatos,
+} from "./services/finalizarCadastroCandidato.js";
+
 document.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("botaoCadastroCandidato")
-    ?.addEventListener("click", () => navigate("cadastroCandidato"));
-  document
-    .getElementById("botaoCadastroEmpresa")
-    ?.addEventListener("click", () => navigate("cadastroEmpresa"));
-  document
-    .getElementById("botaoPerfilCandidato")
-    ?.addEventListener("click", () => navigate("perfilCandidato"));
-  document
-    .getElementById("botaoPerfilEmpresa")
-    ?.addEventListener("click", () => navigate("perfilEmpresa"));
+  const botaoCadastroCandidato = document.getElementById(
+    "botaoCadastroCandidato"
+  ) as HTMLButtonElement | null;
+  const botaoCadastroEmpresa = document.getElementById(
+    "botaoCadastroEmpresa"
+  ) as HTMLButtonElement | null;
+  const botaoPerfilCandidato = document.getElementById(
+    "botaoPerfilCandidato"
+  ) as HTMLButtonElement | null;
+  const botaoPerfilEmpresa = document.getElementById(
+    "botaoPerfilEmpresa"
+  ) as HTMLButtonElement | null;
+  const botaoListarCandidatos = document.getElementById(
+    "botaoListarCandidatos"
+  ) as HTMLButtonElement | null;
+
+  botaoCadastroCandidato?.addEventListener("click", () =>
+    navigate("cadastroCandidato")
+  );
+  botaoCadastroEmpresa?.addEventListener("click", () =>
+    navigate("cadastroEmpresa")
+  );
+  botaoPerfilCandidato?.addEventListener("click", () =>
+    navigate("perfilCandidato")
+  );
+  botaoPerfilEmpresa?.addEventListener("click", () =>
+    navigate("perfilEmpresa")
+  );
+  botaoListarCandidatos?.addEventListener("click", () =>
+    navigate("listarCandidatos")
+  );
 });
 
-function navigate(page: string) {
+function navigate(page: string): void {
   const content = document.getElementById("content");
+
   if (!content) return;
 
   switch (page) {
@@ -22,8 +47,7 @@ function navigate(page: string) {
       window.location.href = "views/CadastroCandidato.html";
       break;
     case "cadastroEmpresa":
-      content.innerHTML =
-        "<h2>Cadastro de Empresa</h2><p>Formulário para cadastrar empresas.</p>";
+      window.location.href = "views/CadastroEmpresa.html";
       break;
     case "perfilCandidato":
       content.innerHTML =
@@ -35,7 +59,7 @@ function navigate(page: string) {
           <p>Lista de candidatos anônimos:</p>
           <ul id="listaCandidatos">
             ${candidatos
-              .map((candidato, index) => {
+              .map((candidato: Candidato) => {
                 return `<li>${candidato.nome} - ${candidato.competencias.join(
                   ", "
                 )}</li>`;
@@ -51,16 +75,18 @@ function navigate(page: string) {
   }
 }
 
-function listarCandidatos() {
-  const candidatos = JSON.parse(localStorage.getItem("candidatos") || "[]");
+function listarCandidatos(): void {
+  const candidatos = JSON.parse(
+    localStorage.getItem("candidatos") || "[]"
+  ) as Candidato[];
   const content = document.getElementById("content");
+
   if (!content) return;
 
   if (candidatos.length > 0) {
     let html = "<h2>Candidatos Cadastrados</h2><ul>";
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     // biome-ignore lint/complexity/noForEach: <explanation>
-    candidatos.forEach((candidato: any) => {
+    candidatos.forEach((candidato: Candidato) => {
       html += `<li>${candidato.nome}</li>`;
     });
     html += "</ul>";

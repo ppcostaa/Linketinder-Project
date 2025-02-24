@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Empresa = void 0;
-const Pessoa_1 = require("./Pessoa");
-class Empresa extends Pessoa_1.Pessoa {
+import { Pessoa } from "./Pessoa";
+export class Empresa extends Pessoa {
     constructor(nome, email, estado, cep, descricao, competencias, cnpj, pais) {
         super(nome, email, estado, cep, descricao, competencias);
         this.cnpj = cnpj;
@@ -12,4 +9,3 @@ class Empresa extends Pessoa_1.Pessoa {
         return `Empresa: ${this.getNome()}, ${this.getEmail()}, ${this.getEstado()}, ${this.getCep()}, ${this.getDescricao()}, ${this.getCompetencias()}, ${this.cnpj}, ${this.pais}\n--------------------------------------`;
     }
 }
-exports.Empresa = Empresa;
