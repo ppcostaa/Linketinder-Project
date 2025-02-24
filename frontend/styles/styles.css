@@ -16,7 +16,10 @@ body {
   background-color: var(--cinza);
 }
 h1,
-h2 {
+h2,
+p,
+li,
+ul {
   margin: 0.5rem;
   color: var(--rosa);
   text-align: center;
@@ -28,14 +31,6 @@ h1 {
 h1:hover,
 h2:hover {
   color: var(--rosa-escuro);
-}
-
-nav {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  max-width: 800px;
-  margin: auto;
 }
 
 button {
@@ -55,7 +50,7 @@ button {
   background-color: transparent;
   cursor: pointer;
   padding: 8px 16px;
-  width: 50%;
+  width: 100%;
   color: var(--rosa);
   color: var(--rosa);
   border: 2px solid var(--rosa-escuro);
@@ -93,7 +88,8 @@ button {
   color: var(--cinza);
 }
 
-form {
+form,
+nav {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -280,4 +276,16 @@ input[type="checkbox"] {
   position: relative;
   top: 0;
   left: 0;
+}
+#listaEmpresas,
+#listaCandidatos {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#listaEmpresas li,
+#listaCandidatos li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rosa-claro);
 }

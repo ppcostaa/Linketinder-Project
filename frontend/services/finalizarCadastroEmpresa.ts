@@ -1,20 +1,8 @@
+import { Empresa } from "../models/Empresa.js";
 import {
   cancelarCadastro,
   mostrarPopup,
 } from "./finalizarCadastroCandidato.js";
-
-class Empresa {
-  constructor(
-    public nome: string,
-    public email: string,
-    public estado: string,
-    public cep: string,
-    public descricao: string,
-    public competencias: string[],
-    public cnpj: string,
-    public pais: string
-  ) {}
-}
 
 const empresas: Empresa[] = [];
 const formCadastroEmpresa = document.getElementById(
@@ -26,19 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (botao) {
     botao.addEventListener("click", (event) => {
       event.preventDefault();
-      botaoConfirmarEmpresa("cadastrarEmpresa");
+      botaoConfirmarEmpresa("cadastroEmpresa");
     });
-    console.log("Botão encontrado e event listener adicionado");
-  } else {
-    console.error("Botão não encontrado");
   }
 });
 
 function botaoConfirmarEmpresa(page: string) {
-  console.log("Botão clicado!");
-
   const content = document.getElementById("cadastroEmpresa");
   if (!content) return;
+  if (!validarCamposEmpresa()) {
+    mostrarPopup("Todos os campos obrigatórios precisam ser preenchidos!");
+    return;
+  }
 
   switch (page) {
     case "cadastroEmpresa":
@@ -49,7 +36,7 @@ function botaoConfirmarEmpresa(page: string) {
       }, 3000);
       break;
     default:
-      content.innerHTML = "<p>Bem-vindo ao Linketinder!</p>";
+      content.innerHTML = "<p>Erro ao cadastrar!</p>";
   }
 }
 
@@ -76,9 +63,37 @@ function cadastrarEmpresa() {
   );
 
   empresas.push(empresa);
+  localStorage.setItem("empresas", JSON.stringify(empresas));
   mostrarPopup("Empresa adicionada com sucesso!");
 }
+function validarCamposEmpresa() {
+  const camposObrigatorios = [
+    "nome",
+    "email",
+    "estado",
+    "cep",
+    "pais",
+    "cnpj",
+    "descricao",
+  ];
 
+  let valido = true;
+
+  // biome-ignore lint/complexity/noForEach: <explanation>
+  camposObrigatorios.forEach((id) => {
+    const campo = document.getElementById(id) as
+      | HTMLInputElement
+      | HTMLTextAreaElement;
+    if (!campo.value.trim()) {
+      valido = false;
+      campo.classList.add("campo-invalido");
+    } else {
+      campo.classList.remove("campo-invalido");
+    }
+  });
+
+  return valido;
+}
 function getSelectedCompetencias(): string[] {
   const competencias: string[] = [];
   const checkboxes = document.querySelectorAll(".custom-checkout:checked");

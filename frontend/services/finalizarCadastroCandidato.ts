@@ -1,15 +1,4 @@
-export class Candidato {
-  constructor(
-    public nome: string,
-    public email: string,
-    public estado: string,
-    public cep: string,
-    public descricao: string,
-    public competencias: string[],
-    public cpf: string,
-    public idade: number
-  ) {}
-}
+import { Candidato } from "../models/Candidato.js";
 
 export const candidatos: Candidato[] = [];
 const formCadastroCandidato = document.getElementById(
@@ -29,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function botaoConfirmarCandidato(page: string) {
   const content = document.getElementById("cadastroCandidato");
   if (!content) return;
+  if (!validarCamposCandidato()) {
+    mostrarPopup("Todos os campos obrigatórios precisam ser preenchidos!");
+    return;
+  }
 
   switch (page) {
     case "cadastrarCandidato":
@@ -68,9 +61,37 @@ function cadastrarCandidato() {
   );
 
   candidatos.push(candidato);
+  localStorage.setItem("candidatos", JSON.stringify(candidatos));
   mostrarPopup("Candidato adicionado com sucesso!");
 }
+function validarCamposCandidato() {
+  const camposObrigatorios = [
+    "nome",
+    "email",
+    "estado",
+    "cep",
+    "cpf",
+    "idade",
+    "descricao",
+  ];
 
+  let valido = true;
+
+  // biome-ignore lint/complexity/noForEach: <explanation>
+  camposObrigatorios.forEach((id) => {
+    const campo = document.getElementById(id) as
+      | HTMLInputElement
+      | HTMLTextAreaElement;
+    if (!campo.value.trim()) {
+      valido = false;
+      campo.classList.add("campo-invalido");
+    } else {
+      campo.classList.remove("campo-invalido");
+    }
+  });
+
+  return valido;
+}
 function getSelectedCompetencias(): string[] {
   const competencias: string[] = [];
   const checkboxes = document.querySelectorAll(".custom-checkout:checked");

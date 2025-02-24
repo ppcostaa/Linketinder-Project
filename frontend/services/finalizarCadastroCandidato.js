@@ -1,15 +1,4 @@
-export class Candidato {
-    constructor(nome, email, estado, cep, descricao, competencias, cpf, idade) {
-        this.nome = nome;
-        this.email = email;
-        this.estado = estado;
-        this.cep = cep;
-        this.descricao = descricao;
-        this.competencias = competencias;
-        this.cpf = cpf;
-        this.idade = idade;
-    }
-}
+import { Candidato } from "../models/Candidato.js";
 export const candidatos = [];
 const formCadastroCandidato = document.getElementById("formCadastroCandidato");
 document.addEventListener("DOMContentLoaded", () => {
@@ -25,6 +14,10 @@ function botaoConfirmarCandidato(page) {
     const content = document.getElementById("cadastroCandidato");
     if (!content)
         return;
+    if (!validarCamposCandidato()) {
+        mostrarPopup("Todos os campos obrigatórios precisam ser preenchidos!");
+        return;
+    }
     switch (page) {
         case "cadastrarCandidato":
             cadastrarCandidato();
@@ -49,7 +42,32 @@ function cadastrarCandidato() {
     const competencias = getSelectedCompetencias();
     const candidato = new Candidato(nome, email, estado, cep, descricao, competencias, cpf, idade);
     candidatos.push(candidato);
+    localStorage.setItem("candidatos", JSON.stringify(candidatos));
     mostrarPopup("Candidato adicionado com sucesso!");
+}
+function validarCamposCandidato() {
+    const camposObrigatorios = [
+        "nome",
+        "email",
+        "estado",
+        "cep",
+        "cpf",
+        "idade",
+        "descricao",
+    ];
+    let valido = true;
+    // biome-ignore lint/complexity/noForEach: <explanation>
+    camposObrigatorios.forEach((id) => {
+        const campo = document.getElementById(id);
+        if (!campo.value.trim()) {
+            valido = false;
+            campo.classList.add("campo-invalido");
+        }
+        else {
+            campo.classList.remove("campo-invalido");
+        }
+    });
+    return valido;
 }
 function getSelectedCompetencias() {
     const competencias = [];
