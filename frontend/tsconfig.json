@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "lib": ["es2016", "dom"],
+    "target": "es2016",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
@@ -8,6 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./"
   },
-  "include": ["*.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }

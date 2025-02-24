@@ -1,0 +1,279 @@
+:root {
+  --verde: #90ee90;
+  --verde-pastel: #b8f3af;
+  --vermelho: #e83b31;
+  --vermelho-pastel: #ff574d;
+  --cinza: #242323;
+  --rosa: #ff7af6;
+  --rosa-escuro: #ee62e5;
+  --rosa-claro: #fd99f7;
+  --rosa-clarinho: #fab3f5;
+  --rosa-escurinho: #fc2cee;
+  --rosa-escurao: #e22bd6;
+}
+
+body {
+  background-color: var(--cinza);
+}
+h1,
+h2 {
+  margin: 0.5rem;
+  color: var(--rosa);
+  text-align: center;
+  transition: color 0.3s ease;
+}
+h1 {
+  font-size: 3rem;
+}
+h1:hover,
+h2:hover {
+  color: var(--rosa-escuro);
+}
+
+nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+button {
+  transition-duration: 0.4s;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 8px 16px;
+  width: 100%;
+}
+#botaoPerfilEmpresa,
+#botaoPerfilCandidato,
+#botaoCadastroCandidato,
+#botaoCadastroEmpresa {
+  transition-duration: 0.4s;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 8px 16px;
+  width: 50%;
+  color: var(--rosa);
+  color: var(--rosa);
+  border: 2px solid var(--rosa-escuro);
+}
+
+#botaoCadastroEmpresa:hover,
+#botaoCadastroEmpresa:hover,
+#botaoCadastroCandidato:hover,
+#botaoPerfilCandidato:hover,
+#botaoPerfilEmpresa:hover {
+  background-color: var(--rosa-escuro);
+  color: transparent;
+}
+
+#botaoConfirmarCandidato {
+  color: var(--rosa-claro);
+  border: 2px solid var(--rosa-clarinho);
+}
+
+#botaoConfirmarCandidato:hover {
+  background-color: var(--rosa-clarinho);
+  color: var(--cinza);
+}
+
+#botaoCancelar {
+  color: var(--rosa-escurao);
+  border: 2px solid var(--rosa-escurinho);
+}
+#botaoCancelar:hover {
+  background-color: var(--rosa-escurinho);
+  color: var(--cinza);
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  grid-template-rows: auto auto auto auto auto auto auto;
+  max-width: 800px;
+  margin: auto;
+}
+.form-group {
+  position: relative;
+}
+
+label {
+  color: var(--rosa);
+  padding: 0 5px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 45%;
+  left: 1em;
+  pointer-events: none;
+  transition: 0.3s;
+}
+input,
+select,
+textarea {
+  color: var(--rosa);
+  border: 2px solid var(--rosa);
+  background: transparent;
+  border-radius: 5px;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+  min-width: 0;
+}
+select,
+input {
+  height: 60px;
+  padding: 0 1rem;
+  margin-bottom: 7px;
+  transition: border-color 0.3s, height 0.3s ease-out;
+}
+
+textarea {
+  height: 175px;
+  padding: 12px 1rem;
+  resize: vertical;
+  margin-top: auto;
+  margin-block: 4px;
+}
+
+input:focus ~ label,
+input:valid ~ label,
+textarea:focus ~ label,
+textarea:valid ~ label,
+select:valid ~ label {
+  top: 0;
+  background-color: var(--cinza);
+  font-size: 0.7rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--rosa);
+}
+
+select:focus {
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+  grid-row: 2;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 1.125rem;
+  height: 1.125rem;
+  background-color: transparent;
+  border: 0.125rem solid var(--rosa-escuro);
+  border-radius: 0.25rem;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center;
+  transition: 0.125s transform ease-in-out;
+  box-shadow: inset 1rem 1rem var(--rosa-escuro);
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--rosa-escuro);
+  border-color: var(--rosa-escuro);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+input[type="checkbox"]:disabled {
+  opacity: 0.25;
+}
+
+input[type="checkbox"]:focus {
+  border-color: var(--rosa-escuro);
+}
+
+input[type="checkbox"]:focus + label {
+  color: var(--rosa-escuro);
+}
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 1.125rem;
+  height: 1.125rem;
+  background-color: transparent;
+  border: 0.125rem solid var(--rosa-escuro);
+  border-radius: 0.25rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.75rem;
+    height: 0.75rem;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: translate(-50%, -50%) scale(0);
+    transform-origin: center;
+    transition: 0.125s transform ease-in-out;
+    box-shadow: inset 1rem 1rem #fff;
+  }
+
+  &:checked {
+    background-color: var(--rosa-escuro);
+    border-color: var(--rosa-escuro);
+
+    &::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.25;
+  }
+
+  &:focus {
+    border-color: var(--rosa-escuro);
+
+    & + label {
+      color: var(--rosa-escuro);
+    }
+  }
+}
+.custom-checkout-wrapper div {
+  position: relative;
+}
+
+.custom-checkout-wrapper div label {
+  position: static;
+  margin-left: 0px;
+  font-size: 0.95rem;
+  vertical-align: 60%;
+}
+.custom-checkout-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+.form-group .competenciaLabel {
+  position: relative;
+  top: 0;
+  left: 0;
+}

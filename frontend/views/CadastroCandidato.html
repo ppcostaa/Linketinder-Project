@@ -1,0 +1,128 @@
+<!-- src/views/cadastroCandidato.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Candidato</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <h1>Cadastro de Candidato</h1>
+    <main id="cadastroCandidato">
+      <form id="formCadastro">
+        <div class="form-group">
+          <input type="text" id="nome" required />
+          <label for="nome">Nome</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="email" required />
+          <label for="email">Email</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="estado" required />
+          <label for="estado">Estado</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="cep" required />
+          <label for="cep">CEP</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="cpf" required />
+          <label for="cpf">CPF</label>
+        </div>
+        <div class="form-group">
+          <input type="number" id="idade" required />
+          <label for="idade">Idade</label>
+        </div>
+        <div class="form-group">
+          <textarea id="descricao" required></textarea>
+          <label for="descricao">Descrição</label>
+        </div>
+        <div class="form-group">
+          <label for="competencias" class="competenciaLabel"
+            >Competências</label
+          >
+          <div class="custom-checkout-wrapper">
+            <div>
+              <input
+                class="custom-checkout"
+                type="checkbox"
+                id="competenciaJava"
+              />
+              <label for="competenciaJava">Java</label>
+            </div>
+            <div>
+              <input
+                class="custom-checkout"
+                type="checkbox"
+                id="competenciaPython"
+              />
+              <label for="competenciaPython">Python</label>
+            </div>
+            <div>
+              <input
+                class="custom-checkout"
+                type="checkbox"
+                id="competenciaTypescript"
+              />
+              <label for="competenciaTypescript">Typescript</label>
+            </div>
+            <div>
+              <input
+                class="custom-checkout"
+                type="checkbox"
+                id="competenciaBanco"
+              />
+              <label for="competenciaBanco">Banco de dados</label>
+            </div>
+            <div>
+              <input
+                class="custom-checkout"
+                type="checkbox"
+                id="competenciaAngular"
+              />
+              <label for="competenciaAngular">Angular</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="competenciaReact"
+                class="custom-checkout"
+              />
+              <label for="competenciaReact">React</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="competenciaSpring"
+                class="custom-checkout"
+              />
+              <label for="competenciaSpring">Spring</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button
+            type="button"
+            class="botaoConfirmarCandidato"
+            id="botaoConfirmarCandidato"
+            onclick="cadastrarCandidato('cadastroCandidato')"
+          >
+            Cadastrar
+          </button>
+        </div>
+        <div class="form-group">
+          <button type="button" class="cancelar" id="botaoCancelar">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <script src="../services/finalizarCadastroCandidato.js"></script>
+    <!-- Arquivo compilado do TypeScript -->
+  </body>
+</html>
