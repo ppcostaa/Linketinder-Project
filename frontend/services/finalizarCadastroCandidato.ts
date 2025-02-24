@@ -32,7 +32,7 @@ function botaoConfirmarCandidato(page: string) {
       }, 3000);
       break;
     default:
-      content.innerHTML = "<p>Bem-vindo ao Linketinder!</p>";
+      content.innerHTML = "<p>Erro ao cadastrar!</p>";
   }
 }
 
@@ -59,9 +59,13 @@ function cadastrarCandidato() {
     cpf,
     idade
   );
+  const candidatosExistentes = JSON.parse(
+    localStorage.getItem("candidatos") || "[]"
+  );
 
-  candidatos.push(candidato);
-  localStorage.setItem("candidatos", JSON.stringify(candidatos));
+  candidatosExistentes.push(candidato);
+
+  localStorage.setItem("candidatos", JSON.stringify(candidatosExistentes));
   mostrarPopup("Candidato adicionado com sucesso!");
 }
 function validarCamposCandidato() {

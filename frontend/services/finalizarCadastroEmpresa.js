@@ -42,8 +42,9 @@ function cadastrarEmpresa() {
     const descricao = (_g = document.getElementById("descricao")) === null || _g === void 0 ? void 0 : _g.value;
     const competencias = getSelectedCompetencias();
     const empresa = new Empresa(nome, email, estado, cep, descricao, competencias, cnpj, pais);
-    empresas.push(empresa);
-    localStorage.setItem("empresas", JSON.stringify(empresas));
+    const empresasExistentes = JSON.parse(localStorage.getItem("empresas") || "[]");
+    empresasExistentes.push(empresa);
+    localStorage.setItem("empresas", JSON.stringify(empresasExistentes));
     mostrarPopup("Empresa adicionada com sucesso!");
 }
 function validarCamposEmpresa() {

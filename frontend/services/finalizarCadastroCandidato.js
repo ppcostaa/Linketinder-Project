@@ -27,7 +27,7 @@ function botaoConfirmarCandidato(page) {
             }, 3000);
             break;
         default:
-            content.innerHTML = "<p>Bem-vindo ao Linketinder!</p>";
+            content.innerHTML = "<p>Erro ao cadastrar!</p>";
     }
 }
 function cadastrarCandidato() {
@@ -41,8 +41,9 @@ function cadastrarCandidato() {
     const descricao = (_g = document.getElementById("descricao")) === null || _g === void 0 ? void 0 : _g.value;
     const competencias = getSelectedCompetencias();
     const candidato = new Candidato(nome, email, estado, cep, descricao, competencias, cpf, idade);
-    candidatos.push(candidato);
-    localStorage.setItem("candidatos", JSON.stringify(candidatos));
+    const candidatosExistentes = JSON.parse(localStorage.getItem("candidatos") || "[]");
+    candidatosExistentes.push(candidato);
+    localStorage.setItem("candidatos", JSON.stringify(candidatosExistentes));
     mostrarPopup("Candidato adicionado com sucesso!");
 }
 function validarCamposCandidato() {

@@ -62,8 +62,13 @@ function cadastrarEmpresa() {
     pais
   );
 
-  empresas.push(empresa);
-  localStorage.setItem("empresas", JSON.stringify(empresas));
+  const empresasExistentes = JSON.parse(
+    localStorage.getItem("empresas") || "[]"
+  );
+
+  empresasExistentes.push(empresa);
+
+  localStorage.setItem("empresas", JSON.stringify(empresasExistentes));
   mostrarPopup("Empresa adicionada com sucesso!");
 }
 function validarCamposEmpresa() {
