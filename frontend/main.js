@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 document.addEventListener("DOMContentLoaded", () => {
     var _a, _b, _c, _d;
     (_a = document
@@ -28,10 +27,40 @@ function navigate(page) {
                 "<h2>Perfil do Candidato</h2><p>Lista de vagas disponíveis.</p>";
             break;
         case "perfilEmpresa":
-            content.innerHTML =
-                "<h2>Perfil da Empresa</h2><p>Lista de candidatos anônimos.</p>";
+            content.innerHTML = `
+          <h2>Perfil da Empresa</h2>
+          <p>Lista de candidatos anônimos:</p>
+          <ul id="listaCandidatos">
+            ${candidatos
+                .map((candidato, index) => {
+                return `<li>${candidato.nome} - ${candidato.competencias.join(", ")}</li>`;
+            })
+                .join("")}
+          </ul>`;
+            break;
+        case "listarCandidatos":
+            listarCandidatos();
             break;
         default:
             content.innerHTML = "<p>Bem-vindo ao Linketinder!</p>";
+    }
+}
+function listarCandidatos() {
+    const candidatos = JSON.parse(localStorage.getItem("candidatos") || "[]");
+    const content = document.getElementById("content");
+    if (!content)
+        return;
+    if (candidatos.length > 0) {
+        let html = "<h2>Candidatos Cadastrados</h2><ul>";
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        // biome-ignore lint/complexity/noForEach: <explanation>
+        candidatos.forEach((candidato) => {
+            html += `<li>${candidato.nome}</li>`;
+        });
+        html += "</ul>";
+        content.innerHTML = html;
+    }
+    else {
+        content.innerHTML = "<p>Nenhum candidato cadastrado.</p>";
     }
 }
