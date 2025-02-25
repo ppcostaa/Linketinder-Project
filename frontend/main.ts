@@ -1,8 +1,14 @@
-import Chart, { ChartOptions } from "chart.js";
+import {
+  Chart,
+  type ChartConfiguration,
+  ChartOptions,
+  type CategoryScaleOptions,
+  type ChartScales,
+  type LinearScaleOptions,
+} from "chart.js";
+
 import type { Candidato } from "./models/Candidato.js";
 import type { Empresa } from "./models/Empresa.js";
-import { ChartScales } from "chart.js";
-
 document.addEventListener("DOMContentLoaded", () => {
   const botaoCadastroCandidato = document.getElementById(
     "botaoCadastroCandidato"
@@ -51,13 +57,11 @@ function renderCompetenciaChart() {
     localStorage.getItem("empresas") || "[]"
   );
 
-  // Criar um mapa para contar competências
   const competenciaCount: Record<
     string,
     { candidatos: number; empresas: number }
   > = {};
 
-  // Contabilizar competências dos candidatos
   for (const candidato of candidatos) {
     for (const competencia of candidato.competencias) {
       if (!competenciaCount[competencia]) {
@@ -67,7 +71,6 @@ function renderCompetenciaChart() {
     }
   }
 
-  // Contabilizar competências exigidas pelas empresas
   for (const empresa of empresas) {
     for (const competencia of empresa.competencias) {
       if (!competenciaCount[competencia]) {
@@ -77,7 +80,6 @@ function renderCompetenciaChart() {
     }
   }
 
-  // Criar labels e datasets para o gráfico
   const labels = Object.keys(competenciaCount);
   const candidatoData = labels.map(
     (competencia) => competenciaCount[competencia].candidatos
@@ -86,15 +88,28 @@ function renderCompetenciaChart() {
     (competencia) => competenciaCount[competencia].empresas
   );
 
-  // Renderizar o gráfico com Chart.js
-  const ctx = document.getElementById("competenciaChart") as HTMLCanvasElement;
+  const ctx = document.getElementById(
+    "competenciaChart"
+  ) as HTMLCanvasElement | null;
+  if (!ctx) return; // Garante que o elemento canvas existe antes de continuar
 
-  // Verifica se já existe um gráfico ativo e destrói antes de criar um novo
-  if (window.myChart instanceof Chart) {
+  // Se já existir um gráfico, destruir antes de criar um novo
+  if (window.myChart) {
     window.myChart.destroy();
   }
 
-  window.myChart = new Chart(ctx, {
+  const scales: { x: CategoryScaleOptions; y: LinearScaleOptions } = {
+    // Defina corretamente os tipos de escala
+    x: {
+      type: "category", // Define corretamente o eixo X como categórico
+    },
+    y: {
+      type: "linear", // Define corretamente o eixo Y como numérico
+      beginAtZero: true,
+    },
+  };
+
+  const config: ChartConfiguration = {
     type: "bar",
     data: {
       labels,
@@ -117,14 +132,11 @@ function renderCompetenciaChart() {
     },
     options: {
       responsive: true,
-      scales: {
-        y: {
-          type: "linear",
-          beginAtZero: true,
-        } as ChartOptions,
-      },
+      scales, // Agora utilizamos `scales` com a tipagem correta
     },
-  });
+  };
+
+  window.myChart = new Chart(ctx, config);
 }
 
 function navigate(page: string): void {
