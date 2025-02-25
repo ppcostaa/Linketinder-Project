@@ -1,0 +1,1 @@
+{"root":["./main.ts","./controller/Candidato.ts","./interfaces/IPessoa.ts","./models/Candidato.ts","./models/Empresa.ts","./models/Pessoa.ts","./services/finalizarCadastroCandidato.ts","./utils/chartHelper.ts","./utils/domHelpers.ts"],"version":"5.7.3"}

@@ -1,0 +1,120 @@
+import { Candidato } from "../models/Candidato.js";
+export const candidatos = [];
+const formCadastroCandidato = document.getElementById("formCadastroCandidato");
+document.addEventListener("DOMContentLoaded", () => {
+    const botao = document.getElementById("botaoConfirmarCandidato");
+    if (botao) {
+        botao.addEventListener("click", (event) => {
+            event.preventDefault();
+            botaoConfirmarCandidato("cadastrarCandidato");
+        });
+    }
+});
+function botaoConfirmarCandidato(page) {
+    const content = document.getElementById("cadastroCandidato");
+    if (!content)
+        return;
+    if (!validarCamposCandidato()) {
+        mostrarPopup("Todos os campos obrigatórios precisam ser preenchidos!");
+        return;
+    }
+    switch (page) {
+        case "cadastrarCandidato":
+            cadastrarCandidato();
+            setTimeout(() => {
+                window.location.href = "../index.html";
+                formCadastroCandidato === null || formCadastroCandidato === void 0 ? void 0 : formCadastroCandidato.reset();
+            }, 3000);
+            break;
+        default:
+            content.innerHTML = "<p>Erro ao cadastrar!</p>";
+    }
+}
+function cadastrarCandidato() {
+    var _a, _b, _c, _d, _e, _f, _g;
+    const nome = (_a = document.getElementById("nome")) === null || _a === void 0 ? void 0 : _a.value;
+    const email = (_b = document.getElementById("email")) === null || _b === void 0 ? void 0 : _b.value;
+    const estado = (_c = document.getElementById("estado")) === null || _c === void 0 ? void 0 : _c.value;
+    const cep = (_d = document.getElementById("cep")) === null || _d === void 0 ? void 0 : _d.value;
+    const cpf = (_e = document.getElementById("cpf")) === null || _e === void 0 ? void 0 : _e.value;
+    const idade = Number.parseInt((_f = document.getElementById("idade")) === null || _f === void 0 ? void 0 : _f.value);
+    const descricao = (_g = document.getElementById("descricao")) === null || _g === void 0 ? void 0 : _g.value;
+    const competencias = getSelectedCompetencias();
+    const candidato = new Candidato(nome, email, estado, cep, descricao, competencias, cpf, idade);
+    const candidatosExistentes = JSON.parse(localStorage.getItem("candidatos") || "[]");
+    candidatosExistentes.push(candidato);
+    localStorage.setItem("candidatos", JSON.stringify(candidatosExistentes));
+    mostrarPopup("Candidato adicionado com sucesso!");
+}
+function validarCamposCandidato() {
+    const camposObrigatorios = [
+        "nome",
+        "email",
+        "estado",
+        "cep",
+        "cpf",
+        "idade",
+        "descricao",
+    ];
+    let valido = true;
+    // biome-ignore lint/complexity/noForEach: <explanation>
+    camposObrigatorios.forEach((id) => {
+        const campo = document.getElementById(id);
+        if (!campo.value.trim()) {
+            valido = false;
+            campo.classList.add("campo-invalido");
+        }
+        else {
+            campo.classList.remove("campo-invalido");
+        }
+    });
+    return valido;
+}
+function getSelectedCompetencias() {
+    const competencias = [];
+    const checkboxes = document.querySelectorAll(".custom-checkout:checked");
+    // biome-ignore lint/complexity/noForEach: <explanation>
+    checkboxes.forEach((checkbox) => {
+        const inputCheckbox = checkbox;
+        competencias.push(inputCheckbox.id.replace("competencia", ""));
+    });
+    return competencias;
+}
+export function mostrarPopup(message) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerText = message;
+    document.body.appendChild(popup);
+    popup.style.position = "fixed";
+    popup.style.top = "20px";
+    popup.style.left = "50%";
+    popup.style.transform = "translateX(-50%)";
+    popup.style.backgroundColor = "#fc2cee";
+    popup.style.color = "#242323";
+    popup.style.padding = "16px";
+    popup.style.borderRadius = "4px";
+    popup.style.zIndex = "1000";
+    setTimeout(() => {
+        popup.remove();
+    }, 3000);
+}
+export function cancelarCadastro() {
+    mostrarPopup("Cadastro cancelado!");
+    setTimeout(() => {
+        window.location.href = "../index.html";
+    }, 2000);
+}
+const botaoCancelar = document.getElementById("botaoCancelarCandidato");
+if (botaoCancelar) {
+    botaoCancelar.addEventListener("click", (event) => {
+        event.preventDefault();
+        cancelarCadastro();
+    });
+}
+const botaoCancelarCandidato = document.getElementById("botaoCancelarCandidato");
+if (botaoCancelarCandidato) {
+    botaoCancelarCandidato.addEventListener("click", (event) => {
+        event.preventDefault();
+        cancelarCadastro();
+    });
+}
