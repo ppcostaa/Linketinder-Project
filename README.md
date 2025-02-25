@@ -9,20 +9,22 @@ O **Linketinder** é uma aplicação que simula um sistema de cadastro e busca p
 - **Listar Candidatos**: Exibe todos os candidatos cadastrados no sistema.
 - **Listar Empresas**: Exibe todas as empresas cadastradas no sistema.
 - **Opções de navegação**: Um menu de navegação onde o usuário pode escolher as ações que deseja realizar.
+- **Interface Web**: Agora o projeto conta com uma interface interativa, com gráficos, telas de cadastro e de acesso ao perfil.
+
 
 ## Como Usar
 
 ### Instruções:
-
 1. Clone o repositório ou baixe o projeto.
-2. Compile e execute o código no seu IDE ou via terminal.
-3. O menu principal será exibido. Selecione uma opção:
+2. Compile e execute o código no seu IDE ou via terminal. (Versão backend)
+2.1. O menu principal será exibido. Selecione uma opção:
    - **1** para cadastrar um candidato.
    - **2** para cadastrar uma empresa.
    - **3** para listar candidatos cadastrados.
    - **4** para listar empresas cadastradas.
    - **5** para sair da aplicação.
-  
+3. Use o vite para rodar o servidor localmente. (Versão frontend)
+3.1.: Uma tela de menu será exibida. Você pode escolher entre cadastrar uma empresa, cadastrar um candidato, olhar os perfis de candidatos disponíveis e olhar as vagas disponíveis. Ao olhar os candidatos disponíveis, um gráfico é apresentado, representando as competências escolhidas pelos candidatos.
 
 ## Contribuição
 
