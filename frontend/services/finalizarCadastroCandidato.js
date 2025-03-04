@@ -1,4 +1,5 @@
 import { Candidato } from "../models/Candidato.js";
+import { validadores } from "../utils/validadores.js";
 export const candidatos = [];
 const formCadastroCandidato = document.getElementById("formCadastroCandidato");
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,28 +48,52 @@ function cadastrarCandidato() {
     mostrarPopup("Candidato adicionado com sucesso!");
 }
 function validarCamposCandidato() {
-    const camposObrigatorios = [
-        "nome",
-        "email",
-        "estado",
-        "cep",
-        "cpf",
-        "idade",
-        "descricao",
-    ];
-    let valido = true;
-    // biome-ignore lint/complexity/noForEach: <explanation>
-    camposObrigatorios.forEach((id) => {
-        const campo = document.getElementById(id);
-        if (!campo.value.trim()) {
-            valido = false;
-            campo.classList.add("campo-invalido");
-        }
-        else {
-            campo.classList.remove("campo-invalido");
-        }
-    });
-    return valido;
+    var _a, _b;
+    const campos = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        cpf: document.getElementById("cpf").value,
+        telefone: (_a = document.getElementById("telefone")) === null || _a === void 0 ? void 0 : _a.value,
+        linkedin: (_b = document.getElementById("linkedin")) === null || _b === void 0 ? void 0 : _b.value,
+        idade: document.getElementById("idade").value,
+        descricao: document.getElementById("descricao")
+            .value,
+        competencias: getSelectedCompetencias(),
+    };
+    const erros = [];
+    if (!validadores.nome.test(campos.nome)) {
+        erros.push("Nome inválido (mínimo 2 caracteres, apenas letras e espaços)");
+    }
+    if (!validadores.email.test(campos.email)) {
+        erros.push("Formato de e-mail inválido");
+    }
+    if (!validadores.cpf.test(campos.cpf)) {
+        erros.push("CPF inválido (formato esperado: 000.000.000-00)");
+    }
+    if (campos.telefone && !validadores.telefone.test(campos.telefone)) {
+        erros.push("Telefone inválido (formato esperado: (DD) 91234-5678)");
+    }
+    if (campos.linkedin && !validadores.linkedin.test(campos.linkedin)) {
+        erros.push("LinkedIn inválido (formato esperado: linkedin.com/in/seu-perfil)");
+    }
+    if (campos.competencias.length === 0) {
+        erros.push("Selecione pelo menos uma competência");
+    }
+    if (erros.length > 0) {
+        mostrarErros(erros);
+        return false;
+    }
+    return true;
+}
+export function mostrarErros(erros) {
+    const popup = document.createElement("div");
+    popup.className = "popup-erro";
+    popup.innerHTML = `
+    <h4>Erros no formulário:</h4>
+    <ul>${erros.map((erro) => `<li>${erro}</li>`).join("")}</ul>
+  `;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 5000);
 }
 function getSelectedCompetencias() {
     const competencias = [];

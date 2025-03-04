@@ -1,4 +1,5 @@
 import { Candidato } from "../models/Candidato.js";
+import { validadores } from "../utils/validadores.js";
 
 export const candidatos: Candidato[] = [];
 const formCadastroCandidato = document.getElementById(
@@ -48,6 +49,8 @@ function cadastrarCandidato() {
   const descricao = (document.getElementById("descricao") as HTMLInputElement)
     ?.value;
   const competencias = getSelectedCompetencias();
+  const linkedin = (document.getElementById("linkedin") as HTMLInputElement)
+    ?.value;
 
   const candidato = new Candidato(
     nome,
@@ -57,7 +60,8 @@ function cadastrarCandidato() {
     descricao,
     competencias,
     cpf,
-    idade
+    idade,
+    linkedin
   );
   const candidatosExistentes = JSON.parse(
     localStorage.getItem("candidatos") || "[]"
@@ -69,32 +73,64 @@ function cadastrarCandidato() {
   mostrarPopup("Candidato adicionado com sucesso!");
 }
 function validarCamposCandidato() {
-  const camposObrigatorios = [
-    "nome",
-    "email",
-    "estado",
-    "cep",
-    "cpf",
-    "idade",
-    "descricao",
-  ];
+  const campos = {
+    nome: (document.getElementById("nome") as HTMLInputElement).value,
+    email: (document.getElementById("email") as HTMLInputElement).value,
+    cpf: (document.getElementById("cpf") as HTMLInputElement).value,
+    telefone: (document.getElementById("telefone") as HTMLInputElement)?.value,
+    linkedin: (document.getElementById("linkedin") as HTMLInputElement)?.value,
+    idade: (document.getElementById("idade") as HTMLInputElement).value,
+    descricao: (document.getElementById("descricao") as HTMLTextAreaElement)
+      .value,
+    competencias: getSelectedCompetencias(),
+  };
 
-  let valido = true;
+  const erros: string[] = [];
 
-  // biome-ignore lint/complexity/noForEach: <explanation>
-  camposObrigatorios.forEach((id) => {
-    const campo = document.getElementById(id) as
-      | HTMLInputElement
-      | HTMLTextAreaElement;
-    if (!campo.value.trim()) {
-      valido = false;
-      campo.classList.add("campo-invalido");
-    } else {
-      campo.classList.remove("campo-invalido");
-    }
-  });
+  if (!validadores.nome.test(campos.nome)) {
+    erros.push("Nome inválido (mínimo 2 caracteres, apenas letras e espaços)");
+  }
 
-  return valido;
+  if (!validadores.email.test(campos.email)) {
+    erros.push("Formato de e-mail inválido");
+  }
+
+  if (!validadores.cpf.test(campos.cpf)) {
+    erros.push("CPF inválido (formato esperado: 000.000.000-00)");
+  }
+
+  if (campos.telefone && !validadores.telefone.test(campos.telefone)) {
+    erros.push("Telefone inválido (formato esperado: (DD) 91234-5678)");
+  }
+
+  if (campos.linkedin && !validadores.linkedin.test(campos.linkedin)) {
+    erros.push(
+      "LinkedIn inválido (formato esperado: linkedin.com/in/seu-perfil)"
+    );
+  }
+
+  if (campos.competencias.length === 0) {
+    erros.push("Selecione pelo menos uma competência");
+  }
+
+  if (erros.length > 0) {
+    mostrarErros(erros);
+    return false;
+  }
+
+  return true;
+}
+
+export function mostrarErros(erros: string[]) {
+  const popup = document.createElement("div");
+  popup.className = "popup-erro";
+  popup.innerHTML = `
+    <h4>Erros no formulário:</h4>
+    <ul>${erros.map((erro) => `<li>${erro}</li>`).join("")}</ul>
+  `;
+
+  document.body.appendChild(popup);
+  setTimeout(() => popup.remove(), 5000);
 }
 function getSelectedCompetencias(): string[] {
   const competencias: string[] = [];

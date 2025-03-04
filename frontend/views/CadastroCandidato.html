@@ -37,9 +37,10 @@
         <input type="number" id="idade" required />
         <label for="idade">Idade</label>
       </div>
+
       <div class="form-group">
-        <textarea id="descricao" required></textarea>
-        <label for="descricao">Descrição</label>
+        <input type="url" id="linkedin" required />
+        <label for="linkedin">LinkedIn (URL)</label>
       </div>
       <div class="form-group">
         <label for="competencias" class="competenciaLabel">Competências</label>
@@ -103,6 +104,10 @@
         </div>
       </div>
       <div class="form-group">
+        <textarea id="descricao" required></textarea>
+        <label for="descricao">Descrição</label>
+      </div>
+      <div class="form-group botao-container">
         <button
           type="button"
           class="botaoConfirmarCandidato"
@@ -110,8 +115,6 @@
         >
           Cadastrar
         </button>
-      </div>
-      <div class="form-group">
         <button
           type="button"
           class="botaoCancelarCandidato"

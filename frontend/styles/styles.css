@@ -100,6 +100,15 @@ nav {
 .form-group {
   position: relative;
 }
+.botao-container {
+  display: flex;
+  justify-content: space-between;
+  grid-column: span 2;
+}
+
+.botao-container button {
+  width: 48%;
+}
 
 label {
   color: var(--rosa);
@@ -132,6 +141,14 @@ input {
 }
 
 textarea {
+  height: 175px;
+  width: 200%;
+  padding: 12px 1rem;
+  resize: vertical;
+  margin-top: auto;
+  margin-block: 4px;
+}
+#linkedin {
   height: 175px;
   padding: 12px 1rem;
   resize: vertical;
@@ -288,4 +305,34 @@ input[type="checkbox"] {
 #listaCandidatos li {
   padding: 8px 0;
   border-bottom: 1px solid var(--rosa-claro);
+}
+
+.popup-erro {
+  background-color: #ffebee;
+  border: 2px solid #ff5252;
+  color: #b71c1c;
+  padding: 1rem;
+  border-radius: 8px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+.popup-erro ul {
+  margin: 0.5rem 0 0 1rem;
+  padding-left: 1rem;
+}
+
+.popup-erro li {
+  list-style-type: disc;
+  margin-bottom: 0.3rem;
+}
+
+.campo-invalido {
+  border-color: #ff1744 !important;
+  background-color: #ffebee !important;
 }
