@@ -1,14 +1,8 @@
-import {
-  Chart,
-  type ChartConfiguration,
-  ChartOptions,
-  type CategoryScaleOptions,
-  type ChartScales,
-  type LinearScaleOptions,
-} from "chart.js";
-
 import type { Candidato } from "./models/Candidato.js";
 import type { Empresa } from "./models/Empresa.js";
+import { Chart, ChartItem, registerables } from "chart.js";
+Chart.register(...registerables);
+
 document.addEventListener("DOMContentLoaded", () => {
   const botaoCadastroCandidato = document.getElementById(
     "botaoCadastroCandidato"
@@ -42,102 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
     navigate("listarCandidatos")
   );
 });
-// Declara a propriedade global no `window`
-declare global {
-  interface Window {
-    myChart?: Chart;
-  }
-}
-
-function renderCompetenciaChart() {
-  const candidatos: Candidato[] = JSON.parse(
-    localStorage.getItem("candidatos") || "[]"
-  );
-  const empresas: Empresa[] = JSON.parse(
-    localStorage.getItem("empresas") || "[]"
-  );
-
-  const competenciaCount: Record<
-    string,
-    { candidatos: number; empresas: number }
-  > = {};
-
-  for (const candidato of candidatos) {
-    for (const competencia of candidato.competencias) {
-      if (!competenciaCount[competencia]) {
-        competenciaCount[competencia] = { candidatos: 0, empresas: 0 };
-      }
-      competenciaCount[competencia].candidatos++;
-    }
-  }
-
-  for (const empresa of empresas) {
-    for (const competencia of empresa.competencias) {
-      if (!competenciaCount[competencia]) {
-        competenciaCount[competencia] = { candidatos: 0, empresas: 0 };
-      }
-      competenciaCount[competencia].empresas++;
-    }
-  }
-
-  const labels = Object.keys(competenciaCount);
-  const candidatoData = labels.map(
-    (competencia) => competenciaCount[competencia].candidatos
-  );
-  const empresaData = labels.map(
-    (competencia) => competenciaCount[competencia].empresas
-  );
-
-  const ctx = document.getElementById(
-    "competenciaChart"
-  ) as HTMLCanvasElement | null;
-  if (!ctx) return; // Garante que o elemento canvas existe antes de continuar
-
-  // Se já existir um gráfico, destruir antes de criar um novo
-  if (window.myChart) {
-    window.myChart.destroy();
-  }
-
-  const scales: { x: CategoryScaleOptions; y: LinearScaleOptions } = {
-    // Defina corretamente os tipos de escala
-    x: {
-      type: "category", // Define corretamente o eixo X como categórico
-    },
-    y: {
-      type: "linear", // Define corretamente o eixo Y como numérico
-      beginAtZero: true,
-    },
-  };
-
-  const config: ChartConfiguration = {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [
-        {
-          label: "Candidatos",
-          data: candidatoData,
-          backgroundColor: "rgba(54, 162, 235, 0.6)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderWidth: 1,
-        },
-        {
-          label: "Empresas",
-          data: empresaData,
-          backgroundColor: "rgba(255, 99, 132, 0.6)",
-          borderColor: "rgba(255, 99, 132, 1)",
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales, // Agora utilizamos `scales` com a tipagem correta
-    },
-  };
-
-  window.myChart = new Chart(ctx, config);
-}
 
 function navigate(page: string): void {
   const content = document.getElementById("content");
@@ -176,31 +74,95 @@ function navigate(page: string): void {
 
     case "perfilEmpresa":
       content.innerHTML = `
-    <h2>Perfil da Empresa</h2>
-    <p class="listagem">Lista de candidatos:</p>
-    <ul id="listaCandidatos">
-      
-        ${candidatos
-          .map((candidato: Candidato) => {
-            const competencias =
-              candidato.competencias && candidato.competencias.length > 0
-                ? candidato.competencias.join(", ")
-                : "Nenhuma competência foi selecionada.";
-            return `<li>
-                      <strong>${candidato.nome}</strong> 
-                      - Competências: ${competencias}
-                    </li>`;
-          })
-          .join("")}
-    </ul>
-  `;
+          <h2>Perfil da Empresa</h2>
+          <p class="listagem">Lista de candidatos:</p>
+          <ul id="listaCandidatos">
+            ${candidatos
+              .map((candidato: Candidato) => {
+                const competencias =
+                  candidato.competencias && candidato.competencias.length > 0
+                    ? candidato.competencias.join(", ")
+                    : "Nenhuma competência foi selecionada.";
+                return `<li>
+                          <strong>${candidato.nome}</strong> 
+                          - Competências: ${competencias}
+                        </li>`;
+              })
+              .join("")}
+          </ul>
+          <div style="margin-top: 2rem;">
+            <canvas id="graficoCompetencias"></canvas>
+          </div>
+        `;
+
+      setTimeout(() => {
+        const canvas = document.getElementById(
+          "graficoCompetencias"
+        ) as HTMLCanvasElement;
+        if (canvas) {
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            const competenciasCount: { [key: string]: number } = {};
+
+            // biome-ignore lint/complexity/noForEach: <explanation>
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            candidatos.forEach((candidato: { competencias: any[] }) => {
+              // biome-ignore lint/complexity/noForEach: <explanation>
+              candidato.competencias.forEach((competencia: string | number) => {
+                competenciasCount[competencia] =
+                  (competenciasCount[competencia] || 0) + 1;
+              });
+            });
+
+            const competenciasOrdenadas = Object.entries(
+              competenciasCount
+            ).sort((a: [string, number], b: [string, number]) => b[1] - a[1]);
+
+            new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: competenciasOrdenadas.map(
+                  (c: [string, number]) => c[0]
+                ),
+                datasets: [
+                  {
+                    label: "Candidatos por Competência",
+                    data: competenciasOrdenadas.map(
+                      (c: [string, number]) => c[1]
+                    ),
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.7)",
+                      "rgba(54, 162, 235, 0.7)",
+                      "rgba(255, 206, 86, 0.7)",
+                      "rgba(75, 192, 192, 0.7)",
+                      "rgba(153, 102, 255, 0.7)",
+                      "rgba(255, 159, 64, 0.7)",
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    ticks: {
+                      stepSize: 1,
+                    },
+                  },
+                },
+              },
+            });
+          }
+        }
+      }, 0);
       break;
     case "listarCandidatos":
       content.innerHTML = `
           <h2>Competências dos Candidatos e Empresas</h2>
           <canvas id="competenciaChart"></canvas>
         `;
-      renderCompetenciaChart(); // Chama a função para exibir o gráfico
       break;
     default:
       content.innerHTML = "<p>Bem-vindo ao Linketinder!</p>";

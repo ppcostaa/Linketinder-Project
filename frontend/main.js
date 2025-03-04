@@ -1,3 +1,5 @@
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 document.addEventListener("DOMContentLoaded", () => {
     const botaoCadastroCandidato = document.getElementById("botaoCadastroCandidato");
     const botaoCadastroEmpresa = document.getElementById("botaoCadastroEmpresa");
@@ -44,26 +46,84 @@ function navigate(page) {
             break;
         case "perfilEmpresa":
             content.innerHTML = `
-    <h2>Perfil da Empresa</h2>
-    <p class="listagem">Lista de candidatos:</p>
-    <ul id="listaCandidatos">
-      
-        ${candidatos
+          <h2>Perfil da Empresa</h2>
+          <p class="listagem">Lista de candidatos:</p>
+          <ul id="listaCandidatos">
+            ${candidatos
                 .map((candidato) => {
                 const competencias = candidato.competencias && candidato.competencias.length > 0
                     ? candidato.competencias.join(", ")
                     : "Nenhuma competência foi selecionada.";
                 return `<li>
-                      <strong>${candidato.nome}</strong> 
-                      - Competências: ${competencias}
-                    </li>`;
+                          <strong>${candidato.nome}</strong> 
+                          - Competências: ${competencias}
+                        </li>`;
             })
                 .join("")}
-    </ul>
-  `;
+          </ul>
+          <div style="margin-top: 2rem;">
+            <canvas id="graficoCompetencias"></canvas>
+          </div>
+        `;
+            setTimeout(() => {
+                const canvas = document.getElementById("graficoCompetencias");
+                if (canvas) {
+                    const ctx = canvas.getContext("2d");
+                    if (ctx) {
+                        const competenciasCount = {};
+                        // biome-ignore lint/complexity/noForEach: <explanation>
+                        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+                        candidatos.forEach((candidato) => {
+                            // biome-ignore lint/complexity/noForEach: <explanation>
+                            candidato.competencias.forEach((competencia) => {
+                                competenciasCount[competencia] =
+                                    (competenciasCount[competencia] || 0) + 1;
+                            });
+                        });
+                        const competenciasOrdenadas = Object.entries(competenciasCount).sort((a, b) => b[1] - a[1]);
+                        new Chart(ctx, {
+                            type: "bar",
+                            data: {
+                                labels: competenciasOrdenadas.map((c) => c[0]),
+                                datasets: [
+                                    {
+                                        label: "Candidatos por Competência",
+                                        data: competenciasOrdenadas.map((c) => c[1]),
+                                        backgroundColor: [
+                                            "rgba(255, 99, 132, 0.7)",
+                                            "rgba(54, 162, 235, 0.7)",
+                                            "rgba(255, 206, 86, 0.7)",
+                                            "rgba(75, 192, 192, 0.7)",
+                                            "rgba(153, 102, 255, 0.7)",
+                                            "rgba(255, 159, 64, 0.7)",
+                                        ],
+                                        borderWidth: 1,
+                                    },
+                                ],
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            stepSize: 1,
+                                        },
+                                    },
+                                },
+                            },
+                        });
+                    }
+                }
+            }, 0);
+            break;
+        case "listarCandidatos":
+            content.innerHTML = `
+          <h2>Competências dos Candidatos e Empresas</h2>
+          <canvas id="competenciaChart"></canvas>
+        `;
             break;
         default:
             content.innerHTML = "<p>Bem-vindo ao Linketinder!</p>";
     }
 }
-export {};
