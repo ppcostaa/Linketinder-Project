@@ -3,6 +3,7 @@ import { Pessoa } from "./Pessoa.js";
 export class Candidato extends Pessoa {
   cpf: string;
   idade: number;
+  linkedin: string;
   constructor(
     nome: string,
     email: string,
@@ -11,11 +12,13 @@ export class Candidato extends Pessoa {
     descricao: string,
     competencias: string[],
     cpf: string,
-    idade: number
+    idade: number,
+    linkedin: string
   ) {
     super(nome, email, estado, cep, descricao, competencias);
     this.cpf = cpf;
     this.idade = idade;
+    this.linkedin = linkedin;
   }
 
   toString(): string {

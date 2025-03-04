@@ -1,6 +1,8 @@
 import { Empresa } from "../models/Empresa.js";
+import { validadores } from "../utils/validadores.js";
 import {
   cancelarCadastro,
+  mostrarErros,
   mostrarPopup,
 } from "./finalizarCadastroCandidato.js";
 
@@ -72,33 +74,47 @@ function cadastrarEmpresa() {
   mostrarPopup("Empresa adicionada com sucesso!");
 }
 function validarCamposEmpresa() {
-  const camposObrigatorios = [
-    "nome",
-    "email",
-    "estado",
-    "cep",
-    "pais",
-    "cnpj",
-    "descricao",
-  ];
+  const campos = {
+    nome: (document.getElementById("nome") as HTMLInputElement).value,
+    email: (document.getElementById("email") as HTMLInputElement).value,
+    cnpj: (document.getElementById("cnpj") as HTMLInputElement).value,
+    cep: (document.getElementById("cep") as HTMLInputElement).value,
+    pais: (document.getElementById("pais") as HTMLInputElement).value,
+    descricao: (document.getElementById("descricao") as HTMLTextAreaElement)
+      .value,
+    competencias: getSelectedCompetencias(),
+  };
 
-  let valido = true;
+  const erros: string[] = [];
 
-  // biome-ignore lint/complexity/noForEach: <explanation>
-  camposObrigatorios.forEach((id) => {
-    const campo = document.getElementById(id) as
-      | HTMLInputElement
-      | HTMLTextAreaElement;
-    if (!campo.value.trim()) {
-      valido = false;
-      campo.classList.add("campo-invalido");
-    } else {
-      campo.classList.remove("campo-invalido");
-    }
-  });
+  if (!validadores.nome.test(campos.nome)) {
+    erros.push("Nome da empresa inválido");
+  }
 
-  return valido;
+  if (!validadores.email.test(campos.email)) {
+    erros.push("E-mail corporativo inválido");
+  }
+
+  if (!validadores.cnpj.test(campos.cnpj)) {
+    erros.push("CNPJ inválido (formato esperado: 00.000.000/0000-00)");
+  }
+
+  if (!validadores.cep.test(campos.cep)) {
+    erros.push("CEP inválido (formato esperado: 00000-000)");
+  }
+
+  if (campos.competencias.length === 0) {
+    erros.push("Selecione pelo menos uma competência requerida");
+  }
+
+  if (erros.length > 0) {
+    mostrarErros(erros);
+    return false;
+  }
+
+  return true;
 }
+
 function getSelectedCompetencias(): string[] {
   const competencias: string[] = [];
   const checkboxes = document.querySelectorAll(".custom-checkout:checked");

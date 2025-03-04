@@ -86,6 +86,7 @@ function navigate(page: string): void {
                 return `<li>
                           <strong>${candidato.nome}</strong> 
                           - Competências: ${competencias}
+                          <br><a href="${candidato.linkedin}" target="_blank">LinkedIn</a>
                         </li>`;
               })
               .join("")}
@@ -157,12 +158,6 @@ function navigate(page: string): void {
           }
         }
       }, 0);
-      break;
-    case "listarCandidatos":
-      content.innerHTML = `
-          <h2>Competências dos Candidatos e Empresas</h2>
-          <canvas id="competenciaChart"></canvas>
-        `;
       break;
     default:
       content.innerHTML = "<p>Bem-vindo ao Linketinder!</p>";

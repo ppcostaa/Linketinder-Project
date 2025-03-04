@@ -1,5 +1,6 @@
 import { Empresa } from "../models/Empresa.js";
-import { cancelarCadastro, mostrarPopup, } from "./finalizarCadastroCandidato.js";
+import { validadores } from "../utils/validadores.js";
+import { cancelarCadastro, mostrarErros, mostrarPopup, } from "./finalizarCadastroCandidato.js";
 const empresas = [];
 const formCadastroEmpresa = document.getElementById("formCadastroEmpresa");
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,28 +49,37 @@ function cadastrarEmpresa() {
     mostrarPopup("Empresa adicionada com sucesso!");
 }
 function validarCamposEmpresa() {
-    const camposObrigatorios = [
-        "nome",
-        "email",
-        "estado",
-        "cep",
-        "pais",
-        "cnpj",
-        "descricao",
-    ];
-    let valido = true;
-    // biome-ignore lint/complexity/noForEach: <explanation>
-    camposObrigatorios.forEach((id) => {
-        const campo = document.getElementById(id);
-        if (!campo.value.trim()) {
-            valido = false;
-            campo.classList.add("campo-invalido");
-        }
-        else {
-            campo.classList.remove("campo-invalido");
-        }
-    });
-    return valido;
+    const campos = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        cnpj: document.getElementById("cnpj").value,
+        cep: document.getElementById("cep").value,
+        pais: document.getElementById("pais").value,
+        descricao: document.getElementById("descricao")
+            .value,
+        competencias: getSelectedCompetencias(),
+    };
+    const erros = [];
+    if (!validadores.nome.test(campos.nome)) {
+        erros.push("Nome da empresa inválido");
+    }
+    if (!validadores.email.test(campos.email)) {
+        erros.push("E-mail corporativo inválido");
+    }
+    if (!validadores.cnpj.test(campos.cnpj)) {
+        erros.push("CNPJ inválido (formato esperado: 00.000.000/0000-00)");
+    }
+    if (!validadores.cep.test(campos.cep)) {
+        erros.push("CEP inválido (formato esperado: 00000-000)");
+    }
+    if (campos.competencias.length === 0) {
+        erros.push("Selecione pelo menos uma competência requerida");
+    }
+    if (erros.length > 0) {
+        mostrarErros(erros);
+        return false;
+    }
+    return true;
 }
 function getSelectedCompetencias() {
     const competencias = [];
