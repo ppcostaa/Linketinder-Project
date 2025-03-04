@@ -10,6 +10,7 @@ O **Linketinder** é uma aplicação que simula um sistema de cadastro e busca p
 - **Listar Empresas**: Exibe todas as empresas cadastradas no sistema.
 - **Opções de navegação**: Um menu de navegação onde o usuário pode escolher as ações que deseja realizar.
 - **Interface Web**: Agora o projeto conta com uma interface interativa, com gráficos, telas de cadastro e de acesso ao perfil.
+- **Validação de dados**: Atualmente, o projeto conta com uma validação de dados feita por regex!
 
 
 ## Como Usar
