@@ -5,6 +5,7 @@
     "typescript": "^5.7.3"
   },
   "devDependencies": {
-    "@types/chart.js": "^2.9.41"
+    "@types/chart.js": "^2.9.41",
+    "vite": "^6.2.2"
   }
 }
