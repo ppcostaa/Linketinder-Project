@@ -1,0 +1,68 @@
+<component name="libraryTable">
+  <library name="groovy-4.0.14" type="groovy-sdk">
+    <properties version="4.0.14" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-astbuilder-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-datetime-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-cli-picocli-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-cli-commons-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-ant-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-contracts-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-dateutil-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-console-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-docgenerator-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-jmx-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-groovydoc-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-ginq-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-jsr223-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-groovysh-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-json-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-macro-library-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-nio-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-servlet-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-macro-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-sql-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-test-junit5-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-templates-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-test-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-testng-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-toml-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-swing-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-typecheckers-4.0.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-xml-4.0.14.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-astbuilder-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-cli-commons-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-cli-picocli-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-ant-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-contracts-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-datetime-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-dateutil-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-console-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-docgenerator-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-ginq-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-groovydoc-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-jsr223-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-jmx-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-macro-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-json-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-groovysh-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-macro-library-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-nio-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-servlet-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-sql-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-test-junit5-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-testng-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-test-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-templates-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-toml-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-swing-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-typecheckers-4.0.14-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/backend/lib/groovy-xml-4.0.14-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
