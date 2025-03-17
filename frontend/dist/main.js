@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const botaoPerfilCandidato = document.getElementById("botaoPerfilCandidato");
     const botaoPerfilEmpresa = document.getElementById("botaoPerfilEmpresa");
     const botaoListarCandidatos = document.getElementById("botaoListarCandidatos");
-    botaoCadastroCandidato === null || botaoCadastroCandidato === void 0 ? void 0 : botaoCadastroCandidato.addEventListener("click", () => navigate("cadastroCandidato"));
-    botaoCadastroEmpresa === null || botaoCadastroEmpresa === void 0 ? void 0 : botaoCadastroEmpresa.addEventListener("click", () => navigate("cadastroEmpresa"));
-    botaoPerfilCandidato === null || botaoPerfilCandidato === void 0 ? void 0 : botaoPerfilCandidato.addEventListener("click", () => navigate("perfilCandidato"));
-    botaoPerfilEmpresa === null || botaoPerfilEmpresa === void 0 ? void 0 : botaoPerfilEmpresa.addEventListener("click", () => navigate("perfilEmpresa"));
-    botaoListarCandidatos === null || botaoListarCandidatos === void 0 ? void 0 : botaoListarCandidatos.addEventListener("click", () => navigate("listarCandidatos"));
+    botaoCadastroCandidato?.addEventListener("click", () => navigate("cadastroCandidato"));
+    botaoCadastroEmpresa?.addEventListener("click", () => navigate("cadastroEmpresa"));
+    botaoPerfilCandidato?.addEventListener("click", () => navigate("perfilCandidato"));
+    botaoPerfilEmpresa?.addEventListener("click", () => navigate("perfilEmpresa"));
+    botaoListarCandidatos?.addEventListener("click", () => navigate("listarCandidatos"));
 });
 function navigate(page) {
     const content = document.getElementById("content");
@@ -57,6 +57,7 @@ function navigate(page) {
                 return `<li>
                           <strong>${candidato.nome}</strong> 
                           - Competências: ${competencias}
+                          <br><a href="${candidato.linkedin}" target="_blank">LinkedIn</a>
                         </li>`;
             })
                 .join("")}

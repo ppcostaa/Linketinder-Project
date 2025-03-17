@@ -24,7 +24,7 @@ function botaoConfirmarCandidato(page) {
             cadastrarCandidato();
             setTimeout(() => {
                 window.location.href = "../index.html";
-                formCadastroCandidato === null || formCadastroCandidato === void 0 ? void 0 : formCadastroCandidato.reset();
+                formCadastroCandidato?.reset();
             }, 3000);
             break;
         default:
@@ -32,29 +32,30 @@ function botaoConfirmarCandidato(page) {
     }
 }
 function cadastrarCandidato() {
-    var _a, _b, _c, _d, _e, _f, _g;
-    const nome = (_a = document.getElementById("nome")) === null || _a === void 0 ? void 0 : _a.value;
-    const email = (_b = document.getElementById("email")) === null || _b === void 0 ? void 0 : _b.value;
-    const estado = (_c = document.getElementById("estado")) === null || _c === void 0 ? void 0 : _c.value;
-    const cep = (_d = document.getElementById("cep")) === null || _d === void 0 ? void 0 : _d.value;
-    const cpf = (_e = document.getElementById("cpf")) === null || _e === void 0 ? void 0 : _e.value;
-    const idade = Number.parseInt((_f = document.getElementById("idade")) === null || _f === void 0 ? void 0 : _f.value);
-    const descricao = (_g = document.getElementById("descricao")) === null || _g === void 0 ? void 0 : _g.value;
+    const nome = document.getElementById("nome")?.value;
+    const email = document.getElementById("email")?.value;
+    const estado = document.getElementById("estado")?.value;
+    const cep = document.getElementById("cep")?.value;
+    const cpf = document.getElementById("cpf")?.value;
+    const idade = Number.parseInt(document.getElementById("idade")?.value);
+    const descricao = document.getElementById("descricao")
+        ?.value;
     const competencias = getSelectedCompetencias();
-    const candidato = new Candidato(nome, email, estado, cep, descricao, competencias, cpf, idade);
+    const linkedin = document.getElementById("linkedin")
+        ?.value;
+    const candidato = new Candidato(nome, email, estado, cep, descricao, competencias, cpf, idade, linkedin);
     const candidatosExistentes = JSON.parse(localStorage.getItem("candidatos") || "[]");
     candidatosExistentes.push(candidato);
     localStorage.setItem("candidatos", JSON.stringify(candidatosExistentes));
     mostrarPopup("Candidato adicionado com sucesso!");
 }
 function validarCamposCandidato() {
-    var _a, _b;
     const campos = {
         nome: document.getElementById("nome").value,
         email: document.getElementById("email").value,
         cpf: document.getElementById("cpf").value,
-        telefone: (_a = document.getElementById("telefone")) === null || _a === void 0 ? void 0 : _a.value,
-        linkedin: (_b = document.getElementById("linkedin")) === null || _b === void 0 ? void 0 : _b.value,
+        telefone: document.getElementById("telefone")?.value,
+        linkedin: document.getElementById("linkedin")?.value,
         idade: document.getElementById("idade").value,
         descricao: document.getElementById("descricao")
             .value,
