@@ -25,7 +25,7 @@ function botaoConfirmarEmpresa(page) {
             cadastrarEmpresa();
             setTimeout(() => {
                 window.location.href = "../index.html";
-                formCadastroEmpresa === null || formCadastroEmpresa === void 0 ? void 0 : formCadastroEmpresa.reset();
+                formCadastroEmpresa?.reset();
             }, 3000);
             break;
         default:
@@ -33,14 +33,14 @@ function botaoConfirmarEmpresa(page) {
     }
 }
 function cadastrarEmpresa() {
-    var _a, _b, _c, _d, _e, _f, _g;
-    const nome = (_a = document.getElementById("nome")) === null || _a === void 0 ? void 0 : _a.value;
-    const email = (_b = document.getElementById("email")) === null || _b === void 0 ? void 0 : _b.value;
-    const estado = (_c = document.getElementById("estado")) === null || _c === void 0 ? void 0 : _c.value;
-    const cep = (_d = document.getElementById("cep")) === null || _d === void 0 ? void 0 : _d.value;
-    const cnpj = (_e = document.getElementById("cnpj")) === null || _e === void 0 ? void 0 : _e.value;
-    const pais = (_f = document.getElementById("pais")) === null || _f === void 0 ? void 0 : _f.value;
-    const descricao = (_g = document.getElementById("descricao")) === null || _g === void 0 ? void 0 : _g.value;
+    const nome = document.getElementById("nome")?.value;
+    const email = document.getElementById("email")?.value;
+    const estado = document.getElementById("estado")?.value;
+    const cep = document.getElementById("cep")?.value;
+    const cnpj = document.getElementById("cnpj")?.value;
+    const pais = document.getElementById("pais")?.value;
+    const descricao = document.getElementById("descricao")
+        ?.value;
     const competencias = getSelectedCompetencias();
     const empresa = new Empresa(nome, email, estado, cep, descricao, competencias, cnpj, pais);
     const empresasExistentes = JSON.parse(localStorage.getItem("empresas") || "[]");
