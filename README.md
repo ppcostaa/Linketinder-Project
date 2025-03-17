@@ -12,20 +12,20 @@ O **Linketinder** é uma aplicação que simula um sistema de cadastro e busca p
 - **Interface Web**: Agora o projeto conta com uma interface interativa, com gráficos, telas de cadastro e de acesso ao perfil.
 - **Validação de dados**: Atualmente, o projeto conta com uma validação de dados feita por regex!
 
-
 ## Como Usar
 
 ### Instruções:
+
 1. Clone o repositório ou baixe o projeto.
 2. Compile e execute o código no seu IDE ou via terminal. (Versão backend)
-2.1. O menu principal será exibido. Selecione uma opção:
+   2.1. O menu principal será exibido. Selecione uma opção:
    - **1** para cadastrar um candidato.
    - **2** para cadastrar uma empresa.
    - **3** para listar candidatos cadastrados.
    - **4** para listar empresas cadastradas.
    - **5** para sair da aplicação.
 3. Use o vite para rodar o servidor localmente. (Versão frontend)
-3.1.: Uma tela de menu será exibida. Você pode escolher entre cadastrar uma empresa, cadastrar um candidato, olhar os perfis de candidatos disponíveis e olhar as vagas disponíveis. Ao olhar os candidatos disponíveis, um gráfico é apresentado, representando as competências escolhidas pelos candidatos.
+   3.1.: Uma tela de menu será exibida. Você pode escolher entre cadastrar uma empresa, cadastrar um candidato, olhar os perfis de candidatos disponíveis e olhar as vagas disponíveis. Ao olhar os candidatos disponíveis, um gráfico é apresentado, representando as competências escolhidas pelos candidatos.
 
 ## Contribuição
 
@@ -36,6 +36,17 @@ Se você deseja contribuir para o desenvolvimento deste projeto, siga os passos 
 3. Commit suas alterações (`git commit -am 'Adiciona nova feature'`).
 4. Push para a branch (`git push origin feature/nova-feature`).
 5. Abra um pull request.
-     
+
+### MySQL
+
+Na feature mais recente, comecei a trabalhar com banco de dados. Ainda não foi integrado completamente, mas será em features futuras.
+
+### MySQL Workbench
+
+Aqui uma demonstração de como me planejei e organizei o MySQL
+
+![alt text](image.png)
+
 ### Autora
+
 Gio PCosta
