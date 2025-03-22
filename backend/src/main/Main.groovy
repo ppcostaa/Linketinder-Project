@@ -5,7 +5,6 @@ import model.Empresa
 import model.Localizacao
 import model.Usuario
 
-import utils.GerenciadorLocalizacao
 
 import java.text.SimpleDateFormat
 

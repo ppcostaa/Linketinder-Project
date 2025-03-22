@@ -1,22 +1,20 @@
 package infra
 
+import database.ConnectionFactory
 import model.Usuario
 
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.PreparedStatement
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.sql.Statement
+import java.sql.*
 
-class UsuarioRepository implements IUsuarioRepository{
+class UsuarioRepository implements IUsuarioRepository {
+    ConnectionFactory connectionFactory = new ConnectionFactory(
+            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
+    )
+
     @Override
     boolean emailExiste(String email) {
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123");
-             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM USUARIOS WHERE EMAIL = ?")) {
+        try (Connection conn = connectionFactory.createConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM USUARIOS WHERE EMAIL = ?")
 
             stmt.setString(1, email)
             ResultSet rs = stmt.executeQuery()
@@ -33,11 +31,9 @@ class UsuarioRepository implements IUsuarioRepository{
     Usuario salvarUsuario(Usuario usuario) {
         String sql = "INSERT INTO USUARIOS (EMAIL, SENHA, DESCRICAO) VALUES (?, ?, ?) RETURNING ID_USUARIO"
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = connectionFactory.createConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
 
             stmt.setString(1, usuario.email)
             stmt.setString(2, usuario.senha)
@@ -63,11 +59,9 @@ class UsuarioRepository implements IUsuarioRepository{
     Usuario listarUsuariosPorId(int usuarioId) {
         String sql = "SELECT * FROM USUARIOS WHERE ID_USUARIO = ?"
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = connectionFactory.createConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement(sql)
 
             stmt.setObject(1, usuarioId ?: null)
             ResultSet rs = stmt.executeQuery()
@@ -92,12 +86,10 @@ class UsuarioRepository implements IUsuarioRepository{
         String sql = "SELECT * FROM USUARIOS"
         List<Usuario> usuarios = []
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = connectionFactory.createConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()
 
             while (rs.next()) {
                 Usuario usuario = new Usuario()
@@ -118,11 +110,9 @@ class UsuarioRepository implements IUsuarioRepository{
     boolean editarUsuario(Usuario usuario) {
         String sql = "UPDATE USUARIOS SET EMAIL = ?, SENHA = ?, DESCRICAO = ? WHERE ID_USUARIO = ?"
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = connectionFactory.createConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement(sql)
 
             stmt.setString(1, usuario.email)
             stmt.setString(2, usuario.senha)
@@ -140,11 +130,9 @@ class UsuarioRepository implements IUsuarioRepository{
     boolean excluirUsuario(int usuarioId) {
         String sql = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?"
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = connectionFactory.createConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement(sql)
 
             stmt.setObject(1, usuarioId ?: null)
 
@@ -152,5 +140,6 @@ class UsuarioRepository implements IUsuarioRepository{
             return affectedRows > 0
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao excluir usuário: " + e.getMessage(), e)
-        }}
+        }
+    }
 }

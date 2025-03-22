@@ -1,15 +1,13 @@
 package model
 
 class Localizacao {
-    int idLocalizacao
+    final int localizacaoId
     String cep
     String pais
 
-    Localizacao() {}
-
-    Localizacao(Map<String, String> map) {
-        this.idLocalizacao = map.idLocalizacao ? map.idLocalizacao.toInteger() : 0
-        this.cep = map.cep
-        this.pais = map.pais
+    Localizacao(int localizacaoId, String cep, String pais) {
+        this.localizacaoId = localizacaoId
+        this.cep = cep
+        this.pais = pais
     }
 }

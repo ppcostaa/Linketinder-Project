@@ -2,7 +2,6 @@ package infra
 
 import database.ConnectionFactory
 import model.Empresa
-import utils.GerenciadorLocalizacao
 
 import java.sql.*
 
