@@ -8,7 +8,7 @@ import model.Vaga
 import utils.GerenciadorCandidato
 import utils.GerenciadorCompetencia
 import utils.GerenciadorEmpresa
-import utils.GerenciadorUsuario
+
 import utils.GerenciadorVaga
 
 class SistemaTeste {

@@ -7,7 +7,6 @@ import model.Usuario
 import utils.GerenciadorCandidato
 import utils.GerenciadorEmpresa
 import utils.GerenciadorLocalizacao
-import utils.GerenciadorUsuario
 
 import java.text.SimpleDateFormat
 

@@ -2,11 +2,18 @@ package infra
 
 import database.ConnectionFactory
 import model.Match
+import model.Usuario
+
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+import java.sql.SQLException
 
 class MatchRepository implements IMatchRepository{
     @Override
     void salvarMatch(Match match) {
-        def sql = ConnectionFactory.obterConexao()
+        def sql = ConnectionFactory.createConnection()
 
         if (sql) {
             try {
@@ -23,8 +30,32 @@ class MatchRepository implements IMatchRepository{
     }
 
     @Override
+    List<Match> listarMatchs(){
+        String sql = "SELECT * FROM MATCHS"
+        List<Match> matchs = []
+        try (Connection conn = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/linketinder",
+                "postgres",
+                "senha123")
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Match match = new Match()
+                match.candidatoId = rs.getInt("ID_CANDIDATO")
+                match.empresaId = rs.getString("ID_EMPRESA")
+                matchs.add(match)
+            }
+
+            return matchs
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar matchs: " + e.getMessage(), e)
+        }
+    }
+
+    @Override
     boolean verificarMatch(int candidatoId, int empresaId) {
-        def sql = ConnectionFactory.obterConexao()
+        def sql = ConnectionFactory.createConnection()
 
         if (sql) {
             try {
@@ -37,8 +68,7 @@ class MatchRepository implements IMatchRepository{
 
                 if (result) {
                     println "🔥 Match encontrado entre o candidato e a empresa!"
-                    def match = new Match(candidatoId, empresaId)
-                    match.salvar()
+                    salvarMatch()
                 } else {
                     return
                 }
