@@ -1,6 +1,6 @@
 package model
 
-import database.Conexao
+import database.ConnectionFactory
 class Like {
     int idCandidato
     int idEmpresa
@@ -10,7 +10,7 @@ class Like {
         this.idEmpresa = idEmpresa
     }
     void salvar() {
-        def sql = Conexao.obterConexao()
+        def sql = ConnectionFactory.obterConexao()
 
         if (sql) {
             try {
