@@ -24,29 +24,29 @@ class MatchRepository implements IMatchRepository {
         }
     }
 
-    @Override
-    List<Match> listarMatchs() {
-        String sql = "SELECT * FROM MATCHS"
-        List<Match> matchs = []
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Match match = new Match()
-                match.candidatoId = rs.getInt("ID_CANDIDATO")
-                match.empresaId = rs.getString("ID_EMPRESA")
-                matchs.add(match)
-            }
-
-            return matchs
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar matchs: " + e.getMessage(), e)
-        }
-    }
+//    @Override
+//    List<Match> listarMatchs() {
+//        String sql = "SELECT * FROM MATCHS"
+//        List<Match> matchs = []
+//        try (Connection conn = DriverManager.getConnection(
+//                "jdbc:postgresql://localhost:5432/linketinder",
+//                "postgres",
+//                "senha123")
+//             PreparedStatement stmt = conn.prepareStatement(sql);
+//             ResultSet rs = stmt.executeQuery()) {
+//
+//            while (rs.next()) {
+//                Match match = new Match()
+//                match.candidatoId = rs.getInt("ID_CANDIDATO")
+//                match.empresaId = rs.getString("ID_EMPRESA")
+//                matchs.add(match)
+//            }
+//
+//            return matchs
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Erro ao listar matchs: " + e.getMessage(), e)
+//        }
+//    }
 
     @Override
     boolean verificarMatch(int candidatoId, int empresaId) {

@@ -1,11 +1,22 @@
 package controllers
 
-import services.CompetenciaService
+import infra.CompetenciaRepository
+import model.Competencia
 
 class CompetenciaController {
-    CompetenciaService competenciaService
+    CompetenciaRepository competenciaRepository = new CompetenciaRepository()
 
     def index() {
-        respond competenciaService.competenciaRepository.listarCompetencias()
+        List<Competencia> competencias = competenciaRepository.listarCompetencias()
+        if (competencias.isEmpty()) {
+            println "Nenhuma competência cadastrado. (•◡•) /"
+        } else {
+            println("✦•····· Lista de Competências ·····•✦");
+            competencias.each { candidato ->
+                println "ID: ${competencias.competenciaId}, \n" +
+                        "Nome: ${competencias.competenciaNome} \n" +
+                        "✦•·····•✦•·····•✦"
+            }
+        }
     }
 }

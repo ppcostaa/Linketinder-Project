@@ -2,6 +2,8 @@ package infra
 
 import database.ConnectionFactory
 import model.Empresa
+import model.Localizacao
+import model.Usuario
 
 import java.sql.*
 
@@ -173,61 +175,61 @@ class EmpresaRepository implements IEmpresaRepository {
 
     @Override
     boolean excluirEmpresa(int empresaId) {
-        Connection conn = null
+        Connection conn = null;
 
         try {
-            conn = connectionFactory.createConnection()
-            conn.setAutoCommit(false)
+            conn = connectionFactory.createConnection();
+            conn.setAutoCommit(false);
 
-            String sqlVagas = "DELETE FROM VAGAS WHERE ID_EMPRESA = ?"
-            PreparedStatement stmtVagas = conn.prepareStatement(sqlVagas)
-            stmtVagas.setInt(1, empresaId)
-            stmtVagas.executeUpdate()
-            stmtVagas.close()
+            String sqlVagas = "DELETE FROM VAGAS WHERE ID_EMPRESA = ?";
+            PreparedStatement stmtVagas = conn.prepareStatement(sqlVagas);
+            stmtVagas.setInt(1, empresaId);
+            stmtVagas.executeUpdate();
+            stmtVagas.close();
 
-            String sqlGetUser = "SELECT ID_USUARIO FROM EMPRESAS WHERE ID_EMPRESA = ?"
-            PreparedStatement stmtGetUser = conn.prepareStatement(sqlGetUser)
-            stmtGetUser.setInt(1, empresaId)
-            ResultSet rs = stmtGetUser.executeQuery()
-            Integer usuarioId = null
+            String sqlGetUser = "SELECT ID_USUARIO FROM EMPRESAS WHERE ID_EMPRESA = ?";
+            PreparedStatement stmtGetUser = conn.prepareStatement(sqlGetUser);
+            stmtGetUser.setInt(1, empresaId);
+            ResultSet rs = stmtGetUser.executeQuery();
+            Integer usuarioId = null;
             if (rs.next()) {
-                usuarioId = rs.getInt("ID_USUARIO")
+                usuarioId = rs.getInt("ID_USUARIO");
             }
-            rs.close()
-            stmtGetUser.close()
+            rs.close();
+            stmtGetUser.close();
 
-            String sqlEmpresa = "DELETE FROM EMPRESAS WHERE ID_EMPRESA = ?"
-            PreparedStatement stmtEmpresa = conn.prepareStatement(sqlEmpresa)
-            stmtEmpresa.setInt(1, empresaId)
-            int affectedRows = stmtEmpresa.executeUpdate()
-            stmtEmpresa.close()
+            String sqlEmpresa = "DELETE FROM EMPRESAS WHERE ID_EMPRESA = ?";
+            PreparedStatement stmtEmpresa = conn.prepareStatement(sqlEmpresa);
+            stmtEmpresa.setInt(1, empresaId);
+            int affectedRows = stmtEmpresa.executeUpdate();
+            stmtEmpresa.close();
 
             if (usuarioId != null) {
-                String sqlUsuario = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?"
-                PreparedStatement stmtUsuario = conn.prepareStatement(sqlUsuario)
-                stmtUsuario.setInt(1, usuarioId)
-                stmtUsuario.executeUpdate()
-                stmtUsuario.close()
+                String sqlUsuario = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?";
+                PreparedStatement stmtUsuario = conn.prepareStatement(sqlUsuario);
+                stmtUsuario.setInt(1, usuarioId);
+                stmtUsuario.executeUpdate();
+                stmtUsuario.close();
             }
 
-            conn.commit()
-            return affectedRows > 0
+            conn.commit();
+            return affectedRows > 0;
         } catch (Exception e) {
             if (conn != null) {
                 try {
-                    conn.rollback()
+                    conn.rollback();
                 } catch (SQLException ex) {
-                    throw new RuntimeException("Erro ao realizar rollback: " + ex.getMessage(), ex)
+                    throw new RuntimeException("Erro ao realizar rollback: " + ex.getMessage(), ex);
                 }
             }
-            throw new RuntimeException("Erro ao excluir empresa: " + e.getMessage(), e)
+            throw new RuntimeException("Erro ao excluir empresa: " + e.getMessage(), e);
         } finally {
             if (conn != null) {
                 try {
-                    conn.setAutoCommit(true)
-                    conn.close()
+                    conn.setAutoCommit(true);
+                    conn.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException("Erro ao fechar conexão: " + e.getMessage(), e)
+                    throw new RuntimeException("Erro ao fechar conexão: " + e.getMessage(), e);
                 }
             }
         }

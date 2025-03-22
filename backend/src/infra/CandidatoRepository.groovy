@@ -3,6 +3,9 @@ package infra
 import database.ConnectionFactory
 import model.Candidato
 import model.Competencia
+import model.Empresa
+import model.Localizacao
+import model.Usuario
 
 import java.sql.*
 
@@ -64,20 +67,7 @@ class CandidatoRepository implements ICandidatoRepository {
                 rsCandidato.close()
             }
 
-            CompetenciaRepository competenciaRepository = new CompetenciaRepository()
-            candidato.competencias = candidato.competencias.collect { competencia ->
-                new Competencia(competenciaNome: competencia)
-            }
-
             candidato.competencias.each { competencia ->
-                Competencia competenciaExiste = competenciaRepository.findByName(competencia.nomeCompetencia)
-
-                if (!competenciaExiste) {
-                    competencia = competenciaRepository.salvarCompetencia(competencia)
-                } else {
-                    competencia.competenciaId = competenciaExiste.competenciaId
-                }
-
                 String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"
                 PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
                 stmtCompetencia.setInt(1, candidato.candidatoId)
@@ -149,11 +139,11 @@ class CandidatoRepository implements ICandidatoRepository {
     @Override
     List<Candidato> listarCandidatos() {
         String sql = """
-            SELECT c.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
-            FROM CANDIDATOS c
-            JOIN USUARIOS u ON c.ID_USUARIO = u.ID_USUARIO
-            JOIN LOCALIZACAO l ON c.ID_LOCALIZACAO = l.ID_LOCALIZACAO
-        """
+        SELECT c.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
+        FROM CANDIDATOS c
+        JOIN USUARIOS u ON c.ID_USUARIO = u.ID_USUARIO
+        JOIN LOCALIZACAO l ON c.ID_LOCALIZACAO = l.ID_LOCALIZACAO
+    """
 
         List<Candidato> candidatos = []
 
@@ -170,9 +160,14 @@ class CandidatoRepository implements ICandidatoRepository {
                 candidato.sobrenome = rs.getString("SOBRENOME")
                 candidato.dataNascimento = rs.getDate("DATA_NASCIMENTO")
                 candidato.cpf = rs.getString("CPF")
-
-                candidato.competencias = CompetenciaRepository.listarCompetencias(candidato.idCandidato)
-
+                candidato.competencias.each { competencia ->
+                    String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"
+                    PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
+                    stmtCompetencia.setInt(1, candidato.candidatoId)
+                    stmtCompetencia.setInt(2, competencia.competenciaId)
+                    stmtCompetencia.executeUpdate()
+                    stmtCompetencia.close()
+                }
                 candidatos.add(candidato)
             }
 
@@ -260,18 +255,18 @@ class CandidatoRepository implements ICandidatoRepository {
         try {
             conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
-
-            String sqlCompetencias = "DELETE FROM CANDIDATO_COMPETENCIAS WHERE ID_CANDIDATO = ?"
-            PreparedStatement stmtCompetencias = conn.prepareStatement(sqlCompetencias)
-            stmtCompetencias.setInt(1, candidatoId)
-            stmtCompetencias.executeUpdate()
-            stmtCompetencias.close()
+            String sqlDeleteCompetencias = "DELETE FROM CANDIDATO_COMPETENCIAS WHERE ID_CANDIDATO = ?"
+            PreparedStatement stmtDeleteCompetencias = conn.prepareStatement(sqlDeleteCompetencias)
+            stmtDeleteCompetencias.setInt(1, candidatoId)
+            stmtDeleteCompetencias.executeUpdate()
+            stmtDeleteCompetencias.close()
 
             String sqlGetUser = "SELECT ID_USUARIO FROM CANDIDATOS WHERE ID_CANDIDATO = ?"
             PreparedStatement stmtGetUser = conn.prepareStatement(sqlGetUser)
             stmtGetUser.setInt(1, candidatoId)
             ResultSet rs = stmtGetUser.executeQuery()
-            int usuarioId = null
+
+            Integer usuarioId = null
             if (rs.next()) {
                 usuarioId = rs.getInt("ID_USUARIO")
             }
@@ -291,7 +286,6 @@ class CandidatoRepository implements ICandidatoRepository {
                 stmtUsuario.executeUpdate()
                 stmtUsuario.close()
             }
-
             conn.commit()
             return affectedRows > 0
         } catch (Exception e) {

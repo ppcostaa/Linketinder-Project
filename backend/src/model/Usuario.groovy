@@ -1,11 +1,12 @@
 package model
 
 class Usuario {
-    final int usuarioId
+    int usuarioId
     String email
     String senha
     String descricao
 
+    Usuario(){}
     Usuario(int usuarioId, String email, String senha, String descricao) {
         this.usuarioId = usuarioId
         this.email = email
