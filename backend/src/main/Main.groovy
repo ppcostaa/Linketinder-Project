@@ -6,7 +6,7 @@ import controllers.EmpresaController
 static void main(String[] args) {
     Scanner scanner = new Scanner(System.in)
     CandidatoController candidatoController = new CandidatoController()
-
+    EmpresaController empresaController = new EmpresaController()
     while (true) {
         println "\n======= Linketinder ======="
         println "1. Cadastrar Candidato"
@@ -27,26 +27,25 @@ static void main(String[] args) {
                 candidatoController.salvarCandidatoMenu()
                 break
             case "2":
-                EmpresaController.salvarNovaEmpresaMenu()
+                empresaController.salvarEmpresaMenu()
                 break
             case "3":
                 candidatoController.index()
                 break
             case "4":
-                EmpresaController.index()
+                empresaController.index()
                 break
             case "5":
                 candidatoController.editarCandidatoMenu()
                 break
             case "6":
-                EmpresaController.editarEmpresaMenu()
-
+                empresaController.editarEmpresaMenu()
                 break
             case "7":
                 candidatoController.excluirCandidatoMenu()
                 break
             case "8":
-                EmpresaController.excluirEmpresaMenu()
+                empresaController.excluirEmpresaMenu()
                 break
             case "9":
                 println "Saindo..."

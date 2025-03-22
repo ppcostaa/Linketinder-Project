@@ -2,8 +2,6 @@ package infra
 
 import database.ConnectionFactory
 import model.Empresa
-import model.Localizacao
-import model.Usuario
 
 import java.sql.*
 
@@ -47,21 +45,20 @@ class EmpresaRepository implements IEmpresaRepository {
             rsLocalizacao.close()
 
             String sql = "INSERT INTO EMPRESAS (ID_USUARIO, ID_LOCALIZACAO, NOME_EMPRESA, CNPJ) VALUES (?, ?, ?, ?) RETURNING ID_EMPRESA"
-            GerenciadorLocalizacao
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-            stmt.setInt(1, empresa.usuarioId)
-            stmt.setInt(2, empresa.localizacaoId)
+            stmt.setInt(1, usuarioId)
+            stmt.setInt(2, localizacaoId)
             stmt.setString(3, empresa.empresaNome)
             stmt.setString(4, empresa.cnpj)
 
             int affectedRows = stmt.executeUpdate()
 
             if (affectedRows > 0) {
-                ResultSet rs = stmt.getGeneratedKeys()
-                if (rs.next()) {
-                    empresa.empresaId = rs.getInt(1)
+                ResultSet rsEmpresa = stmt.getGeneratedKeys()
+                if (rsEmpresa.next()) {
+                    empresa.empresaId = rsEmpresa.getInt(1)
                 }
-                rs.close()
+                rsEmpresa.close()
             }
 
             conn.commit()
@@ -90,17 +87,15 @@ class EmpresaRepository implements IEmpresaRepository {
     @Override
     Empresa listarEmpresaPorId(int empresaId) {
         String sql = """
-            SELECT e.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
-            FROM EMPRESAS e
-            JOIN USUARIOS u ON e.ID_USUARIO = u.ID_USUARIO
-            JOIN LOCALIZACAO l ON e.ID_LOCALIZACAO = l.ID_LOCALIZACAO
-            WHERE e.ID_EMPRESA = ?
-        """
+        SELECT e.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
+        FROM EMPRESAS e
+        JOIN USUARIOS u ON e.ID_USUARIO = u.ID_USUARIO
+        JOIN LOCALIZACAO l ON e.ID_LOCALIZACAO = l.ID_LOCALIZACAO
+        WHERE e.ID_EMPRESA = ?
+    """
 
         try (Connection conn = connectionFactory.createConnection()) {
-
             PreparedStatement stmt = conn.prepareStatement(sql)
-
             stmt.setInt(1, empresaId)
             ResultSet rs = stmt.executeQuery()
 
@@ -111,7 +106,6 @@ class EmpresaRepository implements IEmpresaRepository {
                 empresa.localizacaoId = rs.getInt("ID_LOCALIZACAO")
                 empresa.empresaNome = rs.getString("NOME_EMPRESA")
                 empresa.cnpj = rs.getString("CNPJ")
-
                 return empresa
             }
 
@@ -156,20 +150,38 @@ class EmpresaRepository implements IEmpresaRepository {
 
     @Override
     boolean editarEmpresa(Empresa empresa) {
-        String sql = "UPDATE EMPRESAS SET NOME_EMPRESA = ?, CNPJ = ? WHERE ID_EMPRESA = ?"
-
-        try (Connection conn = connectionFactory.createConnection()) {
-
+        Connection conn = null
+        try {
+            conn = connectionFactory.createConnection()
+            conn.setAutoCommit(false)
+            String sql = "UPDATE EMPRESAS SET NOME_EMPRESA = ?, CNPJ = ? WHERE ID_EMPRESA = ?"
             PreparedStatement stmt = conn.prepareStatement(sql)
 
             stmt.setString(1, empresa.empresaNome)
             stmt.setString(2, empresa.cnpj)
             stmt.setInt(3, empresa.empresaId)
-
             int affectedRows = stmt.executeUpdate()
+
+            conn.commit()
             return affectedRows > 0
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback()
+                } catch (SQLException ex) {
+                    throw new RuntimeException("Erro ao realizar rollback: " + ex.getMessage(), ex)
+                }
+            }
             throw new RuntimeException("Erro ao atualizar empresa: " + e.getMessage(), e)
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true)
+                    conn.close()
+                } catch (SQLException e) {
+                    throw new RuntimeException("Erro ao fechar conexão: " + e.getMessage(), e)
+                }
+            }
         }
     }
 

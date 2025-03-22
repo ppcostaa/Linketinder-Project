@@ -1,5 +1,6 @@
 package controllers
 
+
 import infra.EmpresaRepository
 import infra.LocalizacaoRepository
 import infra.UsuarioRepository
@@ -9,16 +10,19 @@ import model.Usuario
 
 class EmpresaController {
     Scanner scanner = new Scanner(System.in)
+    EmpresaRepository empresaRepository = new EmpresaRepository()
+    LocalizacaoRepository localizacaoRepository = new LocalizacaoRepository()
+    UsuarioRepository usuarioRepository = new UsuarioRepository()
 
     def index() {
-        List<Empresa> empresas = EmpresaRepository.listarEmpresas()
+        List<Empresa> empresas = empresaRepository.listarEmpresas()
         if (empresas.isEmpty()) {
             println "Nenhuma empresa cadastrada. (•◡•) /"
         } else {
             println "✦•····· Lista de Empresas ·····•✦"
             empresas.each { empresa ->
-                Usuario usuario = UsuarioRepository.listarUsuariosPorId(empresa.usuarioId)
-                Localizacao localizacao = LocalizacaoRepository.listarLocalizacaoPorId(empresa.localizacaoId)
+                Usuario usuario = usuarioRepository.listarUsuariosPorId(empresa.usuarioId)
+                Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresa.localizacaoId)
                 println "ID: ${empresa.empresaId}, \n" +
                         "Nome: ${empresa.empresaNome} \n" +
                         "CNPJ: ${empresa.cnpj}, \n" +
@@ -31,7 +35,7 @@ class EmpresaController {
         }
     }
 
-    def salvarNovaEmpresaMenu() {
+    def salvarEmpresaMenu() {
         println "Informe os dados da Empresa:"
         print "Nome: "
         String nome = scanner.nextLine()
@@ -48,30 +52,35 @@ class EmpresaController {
         print "Descrição: "
         String descricao = scanner.nextLine()
 
-        if (UsuarioRepository.emailExiste(email)) {
-            System.out.println("Email já cadastrado. Tente outro email. (•◡•) /")
+        if (usuarioRepository.emailExiste(email)) {
+            println "Email já cadastrado. Tente outro email. (•◡•) /"
             return
         }
 
-        def empresa = new Empresa([empresaId: '0', empresaNome: nome, cnpj: cnpj])
-        EmpresaRepository.salvarEmpresa(empresa, email, senha, descricao, cep, pais)
+        Empresa empresa = new Empresa()
+        empresa.empresaNome = nome
+        empresa.cnpj = cnpj
+
+        empresaRepository.salvarEmpresa(empresa, email, senha, descricao, cep, pais)
         println "Empresa cadastrada com sucesso! （っ＾▿＾）"
     }
 
-    def editarEmpresaMenu(Empresa empresa) {
-        List<Empresa> empresas = EmpresaRepository.listarEmpresas()
+
+    def editarEmpresaMenu() {
+        List<Empresa> empresas = empresaRepository.listarEmpresas()
         if (empresas.isEmpty()) {
             println "Nenhuma empresa cadastrada para atualizar. (•◡•) /"
+            return
         }
 
         println "✦•····· Lista de Empresas  ·····•✦"
-        empresas.each { x ->
-            Usuario usuario = UsuarioRepository.listarUsuariosPorId(empresas.usuarioId)
-            Localizacao localizacao = LocalizacaoRepository.listarLocalizacaoPorId(empresas.localizacaoId)
+        empresas.each { empresasLista ->
+            Usuario usuario = usuarioRepository.listarUsuariosPorId(empresasLista.usuarioId)
+            Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresasLista.localizacaoId)
 
-            println "ID: ${empresas.empresaId}, \n" +
-                    "Nome: ${empresas.empresaNome} \n" +
-                    "CNPJ: ${empresas.cnpj} \n" +
+            println "ID: ${empresasLista.empresaId}, \n" +
+                    "Nome: ${empresasLista.empresaNome} \n" +
+                    "CNPJ: ${empresasLista.cnpj} \n" +
                     "Email: ${usuario.email}, \n" +
                     "CEP: ${localizacao.cep}, \n" +
                     "País: ${localizacao.pais}, \n" +
@@ -83,13 +92,14 @@ class EmpresaController {
         int empresaIdParaEditar = scanner.nextInt()
         scanner.nextLine()
 
-        Empresa empresaPorId = EmpresaRepository.listarEmpresaPorId(empresaIdParaEditar)
+        Empresa empresaPorId = empresaRepository.listarEmpresaPorId(empresaIdParaEditar)
         if (empresaPorId == null) {
             println "Empresa não encontrada. (╥﹏╥)"
+            return
         }
 
-        Usuario usuario = UsuarioRepository.listarUsuariosPorId(empresa.usuarioId)
-        Localizacao localizacao = LocalizacaoRepository.listarLocalizacaoPorId(empresa.localizacaoId)
+        Usuario usuario = usuarioRepository.listarUsuariosPorId(empresaPorId.usuarioId)
+        Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresaPorId.localizacaoId)
 
         println "\nO que você deseja atualizar?"
         println "1. Nome"
@@ -107,15 +117,16 @@ class EmpresaController {
 
         if (opcoesSelecionadas.any { !opcoesValidas.contains(it) }) {
             println "Opção inválida! Escolha números entre 1 e 7. (╥﹏╥)"
+            return
         }
 
         if (opcoesSelecionadas.contains(1)) {
             print "Digite o novo nome: "
-            empresa.empresaNome = scanner.nextLine()
+            empresaPorId.empresaNome = scanner.nextLine()
         }
         if (opcoesSelecionadas.contains(2)) {
             print "Digite o novo CNPJ: "
-            empresa.cnpj = scanner.nextLine()
+            empresaPorId.cnpj = scanner.nextLine()
         }
         if (opcoesSelecionadas.contains(3)) {
             print "Digite o novo email: "
@@ -138,9 +149,9 @@ class EmpresaController {
             usuario.descricao = scanner.nextLine()
         }
 
-        boolean sucessoEmpresa = EmpresaRepository.editarEmpresa(empresa)
-        boolean sucessoUsuario = UsuarioRepository.editarUsuario(usuario)
-        boolean sucessoLocalizacao = LocalizacaoRepository.editarLocalizacao(localizacao, empresa.empresaId)
+        boolean sucessoEmpresa = empresaRepository.editarEmpresa(empresaPorId)
+        boolean sucessoUsuario = usuarioRepository.editarUsuario(usuario)
+        boolean sucessoLocalizacao = localizacaoRepository.editarLocalizacao(localizacao, empresaPorId.empresaId)
 
         if (sucessoEmpresa && sucessoUsuario && sucessoLocalizacao) {
             println "Empresa atualizada com sucesso! （っ＾▿＾）"
@@ -149,17 +160,16 @@ class EmpresaController {
         }
     }
 
-    void excluirEmpresaMenu() {
-        List<Empresa> empresas = EmpresaRepository.listarEmpresas();
+    def excluirEmpresaMenu() {
+        List<Empresa> empresas = empresaRepository.listarEmpresas();
         if (empresas.isEmpty()) {
             println("Nenhuma empresa cadastrada para excluir. (•◡•) /");
-            return;
         }
 
         println("✦•····· Lista de Empresas ·····•✦");
         for (Empresa empresa : empresas) {
-            Usuario usuario = UsuarioRepository.listarUsuariosPorId(empresa.getUsuarioId());
-            Localizacao localizacao = LocalizacaoRepository.listarLocalizacaoPorId(empresa.getLocalizacaoId());
+            Usuario usuario = usuarioRepository.listarUsuariosPorId(empresa.getUsuarioId());
+            Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresa.getLocalizacaoId());
 
             println("ID: " + empresa.getEmpresaId() + "\n" +
                     "Nome: " + empresa.getEmpresaNome() + "\n" +
@@ -176,7 +186,7 @@ class EmpresaController {
         int idEmpresaDeletar = scanner.nextInt();
         scanner.nextLine();
 
-        boolean sucesso = EmpresaRepository.excluirEmpresa(idEmpresaDeletar);
+        boolean sucesso = empresaRepository.excluirEmpresa(idEmpresaDeletar);
         if (sucesso) {
             println("Empresa deletada com sucesso! （っ＾▿＾）");
         } else {

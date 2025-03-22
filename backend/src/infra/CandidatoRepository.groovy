@@ -3,9 +3,6 @@ package infra
 import database.ConnectionFactory
 import model.Candidato
 import model.Competencia
-import model.Empresa
-import model.Localizacao
-import model.Usuario
 
 import java.sql.*
 
