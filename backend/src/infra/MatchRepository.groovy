@@ -2,15 +2,10 @@ package infra
 
 import database.ConnectionFactory
 import model.Match
-import model.Usuario
 
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.PreparedStatement
-import java.sql.ResultSet
-import java.sql.SQLException
+import java.sql.*
 
-class MatchRepository implements IMatchRepository{
+class MatchRepository implements IMatchRepository {
     @Override
     void salvarMatch(Match match) {
         def sql = ConnectionFactory.createConnection()
@@ -30,7 +25,7 @@ class MatchRepository implements IMatchRepository{
     }
 
     @Override
-    List<Match> listarMatchs(){
+    List<Match> listarMatchs() {
         String sql = "SELECT * FROM MATCHS"
         List<Match> matchs = []
         try (Connection conn = DriverManager.getConnection(

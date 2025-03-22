@@ -6,7 +6,6 @@ import model.Empresa
 import model.Usuario
 import model.Vaga
 
-import utils.GerenciadorEmpresa
 
 import utils.GerenciadorVaga
 

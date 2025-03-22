@@ -1,25 +1,21 @@
 package infra
 
+import database.ConnectionFactory
 import model.Competencia
 
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.PreparedStatement
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.sql.Statement
+import java.sql.*
 
-class CompetenciaRepository implements  ICandidatoRepository{
+class CompetenciaRepository implements ICompetenciaRepository {
+    ConnectionFactory connectionFactory = new ConnectionFactory(
+            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
+    )
+
     @Override
     Competencia salvarCompetencia(Competencia competencia) {
         String sql = "INSERT INTO COMPETENCIAS (NOME_COMPETENCIA) VALUES (?) RETURNING ID_COMPETENCIA"
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123"
-        )
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = connectionFactory.createConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
 
             stmt.setString(1, competencia.competenciaNome)
 

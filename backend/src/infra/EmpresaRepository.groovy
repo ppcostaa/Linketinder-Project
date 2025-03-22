@@ -1,26 +1,21 @@
-package utils
+package infra
 
+import database.ConnectionFactory
 import model.Empresa
-import model.Localizacao
-import model.Usuario
-import model.Vaga
+import utils.GerenciadorLocalizacao
 
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.PreparedStatement
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.sql.Statement
+import java.sql.*
 
-class GerenciadorEmpresa {
+class EmpresaRepository implements IEmpresaRepository {
+    ConnectionFactory connectionFactory = new ConnectionFactory(
+            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
+    )
 
-    Empresa create(Empresa empresa, String email, String senha, String descricao, String cep, String pais) {
+    @Override
+    Empresa salvarEmpresa(Empresa empresa, String email, String senha, String descricao, String cep, String pais) {
         Connection conn = null
         try {
-            conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/linketinder",
-                    "postgres",
-                    "senha123")
+            conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
 
             String sqlUsuario = "INSERT INTO USUARIOS (EMAIL, SENHA, DESCRICAO) VALUES (?, ?, ?) RETURNING ID_USUARIO"
@@ -31,9 +26,9 @@ class GerenciadorEmpresa {
             stmtUsuario.executeUpdate()
 
             ResultSet rsUsuario = stmtUsuario.getGeneratedKeys()
-            int idUsuario = 0
+            int usuarioId = 0
             if (rsUsuario.next()) {
-                idUsuario = rsUsuario.getInt(1)
+                usuarioId = rsUsuario.getInt(1)
             }
             rsUsuario.close()
 
@@ -44,18 +39,18 @@ class GerenciadorEmpresa {
             stmtLocalizacao.executeUpdate()
 
             ResultSet rsLocalizacao = stmtLocalizacao.getGeneratedKeys()
-            int idLocalizacao = 0
+            int localizacaoId = 0
             if (rsLocalizacao.next()) {
-                idLocalizacao = rsLocalizacao.getInt(1)
+                localizacaoId = rsLocalizacao.getInt(1)
             }
             rsLocalizacao.close()
 
             String sql = "INSERT INTO EMPRESAS (ID_USUARIO, ID_LOCALIZACAO, NOME_EMPRESA, CNPJ) VALUES (?, ?, ?, ?) RETURNING ID_EMPRESA"
-GerenciadorLocalizacao
+            GerenciadorLocalizacao
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-            stmt.setInt(1, empresa.idUsuario)
-            stmt.setInt(2, empresa.idLocalizacao)
-            stmt.setString(3, empresa.nomeEmpresa)
+            stmt.setInt(1, empresa.usuarioId)
+            stmt.setInt(2, empresa.localizacaoId)
+            stmt.setString(3, empresa.empresaNome)
             stmt.setString(4, empresa.cnpj)
 
             int affectedRows = stmt.executeUpdate()
@@ -63,7 +58,7 @@ GerenciadorLocalizacao
             if (affectedRows > 0) {
                 ResultSet rs = stmt.getGeneratedKeys()
                 if (rs.next()) {
-                    empresa.idEmpresa = rs.getInt(1)
+                    empresa.empresaId = rs.getInt(1)
                 }
                 rs.close()
             }
@@ -91,38 +86,8 @@ GerenciadorLocalizacao
         }
     }
 
-    List<Vaga> findVagas(Integer idEmpresa) {
-        String sql = "SELECT * FROM VAGAS WHERE ID_EMPRESA = ?"
-
-        List<Vaga> vagas = []
-
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, idEmpresa)
-            ResultSet rs = stmt.executeQuery()
-
-            while (rs.next()) {
-                Vaga vaga = new Vaga()
-                vaga.idVaga = rs.getInt("ID_VAGA")
-                vaga.idEmpresa = rs.getInt("ID_EMPRESA")
-                vaga.nomeVaga = rs.getString("NOME_VAGA")
-                vaga.descricaoVaga = rs.getString("DESCRICAO_VAGA")
-                vaga.localEstado = rs.getString("LOCAL_ESTADO")
-                vaga.localCidade = rs.getString("LOCAL_CIDADE")
-                vagas.add(vaga)
-            }
-
-            return vagas
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar vagas da empresa: " + e.getMessage(), e)
-        }
-    }
-
-    Empresa findById(Integer id) {
+    @Override
+    Empresa listarEmpresaPorId(int empresaId) {
         String sql = """
             SELECT e.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
             FROM EMPRESAS e
@@ -131,24 +96,20 @@ GerenciadorLocalizacao
             WHERE e.ID_EMPRESA = ?
         """
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = connectionFactory.createConnection()) {
 
-            stmt.setInt(1, id)
+            PreparedStatement stmt = conn.prepareStatement(sql)
+
+            stmt.setInt(1, empresaId)
             ResultSet rs = stmt.executeQuery()
 
             if (rs.next()) {
                 Empresa empresa = new Empresa()
-                empresa.idEmpresa = rs.getInt("ID_EMPRESA")
-                empresa.idUsuario = rs.getInt("ID_USUARIO")
-                empresa.idLocalizacao = rs.getInt("ID_LOCALIZACAO")
-                empresa.nomeEmpresa = rs.getString("NOME_EMPRESA")
+                empresa.empresaId = rs.getInt("ID_EMPRESA")
+                empresa.usuarioId = rs.getInt("ID_USUARIO")
+                empresa.localizacaoId = rs.getInt("ID_LOCALIZACAO")
+                empresa.empresaNome = rs.getString("NOME_EMPRESA")
                 empresa.cnpj = rs.getString("CNPJ")
-
-                empresa.vagas = findVagas(empresa.idEmpresa)
 
                 return empresa
             }
@@ -158,7 +119,9 @@ GerenciadorLocalizacao
             throw new RuntimeException("Erro ao buscar empresa: " + e.getMessage(), e)
         }
     }
-    List<Empresa> findAll() {
+
+    @Override
+    List<Empresa> listarEmpresas() {
         String sql = """
             SELECT e.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
             FROM EMPRESAS e
@@ -168,22 +131,18 @@ GerenciadorLocalizacao
 
         List<Empresa> empresas = []
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = connectionFactory.createConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()
 
             while (rs.next()) {
                 Empresa empresa = new Empresa()
-                empresa.idEmpresa = rs.getInt("ID_EMPRESA")
-                empresa.idUsuario = rs.getInt("ID_USUARIO")
-                empresa.idLocalizacao = rs.getInt("ID_LOCALIZACAO")
-                empresa.nomeEmpresa = rs.getString("NOME_EMPRESA")
+                empresa.empresaId = rs.getInt("ID_EMPRESA")
+                empresa.usuarioId = rs.getInt("ID_USUARIO")
+                empresa.localizacaoId = rs.getInt("ID_LOCALIZACAO")
+                empresa.empresaNome = rs.getString("NOME_EMPRESA")
                 empresa.cnpj = rs.getString("CNPJ")
-
-                empresa.vagas = findVagas(empresa.idEmpresa)
 
                 empresas.add(empresa)
             }
@@ -194,18 +153,17 @@ GerenciadorLocalizacao
         }
     }
 
-    boolean update(Empresa empresa) {
+    @Override
+    boolean editarEmpresa(Empresa empresa) {
         String sql = "UPDATE EMPRESAS SET NOME_EMPRESA = ?, CNPJ = ? WHERE ID_EMPRESA = ?"
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/linketinder",
-                "postgres",
-                "senha123")
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = connectionFactory.createConnection()) {
 
-            stmt.setString(1, empresa.nomeEmpresa)
+            PreparedStatement stmt = conn.prepareStatement(sql)
+
+            stmt.setString(1, empresa.empresaNome)
             stmt.setString(2, empresa.cnpj)
-            stmt.setInt(3, empresa.idEmpresa)
+            stmt.setInt(3, empresa.empresaId)
 
             int affectedRows = stmt.executeUpdate()
             return affectedRows > 0
@@ -214,43 +172,41 @@ GerenciadorLocalizacao
         }
     }
 
-    boolean delete(Integer id) {
+    @Override
+    boolean excluirEmpresa(int empresaId) {
         Connection conn = null
 
         try {
-            conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/linketinder",
-                    "postgres",
-                    "senha123")
+            conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
 
             String sqlVagas = "DELETE FROM VAGAS WHERE ID_EMPRESA = ?"
             PreparedStatement stmtVagas = conn.prepareStatement(sqlVagas)
-            stmtVagas.setInt(1, id)
+            stmtVagas.setInt(1, empresaId)
             stmtVagas.executeUpdate()
             stmtVagas.close()
 
             String sqlGetUser = "SELECT ID_USUARIO FROM EMPRESAS WHERE ID_EMPRESA = ?"
             PreparedStatement stmtGetUser = conn.prepareStatement(sqlGetUser)
-            stmtGetUser.setInt(1, id)
+            stmtGetUser.setInt(1, empresaId)
             ResultSet rs = stmtGetUser.executeQuery()
-            Integer idUsuario = null
+            Integer usuarioId = null
             if (rs.next()) {
-                idUsuario = rs.getInt("ID_USUARIO")
+                usuarioId = rs.getInt("ID_USUARIO")
             }
             rs.close()
             stmtGetUser.close()
 
             String sqlEmpresa = "DELETE FROM EMPRESAS WHERE ID_EMPRESA = ?"
             PreparedStatement stmtEmpresa = conn.prepareStatement(sqlEmpresa)
-            stmtEmpresa.setInt(1, id)
+            stmtEmpresa.setInt(1, empresaId)
             int affectedRows = stmtEmpresa.executeUpdate()
             stmtEmpresa.close()
 
-            if (idUsuario != null) {
+            if (usuarioId != null) {
                 String sqlUsuario = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?"
                 PreparedStatement stmtUsuario = conn.prepareStatement(sqlUsuario)
-                stmtUsuario.setInt(1, idUsuario)
+                stmtUsuario.setInt(1, usuarioId)
                 stmtUsuario.executeUpdate()
                 stmtUsuario.close()
             }

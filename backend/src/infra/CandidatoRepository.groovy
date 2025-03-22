@@ -110,8 +110,8 @@ class CandidatoRepository implements ICandidatoRepository {
     }
 
     @Override
-    Candidato listarCandidatoPorId(int id) {
-        String sql = """
+    Candidato listarCandidatoPorId(int candidatoId) {
+        String sql = """id
             SELECT c.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
             FROM CANDIDATOS c
             JOIN USUARIOS u ON c.ID_USUARIO = u.ID_USUARIO
@@ -122,7 +122,7 @@ class CandidatoRepository implements ICandidatoRepository {
         try (Connection conn = connectionFactory.createConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql)
 
-            stmt.setInt(1, id)
+            stmt.setInt(1, candidatoId)
             ResultSet rs = stmt.executeQuery()
 
             if (rs.next()) {
@@ -254,7 +254,7 @@ class CandidatoRepository implements ICandidatoRepository {
     }
 
     @Override
-    boolean excluirCandidato(int id) {
+    boolean excluirCandidato(int candidatoId) {
         Connection conn = null
 
         try {
@@ -263,13 +263,13 @@ class CandidatoRepository implements ICandidatoRepository {
 
             String sqlCompetencias = "DELETE FROM CANDIDATO_COMPETENCIAS WHERE ID_CANDIDATO = ?"
             PreparedStatement stmtCompetencias = conn.prepareStatement(sqlCompetencias)
-            stmtCompetencias.setInt(1, id)
+            stmtCompetencias.setInt(1, candidatoId)
             stmtCompetencias.executeUpdate()
             stmtCompetencias.close()
 
             String sqlGetUser = "SELECT ID_USUARIO FROM CANDIDATOS WHERE ID_CANDIDATO = ?"
             PreparedStatement stmtGetUser = conn.prepareStatement(sqlGetUser)
-            stmtGetUser.setInt(1, id)
+            stmtGetUser.setInt(1, candidatoId)
             ResultSet rs = stmtGetUser.executeQuery()
             int usuarioId = null
             if (rs.next()) {
@@ -280,7 +280,7 @@ class CandidatoRepository implements ICandidatoRepository {
 
             String sqlCandidato = "DELETE FROM CANDIDATOS WHERE ID_CANDIDATO = ?"
             PreparedStatement stmtCandidato = conn.prepareStatement(sqlCandidato)
-            stmtCandidato.setInt(1, id)
+            stmtCandidato.setInt(1, candidatoId)
             int affectedRows = stmtCandidato.executeUpdate()
             stmtCandidato.close()
 
