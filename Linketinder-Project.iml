@@ -10,5 +10,6 @@
     <orderEntry type="library" name="groovy-4.0.14" level="project" />
     <orderEntry type="library" name="groovy-4.0.14" level="project" />
     <orderEntry type="library" name="spockframework.spock.core" level="project" />
+    <orderEntry type="library" name="postgresql-42.6.0" level="project" />
   </component>
 </module>

@@ -1,34 +1,136 @@
-package main;
-import model.Candidato
-import model.Empresa
+//package main
+//import database.Conexao
+//
+//
+//class Sistema {
+//
+//    def sql
+//
+//    Sistema() {
+//        this.sql = Conexao.obterConexao()
+//    }
+//
+//    void listarEmpresas() {
+//        def empresas = sql.rows("SELECT * FROM EMPRESAS")
+//        println "===== LISTA DE EMPRESAS ====="
+//        empresas.each { empresa ->
+//            println """Empresa: ${empresa.NOME_EMPRESA}
+//Email: ${empresa.EMAIL}
+//Descrição: ${empresa.DESCRICAO}
+//Competências: ${empresa.COMPETENCIAS}
+//CNPJ: ${empresa.CNPJ}
+//País: ${empresa.PAIS}
+//--------------------------------------"""
+//        }
+//    }
+//
+//    def listarCandidatos() {
+//        def candidatos = sql.rows("SELECT * FROM CANDIDATOS")
+//        if (candidatos.isEmpty()) {
+//            println "Nenhum candidato encontrado."
+//        } else {
+//            candidatos.each { candidato ->
+//                println """Candidato: ${candidato.NOME}
+//Email: ${candidato.EMAIL}
+//Descrição: ${candidato.DESCRICAO}
+//Competências: ${candidato.COMPETENCIAS}
+//Idade: ${candidato.IDADE}
+//CPF: ${candidato.CPF}
+//--------------------------------------"""
+//            }
+//        }
+//    }
+//
+//}
+package main
+
+import utils.*
+import model.*
 
 class Sistema {
-    List<Candidato> candidatos = []
-    List<Empresa> empresas = []
+    static void main(String[] args) {
+        // Caso 1: Cadastro do Sandubinha
+        cadastrarCandidato()
 
-    Sistema() {
-        candidatos << new Candidato("Ana Souza", "ana@gmail.com", "SP", "01000-000", "Dev apaixonada por código", ["Java", "Spring"], "123.456.789-00", 25)
-        candidatos << new Candidato("Bruno Silva", "bruno@gmail.com", "RJ", "20000-000", "Front-end Developer", ["React", "TypeScript"], "234.567.890-11", 28)
-        candidatos << new Candidato("Dr. Antônio Paçoca", "amopacocas@gmail.com", "GO", "30000-000", "Empresário, investidor e amante de paçocas <3", ["Java"], "345.678.910-11", 41)
-        candidatos << new Candidato("Pamonhinha Doce", "pamonhadoce@gmail.com", "ES", "40000-000", "Apenas um cara tranquilo querendo programar", ["React", "Typescript", "Python"], "456.789.101-11", 22)
-        candidatos << new Candidato("Pikachu Raichu da Silva Pichu", "pikachu@gmail.com", "AC", "50000-000", "Sou um cara elétrico, disposto a qualquer aventura.", ["Spring", "Java", "Python"], "567.891.011-12", 24)
-
-        empresas << new Empresa("Cinna Livros", "biblioteca@cinnalivros.com", "RJ", "20000-000", "Empresa de Livros, tanto trocas quanto vendas", ["Spring"], "34.567.890/1011-12", "Brasil")
-        empresas << new Empresa("Arroz-Gostoso", "contato@arrozgostoso.com", "MG", "30000-000", "Empresa de alimentos", ["Python", "Banco de Dados"], "12.345.678/0001-99", "Brasil")
-        empresas << new Empresa("Império do Boliche", "rh@boliche.com", "SP", "40000-000", "Diversão e Esportes", ["Java", "Angular"], "23.456.789/0001-88", "Brasil")
-        empresas << new Empresa("Cálice de Fogo", "vinhos@calicedefogo.com", "RS", "50000-000", "Venha beber da taça do torneio tribruxo sem precisar morrer para isso :D", ["Typescript", "React"], "45.678.910/1112-13", "Brasil")
-        empresas << new Empresa("Raios e CIA", "zeus@raios.com", "PE", "60000-000", "Os raios que o Percy Jackson não conseguiu roubar", ["Angular", "React"], "56.789.101/1121-31", "Brasil")
+        // Caso 2: Cadastro da empresa Pastelsoft
+        cadastrarEmpresa()
     }
 
-    void listarEmpresas() {
-        println "===== LISTA DE EMPRESAS ====="
-        empresas.each { println it }
+    static void cadastrarCandidato() {
+        try {
+            // Cria o candidato Sandubinha
+            Candidato sandubinha = new Candidato(
+                    nome: 'Sandubinha',
+                    sobrenome: 'Silva',
+                    dataNascimento: new Date(90, 4, 15), // 15/05/1990
+                    cpf: '12345678900'
+            )
+
+            // Adiciona competências
+            List<Competencia> competencias = [
+                    new Competencia(nomeCompetencia: 'Python'),
+                    new Competencia(nomeCompetencia: 'Java'),
+                    new Competencia(nomeCompetencia: 'Angular')
+            ]
+            sandubinha.competencias = competencias
+
+            // Cria o candidato no banco
+            GerenciadorCandidato gerenciadorCandidato = new GerenciadorCandidato()
+            sandubinha = gerenciadorCandidato.create(
+                    sandubinha,
+                    'sandubinha@email.com',
+                    'senha123',
+                    'Busco novas oportunidades de trabalho.'
+            )
+
+            println "Candidato ${sandubinha.nome} cadastrado com sucesso! ID: ${sandubinha.idCandidato}"
+        } catch (Exception e) {
+            println "Erro ao cadastrar candidato: ${e.message}"
+            e.printStackTrace()
+        }
     }
 
-    void listarCandidatos() {
-        println "===== LISTA DE CANDIDATOS ====="
-        candidatos.each { println it }
+    static void cadastrarEmpresa() {
+        try {
+            // Cria a empresa Pastelsoft
+            Empresa pastelsoft = new Empresa(
+                    nomeEmpresa: 'Pastelsoft',
+                    cnpj: '12.345.678/0001-90'
+            )
+
+            // Cria a empresa no banco
+            GerenciadorEmpresa gerenciadorEmpresa = new GerenciadorEmpresa()
+            pastelsoft = gerenciadorEmpresa.create(
+                    pastelsoft,
+                    'contato@pastelsoft.com',
+                    'senha303',
+                    'Software ERP para redes de restaurantes.'
+            )
+
+            println "Empresa ${pastelsoft.nomeEmpresa} cadastrada com sucesso! ID: ${pastelsoft.idEmpresa}"
+
+            // Cria uma vaga
+            Vaga vaga = new Vaga(
+                    idEmpresa: pastelsoft.idEmpresa,
+                    nomeVaga: 'Desenvolvedor Java',
+                    descricaoVaga: 'Desenvolvimento de sistemas para ERP.',
+                    localEstado: 'São Paulo',
+                    localCidade: 'São Paulo'
+            )
+
+            // Cria a vaga no banco
+            // Cria a vaga no banco
+            GerenciadorVaga gerenciadorVaga = new GerenciadorVaga()
+            vaga = gerenciadorVaga.create(vaga)
+
+            println "Vaga '${vaga.nomeVaga}' cadastrada com sucesso! ID: ${vaga.idVaga}"
+
+            // Recupera a empresa com suas vagas
+            pastelsoft = gerenciadorEmpresa.findById(pastelsoft.idEmpresa)
+            println "Empresa ${pastelsoft.nomeEmpresa} possui ${pastelsoft.vagas.size()} vagas cadastradas."
+        } catch (Exception e) {
+            println "Erro ao cadastrar empresa ou vaga: ${e.message}"
+            e.printStackTrace()
+        }
     }
 }
-
-
