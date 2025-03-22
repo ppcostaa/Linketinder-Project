@@ -4,7 +4,7 @@ import model.Candidato
 import model.Empresa
 import model.Localizacao
 import model.Usuario
-import utils.GerenciadorCandidato
+
 import utils.GerenciadorEmpresa
 import utils.GerenciadorLocalizacao
 

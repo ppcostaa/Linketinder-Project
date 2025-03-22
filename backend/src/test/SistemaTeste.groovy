@@ -5,8 +5,7 @@ import model.Competencia
 import model.Empresa
 import model.Usuario
 import model.Vaga
-import utils.GerenciadorCandidato
-import utils.GerenciadorCompetencia
+
 import utils.GerenciadorEmpresa
 
 import utils.GerenciadorVaga

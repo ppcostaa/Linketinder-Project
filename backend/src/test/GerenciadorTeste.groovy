@@ -3,7 +3,6 @@ package test
 import model.Candidato
 import model.Empresa
 import spock.lang.Specification
-import utils.GerenciadorCandidato
 
 class GerenciadorTeste extends Specification{
     def CadastrarNovoCandidatoCorretamente() {
