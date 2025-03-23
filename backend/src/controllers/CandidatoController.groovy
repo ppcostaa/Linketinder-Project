@@ -94,20 +94,32 @@ class CandidatoController {
             return
         }
 
-        def candidato = new Candidato()
+        def candidato = new Candidato(
+                nome: nome,
+                sobrenome: sobrenome,
+                cpf: cpf,
+                dataNascimento: dataNascimento,
+                competencias: competenciasSelecionadas
+        )
 
         candidatoRepository.salvarCandidato(candidato, email, senha, descricao, cep, pais)
         println "Candidato cadastrado com sucesso! （っ＾▿＾）"
     }
 
-    def editarCandidatoMenu(Candidato candidato) {
+    def editarCandidatoMenu() {
         List<Candidato> candidatos = candidatoRepository.listarCandidatos()
         if (candidatos.isEmpty()) {
             println "Nenhum candidato cadastrado para atualizar. (•◡•) /"
+            return
         }
 
-        println("✦•····· Lista de Candidatos ·····•✦");
-        candidatos.each { x ->
+        println("✦•····· Lista de Candidatos ·····•✦")
+        candidatos.each { candidato ->
+            if (candidato == null) {
+                println "Candidato nulo encontrado. Verifique os dados no banco de dados."
+                return
+            }
+
             Usuario usuario = usuarioRepository.listarUsuariosPorId(candidato.usuarioId)
             Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(candidato.localizacaoId)
 
@@ -122,7 +134,6 @@ class CandidatoController {
                     "Competências: ${candidato.competencias}, \n" +
                     "Descrição: ${usuario.descricao} \n" +
                     "✦•·····•✦•·····•✦"
-
         }
 
         print "Informe o ID do candidato que deseja atualizar: "
@@ -132,10 +143,11 @@ class CandidatoController {
         Candidato candidatoParaEditar = candidatoRepository.listarCandidatoPorId(idCandidato)
         if (candidatoParaEditar == null) {
             println "Candidato não encontrado. (╥﹏╥)"
+            return
         }
 
-        Usuario usuario = usuarioRepository.listarUsuariosPorId(candidato.usuarioId)
-        Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(candidato.localizacaoId)
+        Usuario usuario = usuarioRepository.listarUsuariosPorId(candidatoParaEditar.usuarioId)
+        Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(candidatoParaEditar.localizacaoId)
 
         println "\nO que você deseja atualizar?"
         println "1. Nome"
@@ -154,18 +166,18 @@ class CandidatoController {
         List<Integer> opcoesSelecionadas = opcoes.split(',').collect { it.trim().toInteger() }
         List<Integer> opcoesValidas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-
         if (opcoesSelecionadas.any { !opcoesValidas.contains(it) }) {
             println "Opção inválida! Escolha números entre 1 e 10. (•◡•) /"
+            return
         }
 
         if (opcoesSelecionadas.contains(1)) {
             print "Digite o novo nome: "
-            candidato.nome = scanner.nextLine()
+            candidatoParaEditar.nome = scanner.nextLine()
         }
         if (opcoesSelecionadas.contains(2)) {
             print "Digite o novo sobrenome: "
-            candidato.sobrenome = scanner.nextLine()
+            candidatoParaEditar.sobrenome = scanner.nextLine()
         }
         if (opcoesSelecionadas.contains(3)) {
             print "Digite o novo email: "
@@ -185,23 +197,25 @@ class CandidatoController {
         }
         if (opcoesSelecionadas.contains(7)) {
             print "Digite o novo CPF: "
-            candidato.cpf = scanner.nextLine()
+            candidatoParaEditar.cpf = scanner.nextLine()
         }
         if (opcoesSelecionadas.contains(8)) {
             print "Digite a nova data de nascimento (dd/MM/yyyy): "
             String novaDataNascimentoStr = scanner.nextLine()
             try {
-                candidato.dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(novaDataNascimentoStr)
+                candidatoParaEditar.dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(novaDataNascimentoStr)
             } catch (Exception e) {
                 println "Formato de data inválido! A data deve estar no formato dd/MM/yyyy. (•◡•) /"
             }
         }
         if (opcoesSelecionadas.contains(9)) {
-            List<Competencia> competenciasDisponiveis = competenciaRepository.listarCompetencias()
+            // Passando o ID do candidato como argumento, se necessário
+            List<Competencia> competenciasDisponiveis = competenciaRepository.listarCompetencias(candidatoParaEditar.candidatoId)
             println "Competências disponíveis:"
             competenciasDisponiveis.each { competencia ->
                 println "${competencia.competenciaId}: ${competencia.competenciaNome}"
-            } print "Digite os IDs das competências separados por vírgula: "
+            }
+            print "Digite os IDs das competências separados por vírgula: "
             String input = scanner.nextLine()
             List<Integer> idsCompetencias = input.split(',').collect { it.trim().toInteger() }
             List<Competencia> competenciasSelecionadas = competenciasDisponiveis.findAll { competencia ->
@@ -212,16 +226,16 @@ class CandidatoController {
                 println "Nenhuma competência válida selecionada."
                 return
             }
-            candidato.competencias = competenciasSelecionadas
+            candidatoParaEditar.competencias = competenciasSelecionadas
         }
         if (opcoesSelecionadas.contains(10)) {
             print "Digite a nova Descrição: "
             usuario.descricao = scanner.nextLine()
         }
 
-        boolean sucessoCandidato = candidatoRepository.editarCandidato(candidato)
-        boolean sucessoUsuario = usuarioRepository.listarUsuariosPorId(usuario)
-        boolean sucessoLocalizacao = localizacaoRepository.listarLocalizacaoPorId(localizacao, candidato.candidatoId)
+        boolean sucessoCandidato = candidatoRepository.editarCandidato(candidatoParaEditar)
+        boolean sucessoUsuario = usuarioRepository.editarUsuario(usuario)
+        boolean sucessoLocalizacao = localizacaoRepository.editarLocalizacao(localizacao)
 
         if (sucessoCandidato && sucessoUsuario && sucessoLocalizacao) {
             println "Candidato atualizado com sucesso! （っ＾▿＾）"

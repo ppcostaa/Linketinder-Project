@@ -1,46 +1,28 @@
 package controllers
 
-import infra.IMatchRepository
-import infra.MatchRepository
 import model.Match
+import model.Like
 
 class MatchController {
-    MatchRepository matchRepository
+    List<Match> matches = []
 
-    MatchController(MatchRepository matchRepository) {
-        this.matchRepository = matchRepository
-    }
+    void verificarMatches(LikeController likeController) {
+        List<Like> likes = likeController.listarLikes()
 
-    def index() {
-        respond matchRepository.listarMatchs()
-    }
-
-    def listarMatchs() {
-        def user = matchRepository.listarMatchs()
-        if (user) {
-            respond user
-        } else {
-            render status: 404, text: "Match não encontrado"
-        }
-    }
-
-    def salvarMatch() {
-        def match = new IMatchRepository(params) {
-            @Override
-            void salvarMatch(Match match) {
-
-            }
-
-            @Override
-            boolean verificarMatch(int candidatoId, int empresaId) {
-                return false
+        likes.each { likeCandidato ->
+            if (likeCandidato.vagaId != 0) {
+                likes.each { likeEmpresa ->
+                    if (likeEmpresa.empresaId != 0 && likeEmpresa.candidatoId == likeCandidato.candidatoId) {
+                        Match match = new Match(matches.size() + 1, likeCandidato.candidatoId, likeEmpresa.empresaId, likeCandidato.vagaId)
+                        matches.add(match)
+                        println "Match encontrado entre candidato ${likeCandidato.candidatoId} e empresa ${likeEmpresa.empresaId} para a vaga ${likeCandidato.vagaId}"
+                    }
+                }
             }
         }
-        if (match.salvarMatch(flush: true)) {
-            respond match, status: 201
-        } else {
-            respond match.errors, status: 400
-        }
     }
 
+    List<Match> listarMatches() {
+        return matches
+    }
 }

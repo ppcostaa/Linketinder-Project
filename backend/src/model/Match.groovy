@@ -1,11 +1,16 @@
 package model
 
 class Match {
-    final int candidatoId
-    final int empresaId
+    int matchId
+    int candidatoId
+    int empresaId
+    int vagaId
 
-    Match(int candidatoId, int empresaId) {
+    Match(){}
+    Match(int matchId, int candidatoId, int empresaId, int vagaId) {
+        this.matchId = matchId
         this.candidatoId = candidatoId
         this.empresaId = empresaId
+        this.vagaId = vagaId
     }
 }

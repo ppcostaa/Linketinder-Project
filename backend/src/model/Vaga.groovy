@@ -1,22 +1,22 @@
 package model
 
-class Vaga extends Empresa {
+class Vaga {
     int vagaId
-    String vagaNome
-    String descricaoVaga
-    String estado
+    int empresaId
+    String descricao
+    String titulo
     String cidade
-    List<String> competencias
+    String estado
+    List<String> competenciasRequeridas = []
 
-    Vaga(int empresaId, int vagaId, String vagaNome, String descricaoVaga, String estado, String cidade, List<String> competencias
-    ) {
-        super(empresaId)
+    Vaga(){}
+    Vaga(int vagaId, int empresaId, String titulo, String cidade, String estado, String descricao, List<String> competenciasRequeridas) {
         this.vagaId = vagaId
-        this.vagaNome = vagaNome
-        this.descricaoVaga = descricaoVaga
-        this.estado = estado
+        this.empresaId = empresaId
+        this.titulo = titulo
         this.cidade = cidade
-        this.competencias = competencias
+        this.estado = estado
+        this.descricao = descricao
+        this.competenciasRequeridas = competenciasRequeridas
     }
 }
-

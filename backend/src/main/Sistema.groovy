@@ -1,126 +1,98 @@
-////package main
-////import database.Conexao
-////
-////
-////class Sistema {
-////
-////    def sql
-////
-////    Sistema() {
-////        this.sql = Conexao.obterConexao()
-////    }
-////
-////    void listarEmpresas() {
-////        def empresas = sql.rows("SELECT * FROM EMPRESAS")
-////        println "===== LISTA DE EMPRESAS ====="
-////        empresas.each { empresa ->
-////            println """Empresa: ${empresa.NOME_EMPRESA}
-////Email: ${empresa.EMAIL}
-////Descrição: ${empresa.DESCRICAO}
-////Competências: ${empresa.COMPETENCIAS}
-////CNPJ: ${empresa.CNPJ}
-////País: ${empresa.PAIS}
-////--------------------------------------"""
-////        }
-////    }
-////
-////    def listarCandidatos() {
-////        def candidatos = sql.rows("SELECT * FROM CANDIDATOS")
-////        if (candidatos.isEmpty()) {
-////            println "Nenhum candidato encontrado."
-////        } else {
-////            candidatos.each { candidato ->
-////                println """Candidato: ${candidato.NOME}
-////Email: ${candidato.EMAIL}
-////Descrição: ${candidato.DESCRICAO}
-////Competências: ${candidato.COMPETENCIAS}
-////Idade: ${candidato.IDADE}
-////CPF: ${candidato.CPF}
-////--------------------------------------"""
-////            }
-////        }
-////    }
-////
-////}
-//package main
-//
-//import utils.*
-//import model.*
-//
-//class Sistema {
-//    static void main(String[] args) {
-//        cadastrarCandidato()
-//
-//        cadastrarEmpresa()
-//    }
-//
-//    static void cadastrarCandidato() {
-//        try {
-//            Candidato sandubinha = new Candidato(
-//                    nome: 'Sandubinha',
-//                    sobrenome: 'Silva',
-//                    dataNascimento: new Date(90, 4, 15), // 15/05/1990
-//                    cpf: '12345678900'
-//            )
-//
-//            List<Competencia> competencias = [
-//                    new Competencia(nomeCompetencia: 'Python'),
-//                    new Competencia(nomeCompetencia: 'Java'),
-//                    new Competencia(nomeCompetencia: 'Angular')
-//            ]
-//            sandubinha.competencias = competencias
-//
-//            GerenciadorCandidato gerenciadorCandidato = new GerenciadorCandidato()
-//            sandubinha = gerenciadorCandidato.create(
-//                    sandubinha,
-//                    'sandubinha@email.com',
-//                    'senha123',
-//                    'Busco novas oportunidades de trabalho.'
-//            )
-//
-//            println "Candidato ${sandubinha.nome} cadastrado com sucesso! ID: ${sandubinha.idCandidato}"
-//        } catch (Exception e) {
-//            println "Erro ao cadastrar candidato: ${e.message}"
-//            e.printStackTrace()
-//        }
-//    }
-//
-//    static void cadastrarEmpresa() {
-//        try {
-//            Empresa pastelsoft = new Empresa(
-//                    nomeEmpresa: 'Pastelsoft',
-//                    cnpj: '12.345.678/0001-90'
-//            )
-//
-//            GerenciadorEmpresa gerenciadorEmpresa = new GerenciadorEmpresa()
-//            pastelsoft = gerenciadorEmpresa.create(
-//                    pastelsoft,
-//                    'contato@pastelsoft.com',
-//                    'senha303',
-//                    'Software ERP para redes de restaurantes.'
-//            )
-//
-//            println "Empresa ${pastelsoft.nomeEmpresa} cadastrada com sucesso! ID: ${pastelsoft.idEmpresa}"
-//
-//            // Cria uma vaga
-//            Vaga vaga = new Vaga(
-//                    idEmpresa: pastelsoft.idEmpresa,
-//                    nomeVaga: 'Desenvolvedor Java',
-//                    descricaoVaga: 'Desenvolvimento de sistemas para ERP.',
-//                    localEstado: 'São Paulo',
-//                    localCidade: 'São Paulo'
-//            )
-//
-//            GerenciadorVaga gerenciadorVaga = new GerenciadorVaga()
-//            vaga = gerenciadorVaga.create(vaga)
-//
-//            println "Vaga '${vaga.nomeVaga}' cadastrada com sucesso! ID: ${vaga.idVaga}"
-//
-//            pastelsoft = gerenciadorEmpresa.findById(pastelsoft.idEmpresa)
-//            println "Empresa ${pastelsoft.nomeEmpresa} possui ${pastelsoft.vagas.size()} vagas cadastradas."
-//        } catch (Exception e) {
-//            println "Erro ao cadastrar empresa ou vaga: ${e.message}"
-//            e.printStackTrace()
-//        }
-//    }
-//}
+package main
+
+import controllers.CandidatoController
+import controllers.CompetenciaController
+import controllers.EmpresaController
+import controllers.VagaController
+class Sistema {
+
+static void iniciarSistema(String[] args) {
+    Scanner scanner = new Scanner(System.in)
+    CandidatoController candidatoController = new CandidatoController()
+    EmpresaController empresaController = new EmpresaController()
+    VagaController vagaController = new VagaController()
+    CompetenciaController competenciaController = new CompetenciaController()
+    while (true) {
+        println "\n======= Linketinder ======="
+        println("✦•····· Cadastros ·····•✦");
+        println "1. Cadastrar Candidato"
+        println "2. Cadastrar Empresa"
+        println "3. Cadastrar Vaga"
+        println "4. Cadastrar Competência"
+        println("✦•····· Listagens ·····•✦");
+        println "5. Listar Candidatos"
+        println "6. Listar Empresas"
+        println "7. Listar Vagas"
+        println "8. Listar Competências"
+        println("✦•····· Edições ·····•✦");
+        println "9. Editar Candidato"
+        println "10. Editar Empresa"
+        println "11. Editar Vaga"
+        println "12. Editar Competência"
+        println("✦•····· Exclusões ·····•✦");
+        println "13. Remover Candidato"
+        println "14. Remover Empresa"
+        println "15. Remover Vaga"
+        println "16. Remover Competência"
+        println("✦•··········•✦");
+        println "17. Sair"
+        print "Escolha uma opção: "
+
+        String opcao = scanner.nextLine()
+
+        switch (opcao) {
+            case "1":
+                candidatoController.salvarCandidatoMenu()
+                break
+            case "2":
+                empresaController.salvarEmpresaMenu()
+                break
+            case "3":
+                vagaController.salvarVaga()
+                break
+            case "4":
+                competenciaController.salvarCompetencia()
+                break
+            case "5":
+                candidatoController.index()
+                break
+            case "6":
+                empresaController.index()
+                break
+            case "7":
+                vagaController.index()
+                break
+            case "8":
+                competenciaController.index()
+            case "9":
+                candidatoController.editarCandidatoMenu()
+                break
+            case "10":
+                empresaController.editarEmpresaMenu()
+                break
+            case "11":
+                vagaController.editarVaga()
+                break
+            case "12":
+                competenciaController.editarCompetencia()
+                break
+            case "13":
+                candidatoController.excluirCandidatoMenu()
+                break
+            case "14":
+                empresaController.excluirEmpresaMenu()
+                break
+            case "15":
+                vagaController.excluirVaga()
+                break
+            case "16":
+                competenciaController.excluirCompetencia()
+            case "17":
+                println "Saindo..."
+                return
+            default:
+                println "Opção inválida! Tente novamente. (•◡•) /"
+        }
+    }
+}
+}

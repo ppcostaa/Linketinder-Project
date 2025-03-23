@@ -10,6 +10,7 @@ class CandidatoRepository implements ICandidatoRepository {
     ConnectionFactory connectionFactory = new ConnectionFactory(
             'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
     )
+    CompetenciaRepository competenciaRepository = new CompetenciaRepository()
 
     @Override
     Candidato salvarCandidato(Candidato candidato, String email, String senha, String descricao, String cep, String pais) {
@@ -29,6 +30,8 @@ class CandidatoRepository implements ICandidatoRepository {
             int usuarioId = 0
             if (rsUsuario.next()) {
                 usuarioId = rsUsuario.getInt(1)
+            } else {
+                throw new RuntimeException("Falha ao obter ID_USUARIO gerado.")
             }
             rsUsuario.close()
 
@@ -42,35 +45,50 @@ class CandidatoRepository implements ICandidatoRepository {
             int localizacaoId = 0
             if (rsLocalizacao.next()) {
                 localizacaoId = rsLocalizacao.getInt(1)
+            } else {
+                throw new RuntimeException("Falha ao obter ID_LOCALIZACAO gerado.")
             }
             rsLocalizacao.close()
 
-            String sql = "INSERT INTO CANDIDATOS (ID_USUARIO, ID_LOCALIZACAO, NOME, SOBRENOME, DATA_NASCIMENTO, CPF) VALUES (?, ?, ?, ?, ?, ?) RETURNING ID_CANDIDATO"
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-            stmt.setInt(1, usuarioId)
-            stmt.setInt(2, localizacaoId)
-            stmt.setString(3, candidato.nome)
-            stmt.setString(4, candidato.sobrenome)
-            stmt.setDate(5, new java.sql.Date(candidato.dataNascimento.getTime()))
-            stmt.setString(6, candidato.cpf)
+            String sqlCandidato = """
+            INSERT INTO CANDIDATOS (ID_USUARIO, ID_LOCALIZACAO, NOME, SOBRENOME, DATA_NASCIMENTO, CPF)
+            VALUES (?, ?, ?, ?, ?, ?) RETURNING ID_CANDIDATO
+        """
+            PreparedStatement stmtCandidato = conn.prepareStatement(sqlCandidato, Statement.RETURN_GENERATED_KEYS)
+            stmtCandidato.setInt(1, usuarioId)
+            stmtCandidato.setInt(2, localizacaoId)
+            stmtCandidato.setString(3, candidato.nome)
+            stmtCandidato.setString(4, candidato.sobrenome)
+            stmtCandidato.setDate(5, new java.sql.Date(candidato.dataNascimento.getTime()))
+            stmtCandidato.setString(6, candidato.cpf)
 
-            int affectedRows = stmt.executeUpdate()
-
+            int affectedRows = stmtCandidato.executeUpdate()
             if (affectedRows > 0) {
-                ResultSet rsCandidato = stmt.getGeneratedKeys()
+                ResultSet rsCandidato = stmtCandidato.getGeneratedKeys()
                 if (rsCandidato.next()) {
                     candidato.candidatoId = rsCandidato.getInt(1)
+                } else {
+                    throw new RuntimeException("Falha ao obter ID_CANDIDATO gerado.")
                 }
                 rsCandidato.close()
+            } else {
+                throw new RuntimeException("Falha ao inserir candidato no banco de dados.")
             }
 
-            candidato.competencias.each { competencia ->
-                String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"
-                PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
-                stmtCompetencia.setInt(1, candidato.candidatoId)
-                stmtCompetencia.setInt(2, competencia.competenciaId)
-                stmtCompetencia.executeUpdate()
-                stmtCompetencia.close()
+            if (candidato.competencias && !candidato.competencias.isEmpty()) {
+                candidato.competencias.each { competencia ->
+                    String sqlCompetencia = """
+                    INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA)
+                    VALUES (?, ?)
+                """
+                    PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
+                    stmtCompetencia.setInt(1, candidato.candidatoId)
+                    stmtCompetencia.setInt(2, competencia.competenciaId)
+                    stmtCompetencia.executeUpdate()
+                    stmtCompetencia.close()
+                }
+            } else {
+                println("Atenção: Nenhuma competência foi associada ao candidato.")
             }
 
             conn.commit()
@@ -98,17 +116,16 @@ class CandidatoRepository implements ICandidatoRepository {
 
     @Override
     Candidato listarCandidatoPorId(int candidatoId) {
-        String sql = """id
-            SELECT c.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
-            FROM CANDIDATOS c
-            JOIN USUARIOS u ON c.ID_USUARIO = u.ID_USUARIO
-            JOIN LOCALIZACAO l ON c.ID_LOCALIZACAO = l.ID_LOCALIZACAO
-            WHERE c.ID_CANDIDATO = ?
-        """
+        String sql = """
+        SELECT c.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 
+        FROM CANDIDATOS c
+        JOIN USUARIOS u ON c.ID_USUARIO = u.ID_USUARIO
+        JOIN LOCALIZACAO l ON c.ID_LOCALIZACAO = l.ID_LOCALIZACAO
+        WHERE c.ID_CANDIDATO = ?
+    """
 
         try (Connection conn = connectionFactory.createConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql)
-
             stmt.setInt(1, candidatoId)
             ResultSet rs = stmt.executeQuery()
 
@@ -122,7 +139,7 @@ class CandidatoRepository implements ICandidatoRepository {
                 candidato.dataNascimento = rs.getDate("DATA_NASCIMENTO")
                 candidato.cpf = rs.getString("CPF")
 
-                candidato.competencias = CompetenciaRepository.listarCompetencias(candidato.candidatoId)
+                candidato.competencias = competenciaRepository.listarCompetencias(candidato.candidatoId)
 
                 return candidato
             }
@@ -157,14 +174,9 @@ class CandidatoRepository implements ICandidatoRepository {
                 candidato.sobrenome = rs.getString("SOBRENOME")
                 candidato.dataNascimento = rs.getDate("DATA_NASCIMENTO")
                 candidato.cpf = rs.getString("CPF")
-                candidato.competencias.each { competencia ->
-                    String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"
-                    PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
-                    stmtCompetencia.setInt(1, candidato.candidatoId)
-                    stmtCompetencia.setInt(2, competencia.competenciaId)
-                    stmtCompetencia.executeUpdate()
-                    stmtCompetencia.close()
-                }
+
+                candidato.competencias = competenciaRepository.listarCompetencias(candidato.candidatoId)
+
                 candidatos.add(candidato)
             }
 
@@ -206,12 +218,13 @@ class CandidatoRepository implements ICandidatoRepository {
                 }
 
                 candidato.competencias.each { competencia ->
-                    Competencia competenciasExistentes = competenciaRepository.findByName(competencia.nomeCompetencia)
+                    Competencia competenciasExistentes = competenciaRepository.competenciaPorNome(competencia.competenciaNome)
                     if (!competenciasExistentes) {
                         competencia = competenciaRepository.create(competencia)
                     } else {
                         competencia.competenciaId = competenciasExistentes.competenciaId
                     }
+
 
                     String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"
                     PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)

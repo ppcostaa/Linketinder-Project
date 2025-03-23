@@ -1,6 +1,7 @@
 package infra
 
 import database.ConnectionFactory
+import model.Competencia
 import model.Vaga
 
 import java.sql.*
@@ -13,31 +14,61 @@ class VagaRepository implements IVagaRepository {
 
     @Override
     Vaga salvarVaga(Vaga vaga) {
-        String sql = "INSERT INTO VAGAS (ID_EMPRESA, NOME_VAGA, DESCRICAO_VAGA, LOCAL_ESTADO, LOCAL_CIDADE) VALUES (?, ?, ?, ?, ?) RETURNING ID_VAGA"
+        Connection conn = null
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try {
+            conn = connectionFactory.createConnection()
+            conn.setAutoCommit(false)
 
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+            String sqlVaga = "INSERT INTO VAGAS (ID_EMPRESA, NOME_VAGA, DESCRICAO_VAGA, LOCAL_ESTADO, LOCAL_CIDADE) VALUES (?, ?, ?, ?, ?) RETURNING ID_VAGA"
+            PreparedStatement stmtVaga = conn.prepareStatement(sqlVaga, Statement.RETURN_GENERATED_KEYS)
 
-            stmt.setInt(1, vaga.empresaId)
-            stmt.setString(2, vaga.vagaNome)
-            stmt.setString(3, vaga.descricaoVaga)
-            stmt.setString(4, vaga.estado)
-            stmt.setString(5, vaga.cidade)
+            stmtVaga.setInt(1, vaga.empresaId)
+            stmtVaga.setString(2, vaga.titulo)
+            stmtVaga.setString(3, vaga.descricao)
+            stmtVaga.setString(4, vaga.estado)
+            stmtVaga.setString(5, vaga.cidade)
 
-            int affectedRows = stmt.executeUpdate()
+            int affectedRows = stmtVaga.executeUpdate()
 
             if (affectedRows > 0) {
-                ResultSet rs = stmt.getGeneratedKeys()
+                ResultSet rs = stmtVaga.getGeneratedKeys()
                 if (rs.next()) {
                     vaga.vagaId = rs.getInt(1)
                 }
                 rs.close()
             }
 
+            vaga.competenciasRequeridas.each { competencia ->
+                String sqlCompetencia = "INSERT INTO VAGA_COMPETENCIAS (ID_VAGA, ID_COMPETENCIA) VALUES (?, ?)"
+                PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
+                stmtCompetencia.setInt(1, vaga.vagaId)
+                stmtCompetencia.setInt(2, competencia.competenciaId)
+                stmtCompetencia.executeUpdate()
+                stmtCompetencia.close()
+            }
+
+            conn.commit()
+
             return vaga
         } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback()
+                } catch (SQLException ex) {
+                    throw new RuntimeException("Erro ao fazer rollback: " + ex.getMessage(), ex)
+                }
+            }
             throw new RuntimeException("Erro ao criar vaga: " + e.getMessage(), e)
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true)
+                    conn.close()
+                } catch (SQLException e) {
+                    throw new RuntimeException("Erro ao fechar conexão: " + e.getMessage(), e)
+                }
+            }
         }
     }
 
@@ -56,10 +87,23 @@ class VagaRepository implements IVagaRepository {
                 Vaga vaga = new Vaga()
                 vaga.vagaId = rs.getInt("ID_VAGA")
                 vaga.empresaId = rs.getInt("ID_EMPRESA")
-                vaga.vagaNome = rs.getString("NOME_VAGA")
-                vaga.descricaoVaga = rs.getString("DESCRICAO_VAGA")
+                vaga.titulo = rs.getString("NOME_VAGA")
+                vaga.descricao = rs.getString("DESCRICAO_VAGA")
                 vaga.estado = rs.getString("LOCAL_ESTADO")
                 vaga.cidade = rs.getString("LOCAL_CIDADE")
+
+                String sqlCompetencias = "SELECT C.ID_COMPETENCIA, C.NOME_COMPETENCIA FROM COMPETENCIAS C JOIN VAGA_COMPETENCIAS VC ON C.ID_COMPETENCIA = VC.ID_COMPETENCIA WHERE VC.ID_VAGA = ?"
+                PreparedStatement stmtCompetencias = conn.prepareStatement(sqlCompetencias)
+                stmtCompetencias.setInt(1, vaga.vagaId)
+                ResultSet rsCompetencias = stmtCompetencias.executeQuery()
+
+                List<Competencia> competencias = []
+                while (rsCompetencias.next()) {
+                    Competencia competencia = new Competencia(rsCompetencias.getInt("ID_COMPETENCIA"), rsCompetencias.getString("NOME_COMPETENCIA"))
+                    competencias.add(competencia)
+                }
+                vaga.competenciasRequeridas = competencias
+
                 return vaga
             }
 
@@ -76,17 +120,30 @@ class VagaRepository implements IVagaRepository {
 
         try (Connection conn = connectionFactory.createConnection()) {
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql)
             ResultSet rs = stmt.executeQuery()
 
             while (rs.next()) {
                 Vaga vaga = new Vaga()
                 vaga.vagaId = rs.getInt("ID_VAGA")
                 vaga.empresaId = rs.getInt("ID_EMPRESA")
-                vaga.vagaNome = rs.getString("NOME_VAGA")
-                vaga.descricaoVaga = rs.getString("DESCRICAO_VAGA")
+                vaga.titulo = rs.getString("NOME_VAGA")
+                vaga.descricao = rs.getString("DESCRICAO_VAGA")
                 vaga.estado = rs.getString("LOCAL_ESTADO")
                 vaga.cidade = rs.getString("LOCAL_CIDADE")
+
+                String sqlCompetencias = "SELECT C.ID_COMPETENCIA, C.NOME_COMPETENCIA FROM COMPETENCIAS C JOIN VAGA_COMPETENCIAS VC ON C.ID_COMPETENCIA = VC.ID_COMPETENCIA WHERE VC.ID_VAGA = ?"
+                PreparedStatement stmtCompetencias = conn.prepareStatement(sqlCompetencias)
+                stmtCompetencias.setInt(1, vaga.vagaId)
+                ResultSet rsCompetencias = stmtCompetencias.executeQuery()
+
+                List<Competencia> competencias = []
+                while (rsCompetencias.next()) {
+                    Competencia competencia = new Competencia(rsCompetencias.getInt("ID_COMPETENCIA"), rsCompetencias.getString("NOME_COMPETENCIA"))
+                    competencias.add(competencia)
+                }
+                vaga.competenciasRequeridas = competencias
+
                 vagas.add(vaga)
             }
 
@@ -104,8 +161,8 @@ class VagaRepository implements IVagaRepository {
 
             PreparedStatement stmt = conn.prepareStatement(sql)
 
-            stmt.setString(1, vaga.vagaNome)
-            stmt.setString(2, vaga.descricaoVaga)
+            stmt.setString(1, vaga.titulo)
+            stmt.setString(2, vaga.descricao)
             stmt.setString(3, vaga.estado)
             stmt.setString(4, vaga.cidade)
             stmt.setInt(5, vaga.vagaId)
@@ -133,5 +190,4 @@ class VagaRepository implements IVagaRepository {
             throw new RuntimeException("Erro ao excluir vaga: " + e.getMessage(), e)
         }
     }
-
 }

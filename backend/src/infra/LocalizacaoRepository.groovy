@@ -88,28 +88,22 @@ class LocalizacaoRepository implements ILocalizacaoRepository {
     }
 
     @Override
-    boolean editarLocalizacao(Localizacao localizacao, int candidatoId) {
+    boolean editarLocalizacao(Localizacao localizacao, int localizacaoId) {
         Connection conn = null
-
         try {
             conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
 
-            String sql = "UPDATE Localizacao SET CEP = ?, PAIS = ? WHERE ID_LOCALIZACAO = ?"
+            String sql = "UPDATE LOCALIZACAO SET CEP = ?, PAIS = ? WHERE ID_LOCALIZACAO = ?"
             PreparedStatement stmt = conn.prepareStatement(sql)
             stmt.setString(1, localizacao.cep)
             stmt.setString(2, localizacao.pais)
-            stmt.setInt(3, localizacao.localizacaoId)
+            stmt.setInt(3, localizacaoId)
 
             int affectedRows = stmt.executeUpdate()
 
-            if (affectedRows > 0) {
-                conn.commit()
-                return affectedRows > 0
-            } else {
-                throw new RuntimeException("Nenhuma localização foi atualizada.")
-            }
-
+            conn.commit()
+            return affectedRows > 0
         } catch (Exception e) {
             if (conn != null) {
                 try {
