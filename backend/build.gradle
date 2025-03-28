@@ -1,0 +1,27 @@
+plugins {
+    id 'groovy'
+    id 'application'
+}
+
+group 'com.linketinder'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.18'
+}
+
+application {
+    mainClass = 'Main'
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src']
+        }
+    }
+}

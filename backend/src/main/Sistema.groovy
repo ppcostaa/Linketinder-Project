@@ -4,6 +4,8 @@ import controllers.CandidatoController
 import controllers.CompetenciaController
 import controllers.EmpresaController
 import controllers.VagaController
+
+
 class Sistema {
 
 static void iniciarSistema(String[] args) {
