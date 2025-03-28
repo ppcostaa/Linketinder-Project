@@ -1,22 +1,24 @@
-package model;
+package model
 
-class Candidato extends Pessoa {
+class Candidato {
+    int candidatoId
+    int usuarioId
+    int localizacaoId
+    String nome
+    String sobrenome
+    Date dataNascimento
     String cpf
-    int idade
+    List<Competencia> competencias = []
 
-    Candidato(String nome, String email, String estado, String cep, String descricao, List<String> competencias, String cpf, int idade) {
-        super(nome, email, estado, cep, descricao, competencias);        this.cpf = cpf
-        this.idade = idade
-    }
-    @Override
-    String toString() {
-        return """Candidato: $nome
-Email: $email
-Estado: $estado
-CEP: $cep
-Descrição: $descricao
-Competências: ${competencias.join(", ")}
-Idade: $idade
---------------------------------------"""
+    Candidato(){}
+    Candidato(int candidatoId, int usuarioId, int localizacaoId, String nome, String sobrenome, String cpf, Date dataNascimento, List<Competencia> competencias) {
+        this.candidatoId = candidatoId
+        this.usuarioId = usuarioId
+        this.localizacaoId = localizacaoId
+        this.nome = nome
+        this.sobrenome = sobrenome
+        this.cpf = cpf
+        this.dataNascimento = dataNascimento
+        this.competencias = competencias
     }
 }

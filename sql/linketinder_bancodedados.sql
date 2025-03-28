@@ -1,122 +1,205 @@
-DROP TABLE IF EXISTS Matchs CASCADE;
-DROP TABLE IF EXISTS Likes CASCADE;
-DROP TABLE IF EXISTS Candidato_Competencias CASCADE;
-DROP TABLE IF EXISTS Vagas CASCADE;
-DROP TABLE IF EXISTS Empresas CASCADE;
-DROP TABLE IF EXISTS Candidatos CASCADE;
-DROP TABLE IF EXISTS Competencias CASCADE;
-DROP TABLE IF EXISTS Localizacao CASCADE;
-DROP TABLE IF EXISTS Usuarios CASCADE;
+DROP TABLE IF EXISTS MATCHS CASCADE;
 
-CREATE TABLE Usuarios (
-    id_usuario SERIAL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    senha VARCHAR(20) NOT NULL,
-    descricao TEXT
+DROP TABLE IF EXISTS LIKES CASCADE;
+
+DROP TABLE IF EXISTS CANDIDATO_COMPETENCIAS CASCADE;
+
+DROP TABLE IF EXISTS VAGAS CASCADE;
+
+DROP TABLE IF EXISTS EMPRESAS CASCADE;
+
+DROP TABLE IF EXISTS CANDIDATOS CASCADE;
+
+DROP TABLE IF EXISTS COMPETENCIAS CASCADE;
+
+DROP TABLE IF EXISTS LOCALIZACAO CASCADE;
+
+DROP TABLE IF EXISTS USUARIOS CASCADE;
+
+CREATE TABLE USUARIOS (
+	ID_USUARIO SERIAL PRIMARY KEY,
+	EMAIL VARCHAR(255) UNIQUE NOT NULL,
+	SENHA VARCHAR(20) NOT NULL,
+	DESCRICAO TEXT
 );
 
-CREATE TABLE Localizacao (
-    id_localizacao SERIAL PRIMARY KEY,
-    cep VARCHAR(10),
-    pais VARCHAR(100)
+CREATE TABLE LOCALIZACAO (
+	ID_LOCALIZACAO SERIAL PRIMARY KEY,
+	CEP VARCHAR(10),
+	PAIS VARCHAR(100)
 );
 
-CREATE TABLE Competencias (
-    id_competencia SERIAL PRIMARY KEY,
-    nome_competencia VARCHAR(255) NOT NULL
+CREATE TABLE COMPETENCIAS (
+	ID_COMPETENCIA SERIAL PRIMARY KEY,
+	NOME_COMPETENCIA VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Candidatos (
-    id_candidato SERIAL PRIMARY KEY,
-    id_usuario INT REFERENCES Usuarios(id_usuario),
-    id_localizacao INT REFERENCES Localizacao(id_localizacao),
-    nome VARCHAR(100),
-    sobrenome VARCHAR(100),
-    data_nascimento DATE,
-    cpf VARCHAR(14) UNIQUE NOT NULL
+CREATE TABLE CANDIDATOS (
+	ID_CANDIDATO SERIAL PRIMARY KEY,
+	ID_USUARIO INT REFERENCES USUARIOS (ID_USUARIO),
+	ID_LOCALIZACAO INT REFERENCES LOCALIZACAO (ID_LOCALIZACAO),
+	NOME VARCHAR(100),
+	SOBRENOME VARCHAR(100),
+	DATA_NASCIMENTO DATE,
+	CPF VARCHAR(14) UNIQUE NOT NULL
 );
 
-CREATE TABLE Empresas (
-    id_empresa SERIAL PRIMARY KEY,
-    id_usuario INT REFERENCES Usuarios(id_usuario),
-    id_localizacao INT REFERENCES Localizacao(id_localizacao),
-    nome_empresa VARCHAR(255),
-    cnpj VARCHAR(18) UNIQUE NOT NULL
+CREATE TABLE EMPRESAS (
+	ID_EMPRESA SERIAL PRIMARY KEY,
+	ID_USUARIO INT REFERENCES USUARIOS (ID_USUARIO),
+	ID_LOCALIZACAO INT REFERENCES LOCALIZACAO (ID_LOCALIZACAO),
+	NOME_EMPRESA VARCHAR(255),
+	CNPJ VARCHAR(18) UNIQUE NOT NULL
 );
 
-CREATE TABLE Vagas (
-    id_vaga SERIAL PRIMARY KEY,
-    id_empresa INT REFERENCES Empresas(id_empresa),
-    nome_vaga VARCHAR(255),
-    descricao_vaga TEXT,
-    local_estado VARCHAR(100),
-    local_cidade VARCHAR(100)
+CREATE TABLE VAGAS (
+	ID_VAGA SERIAL PRIMARY KEY,
+	ID_EMPRESA INT REFERENCES EMPRESAS (ID_EMPRESA),
+	NOME_VAGA VARCHAR(255),
+	DESCRICAO_VAGA TEXT,
+	LOCAL_ESTADO VARCHAR(100),
+	LOCAL_CIDADE VARCHAR(100)
 );
 
-CREATE TABLE Candidato_Competencias (
-    id_candidato INT REFERENCES Candidatos(id_candidato),
-    id_competencia INT REFERENCES Competencias(id_competencia),
-    PRIMARY KEY(id_candidato, id_competencia)
+CREATE TABLE CANDIDATO_COMPETENCIAS (
+	ID_CANDIDATO INT REFERENCES CANDIDATOS (ID_CANDIDATO),
+	ID_COMPETENCIA INT REFERENCES COMPETENCIAS (ID_COMPETENCIA),
+	PRIMARY KEY (ID_CANDIDATO, ID_COMPETENCIA)
 );
 
-CREATE TABLE Likes (
-    id_like SERIAL PRIMARY KEY,
-    id_candidato INT REFERENCES Candidatos(id_candidato),
-    id_empresa INT REFERENCES Empresas(id_empresa)
+CREATE TABLE LIKES (
+	ID_LIKE SERIAL PRIMARY KEY,
+	ID_CANDIDATO INT REFERENCES CANDIDATOS (ID_CANDIDATO),
+	ID_EMPRESA INT REFERENCES EMPRESAS (ID_EMPRESA)
 );
 
-CREATE TABLE Matchs (
-    candidato_id INT REFERENCES Candidatos(id_candidato) ON DELETE CASCADE,
-    empresa_id INT REFERENCES Empresas(id_empresa) ON DELETE CASCADE,
-    PRIMARY KEY (candidato_id, empresa_id)
+CREATE TABLE MATCHS (
+	CANDIDATO_ID INT REFERENCES CANDIDATOS (ID_CANDIDATO) ON DELETE CASCADE,
+	EMPRESA_ID INT REFERENCES EMPRESAS (ID_EMPRESA) ON DELETE CASCADE,
+	PRIMARY KEY (CANDIDATO_ID, EMPRESA_ID)
 );
 
-INSERT INTO Usuarios (email, senha, descricao)
-VALUES 
-('sandubinha@email.com', 'senha123', 'Busco novas oportunidades de trabalho.'),
-('contato@pastelsoft.com', 'senha303', 'Software ERP para redes de restaurantes.');
+INSERT INTO
+	USUARIOS (EMAIL, SENHA, DESCRICAO)
+VALUES
+	(
+		'sandubinha@email.com',
+		'senha123',
+		'Busco novas oportunidades de trabalho.'
+	),
+	(
+		'contato@pastelsoft.com',
+		'senha303',
+		'Software ERP para redes de restaurantes.'
+	);
 
-INSERT INTO Localizacao (cep, pais)
-VALUES 
-('12345-678', 'Brasil'),
-('54321-123', 'Brasil');
+INSERT INTO
+	LOCALIZACAO (CEP, PAIS)
+VALUES
+	('12345-678', 'Brasil'),
+	('54321-123', 'Brasil');
 
-INSERT INTO Competencias (nome_competencia) VALUES ('Python'), ('Java'), ('Groovy'), ('Angular'), ('Ilustrador');
+INSERT INTO
+	COMPETENCIAS (NOME_COMPETENCIA)
+VALUES
+	('Python'),
+	('Java'),
+	('Groovy'),
+	('Angular'),
+	('Ilustrador');
 
-INSERT INTO Candidatos (id_usuario, id_localizacao, nome, sobrenome, data_nascimento, cpf)
-VALUES 
-(1, 1, 'Sandubinha', 'Silva', '1990-05-15', '12345678900');
+INSERT INTO
+	CANDIDATOS (
+		ID_USUARIO,
+		ID_LOCALIZACAO,
+		NOME,
+		SOBRENOME,
+		DATA_NASCIMENTO,
+		CPF
+	)
+VALUES
+	(
+		1,
+		1,
+		'Sandubinha',
+		'Silva',
+		'1990-05-15',
+		'12345678900'
+	);
 
-INSERT INTO Empresas (id_usuario, id_localizacao, nome_empresa, cnpj)
-VALUES 
-(2, 2, 'Pastelsoft', '12.345.678/0001-90');
+INSERT INTO
+	EMPRESAS (ID_USUARIO, ID_LOCALIZACAO, NOME_EMPRESA, CNPJ)
+VALUES
+	(2, 2, 'Pastelsoft', '12.345.678/0001-90');
 
-INSERT INTO Vagas (id_empresa, nome_vaga, descricao_vaga, local_estado, local_cidade) 
-VALUES 
-(1, 'Desenvolvedor Java', 'Desenvolvimento de sistemas para ERP.', 'São Paulo', 'São Paulo');
+INSERT INTO
+	VAGAS (
+		ID_EMPRESA,
+		NOME_VAGA,
+		DESCRICAO_VAGA,
+		LOCAL_ESTADO,
+		LOCAL_CIDADE
+	)
+VALUES
+	(
+		1,
+		'Desenvolvedor Java',
+		'Desenvolvimento de sistemas para ERP.',
+		'São Paulo',
+		'São Paulo'
+	);
 
-INSERT INTO Likes (id_candidato, id_empresa) 
-VALUES (1, 1);
-INSERT INTO Likes (id_empresa, id_candidato) 
-VALUES (1, 1);
+INSERT INTO
+	LIKES (ID_CANDIDATO, ID_EMPRESA)
+VALUES
+	(1, 1);
 
-INSERT INTO Matchs (candidato_id, empresa_id)
-SELECT l.id_candidato, l.id_empresa
-FROM Likes l
-WHERE EXISTS (
-    SELECT 1
-    FROM Likes l2
-    WHERE l2.id_candidato = l.id_empresa
-      AND l2.id_empresa = l.id_candidato
-)
-AND l.id_candidato = 1
-AND l.id_empresa = 1
-ON CONFLICT (candidato_id, empresa_id) DO NOTHING;
+INSERT INTO
+	LIKES (ID_EMPRESA, ID_CANDIDATO)
+VALUES
+	(1, 1);
 
-SELECT * FROM Candidatos;
-SELECT * FROM Empresas;
-SELECT * FROM Vagas;
-SELECT * FROM Candidato_Competencias;
-SELECT * FROM Likes;
-SELECT * FROM Competencias;
-SELECT * FROM Matchs WHERE candidato_id = 1 AND empresa_id = 1;
+INSERT INTO MATCHS (CANDIDATO_ID, EMPRESA_ID)
+SELECT L1.ID_CANDIDATO, L1.ID_EMPRESA
+FROM LIKES L1
+JOIN LIKES L2 ON L1.ID_CANDIDATO = L2.ID_EMPRESA AND L1.ID_EMPRESA = L2.ID_CANDIDATO
+WHERE L1.ID_CANDIDATO = L2.ID_EMPRESA AND L1.ID_EMPRESA = L2.ID_CANDIDATO
+ON CONFLICT (CANDIDATO_ID, EMPRESA_ID) DO NOTHING;
+
+SELECT
+	*
+FROM
+	CANDIDATOS;
+
+SELECT
+	*
+FROM
+	EMPRESAS;
+
+SELECT
+	*
+FROM
+	VAGAS;
+
+SELECT
+	*
+FROM
+	CANDIDATO_COMPETENCIAS;
+
+SELECT
+	*
+FROM
+	LIKES;
+
+SELECT
+	*
+FROM
+	COMPETENCIAS;
+
+SELECT
+	*
+FROM
+	MATCHS
+WHERE
+	CANDIDATO_ID = 1
+	AND EMPRESA_ID = 1;

@@ -1,24 +1,20 @@
 package model;
 
-class Empresa extends Pessoa {
+class Empresa extends Usuario {
+    int empresaId
     String cnpj
-    String pais
+    String empresaNome
+    List<String> competencias = []
+    int localizacaoId
 
-    Empresa(String nome, String email, String estado, String cep, String descricao, List<String> competencias, String cnpj, String pais) {
-        super(nome, email, estado, cep, descricao, competencias)
+    Empresa(){}
+    Empresa(int usuarioId, int empresaId, int localizacaoId, String empresaNome, String email, String senha, String descricao, List<String> competencias, String cnpj, String pais, String cep) {
+        super(usuarioId, email, senha, descricao, pais, cep)
+        this.empresaId = empresaId
         this.cnpj = cnpj
-        this.pais = pais
+        this.empresaNome = empresaNome
+        this.competencias = competencias
+        this.localizacaoId = localizacaoId
     }
-    @Override
-    String toString() {
-        return """Empresa: $nome
-Email: $email
-Estado: $estado
-CEP: $cep
-Descrição: $descricao
-Competências: ${competencias.join(", ")}
-CNPJ: $cnpj
-País: $pais
---------------------------------------"""
-    }
+
 }
