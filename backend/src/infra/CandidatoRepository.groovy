@@ -2,7 +2,6 @@ package infra
 
 import database.ConnectionFactory
 import model.Candidato
-import model.Competencia
 
 import java.sql.*
 
@@ -186,7 +185,6 @@ class CandidatoRepository implements ICandidatoRepository {
         }
     }
 
-    @Override
     boolean editarCandidato(Candidato candidato) {
         Connection conn = null
 
@@ -194,6 +192,7 @@ class CandidatoRepository implements ICandidatoRepository {
             conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
 
+            // Atualizar dados básicos do candidato
             String sql = "UPDATE CANDIDATOS SET NOME = ?, SOBRENOME = ?, DATA_NASCIMENTO = ?, CPF = ? WHERE ID_CANDIDATO = ?"
             PreparedStatement stmt = conn.prepareStatement(sql)
             stmt.setString(1, candidato.nome)
@@ -204,34 +203,24 @@ class CandidatoRepository implements ICandidatoRepository {
 
             int affectedRows = stmt.executeUpdate()
 
-            if (affectedRows > 0 && candidato.competencias) {
+            if (affectedRows > 0) {
+                // Remover todas as competências atuais
                 String sqlDelete = "DELETE FROM CANDIDATO_COMPETENCIAS WHERE ID_CANDIDATO = ?"
                 PreparedStatement stmtDelete = conn.prepareStatement(sqlDelete)
                 stmtDelete.setInt(1, candidato.candidatoId)
                 stmtDelete.executeUpdate()
                 stmtDelete.close()
 
-                CompetenciaRepository competenciaRepository = new CompetenciaRepository()
-
-                candidato.competencias = candidato.competencias.collect { competencia ->
-                    new Competencia(competenciaNome: competencia)
-                }
-
-                candidato.competencias.each { competencia ->
-                    Competencia competenciasExistentes = competenciaRepository.competenciaPorNome(competencia.competenciaNome)
-                    if (!competenciasExistentes) {
-                        competencia = competenciaRepository.create(competencia)
-                    } else {
-                        competencia.competenciaId = competenciasExistentes.competenciaId
+                // Adicionar as novas competências
+                if (candidato.competencias && !candidato.competencias.isEmpty()) {
+                    candidato.competencias.each { competencia ->
+                        String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"
+                        PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
+                        stmtCompetencia.setInt(1, candidato.candidatoId)
+                        stmtCompetencia.setInt(2, competencia.competenciaId)
+                        stmtCompetencia.executeUpdate()
+                        stmtCompetencia.close()
                     }
-
-
-                    String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"
-                    PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia)
-                    stmtCompetencia.setInt(1, candidato.candidatoId)
-                    stmtCompetencia.setInt(2, competencia.competenciaId)
-                    stmtCompetencia.executeUpdate()
-                    stmtCompetencia.close()
                 }
             }
 

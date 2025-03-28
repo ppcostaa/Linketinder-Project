@@ -10,14 +10,13 @@ class CompetenciaController {
     def index() {
         List<Competencia> competencias = competenciaRepository.listarCompetencias()
         if (competencias.isEmpty()) {
-            println "Nenhuma competência cadastrado. (•◡•) /"
+            println "Nenhuma competência cadastrada. (•◡•) /"
         } else {
-            println("✦•····· Lista de Competências ·····•✦");
-            competencias.each { candidato ->
-                println "ID: ${competencias.competenciaId}, \n" +
-                        "Nome: ${competencias.competenciaNome} \n" +
-                        "✦•·····•✦•·····•✦"
+            println("✦•····· Lista de Competências ·····•✦")
+            competencias.each { competencia ->
+                println "ID: ${competencia.competenciaId}, Nome: ${competencia.competenciaNome}"
             }
+            println "✦•·····•✦•·····•✦"
         }
     }
 
