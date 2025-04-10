@@ -168,92 +168,94 @@ class CandidatoController {
             println "Opção inválida! Escolha números entre 1 e 10. (•◡•) /"
             return
         }
-        switch (opcoesSelecionadas) {
-            case "1":
-                print "Digite o novo nome: "
-                candidatoParaEditar.nome = scanner.nextLine()
-                break;
-            case "2":
-                print "Digite o novo sobrenome: "
-                candidatoParaEditar.sobrenome = scanner.nextLine()
-                break;
-            case "3":
-                print "Digite o novo email: "
-                usuario.email = scanner.nextLine()
-                break;
-            case "4":
-                print "Digite a nova Senha: "
-                usuario.senha = scanner.nextLine()
-                break;
-            case "5":
-                print "Digite o novo CEP: "
-                localizacao.cep = scanner.nextLine()
-                break;
-            case "6":
-                print "Digite o novo País: "
-                localizacao.pais = scanner.nextLine()
-                break;
-            case "7":
-                print "Digite o novo CPF: "
-                candidatoParaEditar.cpf = scanner.nextLine()
-                break;
-            case "8":
-                print "Digite a nova data de nascimento (dd/MM/yyyy): "
-                String novaDataNascimentoStr = scanner.nextLine()
-                try {
-                    candidatoParaEditar.dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(novaDataNascimentoStr)
-                } catch (Exception e) {
-                    println "Formato de data inválido! A data deve estar no formato dd/MM/yyyy. (•◡•) /"
-                }
-                break;
-            case "9":
-                println "\nEdição de Competências:"
-                println "1. Adicionar novas competências"
-                println "2. Remover competências existentes"
-                print "Escolha uma opção: "
-                int opcaoCompetencia = scanner.nextInt()
-                scanner.nextLine()
-
-                if (opcaoCompetencia == 1) {
-                    List<Competencia> todasCompetencias = competenciaRepository.listarCompetencias()
-                    List<Competencia> competenciasAtuais = candidatoParaEditar.competencias
-                    List<Competencia> competenciasDisponiveis = todasCompetencias.findAll { competencia ->
-                        !competenciasAtuais.any { it.competenciaId == competencia.competenciaId }
+        opcoesSelecionadas.each { opcao ->
+            switch (opcao) {
+                case 1:
+                    print "Digite o novo nome: "
+                    candidatoParaEditar.nome = scanner.nextLine()
+                    break
+                case 2:
+                    print "Digite o novo sobrenome: "
+                    candidatoParaEditar.sobrenome = scanner.nextLine()
+                    break
+                case 3:
+                    print "Digite o novo email: "
+                    usuario.email = scanner.nextLine()
+                    break
+                case 4:
+                    print "Digite a nova Senha: "
+                    usuario.senha = scanner.nextLine()
+                    break
+                case 5:
+                    print "Digite o novo CEP: "
+                    localizacao.cep = scanner.nextLine()
+                    break
+                case 6:
+                    print "Digite o novo País: "
+                    localizacao.pais = scanner.nextLine()
+                    break
+                case 7:
+                    print "Digite o novo CPF: "
+                    candidatoParaEditar.cpf = scanner.nextLine()
+                    break
+                case 8:
+                    print "Digite a nova data de nascimento (dd/MM/yyyy): "
+                    String novaDataNascimentoStr = scanner.nextLine()
+                    try {
+                        candidatoParaEditar.dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(novaDataNascimentoStr)
+                    } catch (Exception e) {
+                        println "Formato de data inválido! A data deve estar no formato dd/MM/yyyy. (•◡•) /"
                     }
+                    break
+                case 9:
+                    println "\nEdição de Competências:"
+                    println "1. Adicionar novas competências"
+                    println "2. Remover competências existentes"
+                    print "Escolha uma opção: "
+                    int opcaoCompetencia = scanner.nextInt()
+                    scanner.nextLine()
 
-                    println "Competências disponíveis para adicionar:"
-                    competenciasDisponiveis.eachWithIndex { competencia, index ->
-                        println "${index + 1}: ${competencia.competenciaNome}"
-                    }
-                    print "Digite os números das competências que deseja adicionar (separados por vírgula): "
-                    String input = scanner.nextLine()
-                    List<Integer> indicesSelecionados = input.split(',').collect { it.trim().toInteger() }
+                    if (opcaoCompetencia == 1) {
+                        List<Competencia> todasCompetencias = competenciaRepository.listarCompetencias()
+                        List<Competencia> competenciasAtuais = candidatoParaEditar.competencias
+                        List<Competencia> competenciasDisponiveis = todasCompetencias.findAll { competencia ->
+                            !competenciasAtuais.any { it.competenciaId == competencia.competenciaId }
+                        }
 
-                    List<Competencia> competenciasSelecionadas = indicesSelecionados.collect { index ->
-                        competenciasDisponiveis[index - 1]
-                    }
+                        println "Competências disponíveis para adicionar:"
+                        competenciasDisponiveis.eachWithIndex { competencia, index ->
+                            println "${index + 1}: ${competencia.competenciaNome}"
+                        }
+                        print "Digite os números das competências que deseja adicionar (separados por vírgula): "
+                        String input = scanner.nextLine()
+                        List<Integer> indicesSelecionados = input.split(',').collect { it.trim().toInteger() }
 
-                    candidatoParaEditar.competencias.addAll(competenciasSelecionadas)
-                } else if (opcaoCompetencia == 2) {
-                    println "Competências atuais do candidato:"
-                    candidatoParaEditar.competencias.eachWithIndex { competencia, index ->
-                        println "${index + 1}: ${competencia.competenciaNome}"
-                    }
-                    print "Digite os números das competências que deseja remover (separados por vírgula): "
-                    String input = scanner.nextLine()
-                    List<Integer> indicesSelecionados = input.split(',').collect { it.trim().toInteger() }
+                        List<Competencia> competenciasSelecionadas = indicesSelecionados.collect { index ->
+                            competenciasDisponiveis[index - 1]
+                        }
 
-                    indicesSelecionados.sort().reverse().each { index ->
-                        candidatoParaEditar.competencias.remove(index - 1)
+                        candidatoParaEditar.competencias.addAll(competenciasSelecionadas)
+                    } else if (opcaoCompetencia == 2) {
+                        println "Competências atuais do candidato:"
+                        candidatoParaEditar.competencias.eachWithIndex { competencia, index ->
+                            println "${index + 1}: ${competencia.competenciaNome}"
+                        }
+                        print "Digite os números das competências que deseja remover (separados por vírgula): "
+                        String input = scanner.nextLine()
+                        List<Integer> indicesSelecionados = input.split(',').collect { it.trim().toInteger() }
+
+                        indicesSelecionados.sort().reverse().each { index ->
+                            candidatoParaEditar.competencias.remove(index - 1)
+                        }
+                    } else {
+                        println "Opção inválida!"
                     }
-                } else {
-                    println "Opção inválida!"
-                }
-                break;
-            case "10":
-                print "Digite a nova Descrição: "
-                usuario.descricao = scanner.nextLine()
-                break;
+                    break
+                case 10:
+                    print "Digite a nova Descrição: "
+                    usuario.descricao = scanner.nextLine()
+                    break
+            }
         }
 
         boolean sucessoCandidato = candidatoRepository.editarCandidato(candidatoParaEditar)
