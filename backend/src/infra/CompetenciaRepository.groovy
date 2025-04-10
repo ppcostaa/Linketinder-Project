@@ -1,13 +1,13 @@
 package infra
 
 import database.ConnectionFactory
+import database.DatabaseFactory
 import model.Competencia
 
 import java.sql.*
 
 class CompetenciaRepository implements ICompetenciaRepository {
-    ConnectionFactory connectionFactory = new ConnectionFactory('jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123')
-
+    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
     @Override
     Competencia salvarCompetencia(Competencia competencia) {
         Connection conn = null

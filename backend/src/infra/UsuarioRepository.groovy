@@ -1,14 +1,13 @@
 package infra
 
 import database.ConnectionFactory
+import database.DatabaseFactory
 import model.Usuario
 
 import java.sql.*
 
 class UsuarioRepository implements IUsuarioRepository {
-    ConnectionFactory connectionFactory = new ConnectionFactory(
-            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
-    )
+    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
 
     @Override
     boolean emailExiste(String email) {

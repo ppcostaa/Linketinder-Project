@@ -1,6 +1,7 @@
 package infra
 
 import database.ConnectionFactory
+import database.DatabaseFactory
 import model.Competencia
 import model.Vaga
 
@@ -8,9 +9,7 @@ import java.sql.*
 
 class VagaRepository implements IVagaRepository {
 
-    ConnectionFactory connectionFactory = new ConnectionFactory(
-            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
-    )
+    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
 
     @Override
     Vaga salvarVaga(Vaga vaga) {

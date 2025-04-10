@@ -1,14 +1,13 @@
 package infra
 
 import database.ConnectionFactory
+import database.DatabaseFactory
 import model.Empresa
 
 import java.sql.*
 
 class EmpresaRepository implements IEmpresaRepository {
-    ConnectionFactory connectionFactory = new ConnectionFactory(
-            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
-    )
+    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
 
     @Override
     Empresa salvarEmpresa(Empresa empresa, String email, String senha, String descricao, String cep, String pais) {

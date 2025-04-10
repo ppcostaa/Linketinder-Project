@@ -1,14 +1,13 @@
 package infra
 
 import database.ConnectionFactory
+import database.DatabaseFactory
 import model.Candidato
 
 import java.sql.*
 
 class CandidatoRepository implements ICandidatoRepository {
-    ConnectionFactory connectionFactory = new ConnectionFactory(
-            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
-    )
+    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
     CompetenciaRepository competenciaRepository = new CompetenciaRepository()
 
     @Override

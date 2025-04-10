@@ -1,14 +1,13 @@
 package infra
 
 import database.ConnectionFactory
+import database.DatabaseFactory
 import model.Localizacao
 
 import java.sql.*
 
 class LocalizacaoRepository implements ILocalizacaoRepository {
-    ConnectionFactory connectionFactory = new ConnectionFactory(
-            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
-    )
+    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
 
     @Override
     Localizacao salvarLocalizacao(Localizacao localizacao) {
