@@ -28,8 +28,6 @@ class CandidatoController {
                 Usuario usuario = usuarioRepository.listarUsuariosPorId(candidato.usuarioId)
                 Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(candidato.localizacaoId)
                 println "ID: ${candidato.candidatoId}, \n" +
-                        "Nome: ${candidato.nome} \n" +
-                        "Sobrenome: ${candidato.sobrenome}, \n" +
                         "Email: ${usuario.email}, \n" +
                         "CEP: ${localizacao.cep}, \n" +
                         "País: ${localizacao.pais}, \n" +
