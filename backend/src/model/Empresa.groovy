@@ -7,7 +7,8 @@ class Empresa extends Usuario {
     List<String> competencias = []
     int localizacaoId
 
-    Empresa(){}
+    Empresa() {}
+
     Empresa(int usuarioId, int empresaId, int localizacaoId, String empresaNome, String email, String senha, String descricao, List<String> competencias, String cnpj, String pais, String cep) {
         super(usuarioId, email, senha, descricao, pais, cep)
         this.empresaId = empresaId

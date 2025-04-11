@@ -1,29 +1,26 @@
 package database
 
 class EnvReader {
-    private final Properties properties = new Properties()
+    private Properties properties = new Properties()
 
     EnvReader() {
-        String envPath = "/home/pcosta/acelera/Linketinder-Project/backend/.env"
-        File envFile = new File(envPath)
-
-        if (!envFile.exists()) {
-            throw new FileNotFoundException("Arquivo .env não encontrado")
-        }
-
-        try (InputStream input = new FileInputStream(envFile)) {
-            properties.load(new StringReader(envFile.text.replace('=', ':')))
-        }
-
-        // Verificação manual das propriedades necessárias
-        if (!properties.containsKey('db.url') ||
-                !properties.containsKey('db.user') ||
-                !properties.containsKey('db.pass')) {
-            throw new IllegalStateException("Propriedades do banco de dados faltando no .env")
+        try {
+            def envFile = new File("/home/pcosta/acelera/Linketinder-Project/backend/.env")
+            if (envFile.exists()) {
+                properties.load(new FileReader(envFile))
+            } else {
+                throw new RuntimeException("Arquivo .env não encontrado")
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao ler arquivo .env: " + e.getMessage(), e)
         }
     }
 
     String getProperty(String key) {
-        return properties.getProperty(key)
+        String value = properties.getProperty(key)
+        if (value == null) {
+            throw new RuntimeException("Propriedade '$key' não encontrada no arquivo .env")
+        }
+        return value
     }
 }

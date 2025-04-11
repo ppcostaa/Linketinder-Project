@@ -61,6 +61,7 @@ class CompetenciaController {
             println "Erro ao atualizar competência. (╥﹏╥)"
         }
     }
+
     def salvarCompetencia() {
         println "Informe os dados da Competência:"
         print "Nome: "

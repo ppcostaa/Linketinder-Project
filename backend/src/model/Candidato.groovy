@@ -10,7 +10,8 @@ class Candidato {
     String cpf
     List<Competencia> competencias = []
 
-    Candidato(){}
+    Candidato() {}
+
     Candidato(int candidatoId, int usuarioId, int localizacaoId, String nome, String sobrenome, String cpf, Date dataNascimento, List<Competencia> competencias) {
         this.candidatoId = candidatoId
         this.usuarioId = usuarioId
