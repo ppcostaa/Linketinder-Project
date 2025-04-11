@@ -191,7 +191,6 @@ class CandidatoRepository implements ICandidatoRepository {
             conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
 
-            // Atualizar dados básicos do candidato
             String sql = "UPDATE CANDIDATOS SET NOME = ?, SOBRENOME = ?, DATA_NASCIMENTO = ?, CPF = ? WHERE ID_CANDIDATO = ?"
             PreparedStatement stmt = conn.prepareStatement(sql)
             stmt.setString(1, candidato.nome)
@@ -203,14 +202,12 @@ class CandidatoRepository implements ICandidatoRepository {
             int affectedRows = stmt.executeUpdate()
 
             if (affectedRows > 0) {
-                // Remover todas as competências atuais
                 String sqlDelete = "DELETE FROM CANDIDATO_COMPETENCIAS WHERE ID_CANDIDATO = ?"
                 PreparedStatement stmtDelete = conn.prepareStatement(sqlDelete)
                 stmtDelete.setInt(1, candidato.candidatoId)
                 stmtDelete.executeUpdate()
                 stmtDelete.close()
 
-                // Adicionar as novas competências
                 if (candidato.competencias && !candidato.competencias.isEmpty()) {
                     candidato.competencias.each { competencia ->
                         String sqlCompetencia = "INSERT INTO CANDIDATO_COMPETENCIAS (ID_CANDIDATO, ID_COMPETENCIA) VALUES (?, ?)"

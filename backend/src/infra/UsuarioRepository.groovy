@@ -27,13 +27,16 @@ class UsuarioRepository implements IUsuarioRepository {
     }
 
     @Override
+    @Override
     Usuario salvarUsuario(Usuario usuario) {
         String sql = "INSERT INTO USUARIOS (EMAIL, SENHA, DESCRICAO) VALUES (?, ?, ?) RETURNING ID_USUARIO"
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        Connection conn = null
+        try {
+            conn = connectionFactory.createConnection()
+            conn.setAutoCommit(false) // Desativa autocommit
 
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-
             stmt.setString(1, usuario.email)
             stmt.setString(2, usuario.senha)
             stmt.setString(3, usuario.descricao)
@@ -48,12 +51,19 @@ class UsuarioRepository implements IUsuarioRepository {
                 rs.close()
             }
 
+            conn.commit() // Commit explícito
             return usuario
         } catch (SQLException e) {
+            if (conn != null) {
+                try { conn.rollback() } catch (SQLException ex) {}
+            }
             throw new RuntimeException("Erro ao criar usuário: " + e.getMessage(), e)
+        } finally {
+            if (conn != null) {
+                try { conn.close() } catch (SQLException e) {}
+            }
         }
     }
-
     @Override
     Usuario listarUsuariosPorId(int usuarioId) {
         String sql = "SELECT * FROM USUARIOS WHERE ID_USUARIO = ?"

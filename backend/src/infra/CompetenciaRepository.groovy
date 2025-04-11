@@ -8,6 +8,7 @@ import java.sql.*
 
 class CompetenciaRepository implements ICompetenciaRepository {
     ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
+
     @Override
     Competencia salvarCompetencia(Competencia competencia) {
         Connection conn = null
@@ -16,7 +17,7 @@ class CompetenciaRepository implements ICompetenciaRepository {
             conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
 
-                String sqlCompetencia = "INSERT INTO COMPETENCIAS (NOME_COMPETENCIA) VALUES (?) RETURNING ID_COMPETENCIA"
+            String sqlCompetencia = "INSERT INTO COMPETENCIAS (NOME_COMPETENCIA) VALUES (?) RETURNING ID_COMPETENCIA"
             PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia, Statement.RETURN_GENERATED_KEYS)
 
             stmtCompetencia.setString(1, competencia.competenciaNome)
@@ -83,6 +84,7 @@ class CompetenciaRepository implements ICompetenciaRepository {
 
         return competencias
     }
+
     List<Competencia> listarCompetencias() {
         String sql = "SELECT * FROM COMPETENCIAS"
 
@@ -104,6 +106,7 @@ class CompetenciaRepository implements ICompetenciaRepository {
 
         return competencias
     }
+
     List<Competencia> listarCompetenciasPorVaga(int vagaId) {
         String sql = """
         SELECT c.* 
@@ -130,27 +133,6 @@ class CompetenciaRepository implements ICompetenciaRepository {
         }
 
         return competencias
-    }
-
-    Competencia competenciaPorNome(String nome) {
-        String sql = "SELECT * FROM COMPETENCIAS WHERE NOME_COMPETENCIA = ?"
-
-        try (Connection conn = connectionFactory.createConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(sql)
-            stmt.setString(1, nome)
-            ResultSet rs = stmt.executeQuery()
-
-            if (rs.next()) {
-                Competencia competencia = new Competencia()
-                competencia.competenciaId = rs.getInt("ID_COMPETENCIA")
-                competencia.competenciaNome = rs.getString("NOME_COMPETENCIA")
-                return competencia
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar competência: " + e.getMessage(), e)
-        }
-
-        return null
     }
 
     @Override
@@ -190,6 +172,7 @@ class CompetenciaRepository implements ICompetenciaRepository {
             }
         }
     }
+
     @Override
     Competencia listarCompetenciasPorId(int competenciaId) {
         String sql = """SELECT * FROM COMPETENCIAS WHERE ID_COMPETENCIA = ?

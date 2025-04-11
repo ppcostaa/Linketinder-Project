@@ -5,7 +5,7 @@ import groovy.sql.Sql
 import java.sql.Connection
 import java.sql.DriverManager
 
-class ConnectionFactory implements IConnectionFactory {
+class   ConnectionFactory implements IConnectionFactory {
     final String url
     final String username
     final String password
