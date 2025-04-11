@@ -7,138 +7,137 @@ import model.Usuario
 import java.sql.*
 
 class UsuarioRepository implements IUsuarioRepository {
-    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
+    private final ConnectionFactory connectionFactory
+
+    UsuarioRepository() {
+        this.connectionFactory = DatabaseFactory.createConnectionFactory()
+    }
+
+    UsuarioRepository(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory
+    }
 
     @Override
     boolean emailExiste(String email) {
-        try (Connection conn = connectionFactory.createConnection()) {
+        final String sql = "SELECT COUNT(*) FROM USUARIOS WHERE EMAIL = ?"
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM USUARIOS WHERE EMAIL = ?")
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement consulta = conexao.prepareStatement(sql)
+            consulta.setString(1, email)
 
-            stmt.setString(1, email)
-            ResultSet rs = stmt.executeQuery()
-            rs.next()
-            int count = rs.getInt(1)
-            return count > 0
+            ResultSet resultado = consulta.executeQuery()
+            resultado.next()
+            return resultado.getInt(1) > 0
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao verificar email: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao verificar existência do email: " + e.getMessage(), e)
         }
-
     }
 
     @Override
     Usuario salvarUsuario(Usuario usuario) {
-        String sql = "INSERT INTO USUARIOS (EMAIL, SENHA, DESCRICAO) VALUES (?, ?, ?) RETURNING ID_USUARIO"
+        final String sql = "INSERT INTO USUARIOS (EMAIL, SENHA, DESCRICAO) VALUES (?, ?, ?) RETURNING ID_USUARIO"
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+            preencherParametrosUsuario(comando, usuario)
 
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-
-            stmt.setString(1, usuario.email)
-            stmt.setString(2, usuario.senha)
-            stmt.setString(3, usuario.descricao)
-
-            int affectedRows = stmt.executeUpdate()
-
-            if (affectedRows > 0) {
-                ResultSet rs = stmt.getGeneratedKeys()
-                if (rs.next()) {
-                    usuario.usuarioId = rs.getInt(1)
-                }
-                rs.close()
+            int linhasAfetadas = comando.executeUpdate()
+            if (linhasAfetadas > 0) {
+                atribuirIdGerado(comando, usuario)
             }
 
             return usuario
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao criar usuário: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao salvar usuário: " + e.getMessage(), e)
         }
     }
 
     @Override
-    Usuario listarUsuariosPorId(int usuarioId) {
-        String sql = "SELECT * FROM USUARIOS WHERE ID_USUARIO = ?"
+    Usuario buscarUsuarioPorId(int usuarioId) {
+        final String sql = "SELECT * FROM USUARIOS WHERE ID_USUARIO = ?"
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement consulta = conexao.prepareStatement(sql)
+            consulta.setInt(1, usuarioId)
 
-            PreparedStatement stmt = conn.prepareStatement(sql)
-
-            stmt.setObject(1, usuarioId ?: null)
-            ResultSet rs = stmt.executeQuery()
-
-            if (rs.next()) {
-                Usuario usuario = new Usuario()
-                usuario.usuarioId = rs.getInt("ID_USUARIO")
-                usuario.email = rs.getString("EMAIL")
-                usuario.senha = rs.getString("SENHA")
-                usuario.descricao = rs.getString("DESCRICAO")
-                return usuario
-            }
-
-            return null
+            ResultSet resultado = consulta.executeQuery()
+            return resultado.next() ? criarUsuarioAPartirDoResultado(resultado) : null
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar usuário: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao buscar usuário por ID: " + e.getMessage(), e)
         }
     }
 
     @Override
-    List<Usuario> listarUsuarios() {
-        String sql = "SELECT * FROM USUARIOS"
+    List<Usuario> buscarTodosUsuarios() {
+        final String sql = "SELECT * FROM USUARIOS"
         List<Usuario> usuarios = []
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement consulta = conexao.prepareStatement(sql)
+            ResultSet resultado = consulta.executeQuery()
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()
-
-            while (rs.next()) {
-                Usuario usuario = new Usuario()
-                usuario.usuarioId = rs.getInt("ID_USUARIO")
-                usuario.email = rs.getString("EMAIL")
-                usuario.senha = rs.getString("SENHA")
-                usuario.descricao = rs.getString("DESCRICAO")
-                usuarios.add(usuario)
+            while (resultado.next()) {
+                usuarios.add(criarUsuarioAPartirDoResultado(resultado))
             }
 
             return usuarios
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar usuários: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao listar todos os usuários: " + e.getMessage(), e)
         }
     }
 
     @Override
-    boolean editarUsuario(Usuario usuario) {
-        String sql = "UPDATE USUARIOS SET EMAIL = ?, SENHA = ?, DESCRICAO = ? WHERE ID_USUARIO = ?"
+    boolean atualizarUsuario(Usuario usuario) {
+        final String sql = "UPDATE USUARIOS SET EMAIL = ?, SENHA = ?, DESCRICAO = ? WHERE ID_USUARIO = ?"
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement comando = conexao.prepareStatement(sql)
+            preencherParametrosUsuario(comando, usuario)
+            comando.setInt(4, usuario.usuarioId)
 
-            PreparedStatement stmt = conn.prepareStatement(sql)
-
-            stmt.setString(1, usuario.email)
-            stmt.setString(2, usuario.senha)
-            stmt.setString(3, usuario.descricao)
-            stmt.setObject(4, usuario.usuarioId ?: null)
-
-            int affectedRows = stmt.executeUpdate()
-            return affectedRows > 0
+            return comando.executeUpdate() > 0
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao atualizar usuário: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao atualizar usuário: " + e.getMessage(), e)
         }
     }
 
     @Override
-    boolean excluirUsuario(int usuarioId) {
-        String sql = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?"
+    boolean removerUsuario(int usuarioId) {
+        final String sql = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?"
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement comando = conexao.prepareStatement(sql)
+            comando.setInt(1, usuarioId)
 
-            PreparedStatement stmt = conn.prepareStatement(sql)
-
-            stmt.setObject(1, usuarioId ?: null)
-
-            int affectedRows = stmt.executeUpdate()
-            return affectedRows > 0
+            return comando.executeUpdate() > 0
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao excluir usuário: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao remover usuário: " + e.getMessage(), e)
         }
+    }
+    private Connection obterConexao() throws SQLException {
+        return connectionFactory.createConnection()
+    }
+
+    private void preencherParametrosUsuario(PreparedStatement comando, Usuario usuario) throws SQLException {
+        comando.setString(1, usuario.email)
+        comando.setString(2, usuario.senha)
+        comando.setString(3, usuario.descricao)
+    }
+
+    private void atribuirIdGerado(PreparedStatement comando, Usuario usuario) throws SQLException {
+        ResultSet chavesGeradas = comando.getGeneratedKeys()
+        if (chavesGeradas.next()) {
+            usuario.usuarioId = chavesGeradas.getInt(1)
+        }
+        chavesGeradas.close()
+    }
+
+    private Usuario criarUsuarioAPartirDoResultado(ResultSet resultado) throws SQLException {
+        return new Usuario(
+                resultado.getInt("ID_USUARIO"),
+                resultado.getString("EMAIL"),
+                resultado.getString("SENHA"),
+                resultado.getString("DESCRICAO")
+        )
     }
 }

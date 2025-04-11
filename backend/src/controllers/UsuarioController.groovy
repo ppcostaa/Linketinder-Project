@@ -1,55 +1,79 @@
 package controllers
 
-import infra.UsuarioRepository
+
 import model.Usuario
 import services.UsuarioService
 
 class UsuarioController {
-    UsuarioService usuarioService
+    private final UsuarioService usuarioService
 
-    def index() {
-        respond usuarioService.usuarioRepository.listarUsuarios()
+    UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService
     }
 
-    def listarUsuariosPorId(int usuarioId) {
-        def user = usuarioService.usuarioRepository.listarUsuariosPorId(usuarioId)
-        if (user) {
-            respond user
-        } else {
-            render status: 404, text: "Usuário não encontrado"
+    def listarTodosUsuarios() {
+        try {
+            respond usuarioService.buscarTodosUsuarios()
+        } catch (Exception e) {
+            render status: 500, text: "Erro ao listar usuários: ${e.message}"
         }
     }
 
-    def salvarUsuario() {
-        def usuario = new UsuarioRepository()
-        if (usuario.salvarUsuario(flush: true)) {
-            respond user, status: 201
-        } else {
-            respond user.errors, status: 400
+    def buscarUsuarioPorId(int usuarioId) {
+        try {
+            def usuario = usuarioService.buscarUsuarioPorId(usuarioId)
+            if (usuario) {
+                respond usuario
+            } else {
+                render status: 404, text: "Usuário com ID ${usuarioId} não encontrado"
+            }
+        } catch (Exception e) {
+            render status: 500, text: "Erro ao buscar usuário: ${e.message}"
         }
     }
 
-    def editarUsuario(Usuario usuario) {
-        def usuarios = usuarioService.usuarioRepository.listarUsuariosPorId(usuario)
-        if (!usuarios) {
-            render status: 404, text: "Usuário não encontrado"
-            return
-        }
+    def cadastrarUsuario(Usuario novoUsuario) {
+        try {
+            if (!novoUsuario) {
+                render status: 400, text: "Dados do usuário não fornecidos"
+                return
+            }
 
-        usuarioService.usuarioRepository.properties = params
-        if (usuarioService.usuarioRepository.salvarUsuario(flush: true)) {
-            respond user
-        } else {
-            respond user.errors, status: 400
+            def usuarioCriado = usuarioService.cadastrarUsuario(novoUsuario)
+            respond usuarioCriado, status: 201
+        } catch (Exception e) {
+            render status: 400, text: "Erro ao cadastrar usuário: ${e.message}"
         }
     }
 
-    def excluirUsuario(int usuarioId) {
-        if (usuarioService.usuarioRepository.excluirUsuario(usuarioId)) {
-            render status: 204
-        } else {
-            render status: 404, text: "Usuário não encontrado"
+    def atualizarUsuario(Usuario usuarioAtualizado) {
+        try {
+            if (!usuarioAtualizado || !usuarioAtualizado.usuarioId) {
+                render status: 400, text: "Dados de usuário inválidos ou ID não fornecido"
+                return
+            }
+
+            boolean sucesso = usuarioService.atualizarUsuario(usuarioAtualizado)
+            if (sucesso) {
+                respond usuarioService.buscarUsuarioPorId(usuarioAtualizado.usuarioId)
+            } else {
+                render status: 404, text: "Usuário com ID ${usuarioAtualizado.usuarioId} não encontrado"
+            }
+        } catch (Exception e) {
+            render status: 400, text: "Erro ao atualizar usuário: ${e.message}"
+        }
+    }
+
+    def removerUsuario(int usuarioId) {
+        try {
+            boolean sucesso = usuarioService.removerUsuario(usuarioId)
+            if (sucesso) {
+                render status: 204
+            } else {
+                render status: 404, text: "Usuário com ID ${usuarioId} não encontrado"
+            }
+        } catch (Exception e) {
+            render status: 500, text: "Erro ao remover usuário: ${e.message}"
         }
     }
 }
-
