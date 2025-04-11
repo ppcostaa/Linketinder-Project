@@ -5,13 +5,13 @@ import model.Usuario
 interface IUsuarioRepository {
     boolean emailExiste(String email)
 
-    Usuario salvarUsuario(Usuario usuario);
+    Usuario salvarUsuario(Usuario usuario)
 
-    Usuario listarUsuariosPorId(int usuarioId)
+    Usuario buscarUsuarioPorId(int usuarioId)
 
-    List<Usuario> listarUsuarios()
+    List<Usuario> buscarTodosUsuarios()
 
-    boolean editarUsuario(Usuario usuario)
+    boolean atualizarUsuario(Usuario usuario)
 
-    boolean excluirUsuario(int usuarioId)
+    boolean removerUsuario(int usuarioId)
 }

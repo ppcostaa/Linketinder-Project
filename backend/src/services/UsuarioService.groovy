@@ -1,35 +1,54 @@
 package services
 
-import infra.UsuarioRepository
+import infra.IUsuarioRepository
 import model.Usuario
 
 class UsuarioService {
-    final UsuarioRepository usuarioRepository
+    private final IUsuarioRepository usuarioRepository
 
-    UsuarioService(UsuarioRepository usuarioRepository) {
+    UsuarioService(IUsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository
     }
 
     List<Usuario> buscarTodosUsuarios() {
-        return usuarioRepository.listarUsuarios()
+        return usuarioRepository.buscarTodosUsuarios()
     }
 
     Usuario buscarUsuarioPorId(int usuarioId) {
-        return usuarioRepository.listarUsuariosPorId(usuarioId)
+        return usuarioRepository.buscarUsuarioPorId(usuarioId)
     }
 
-    Usuario cadastrarUsuario(Usuario usuario) {
-        if (usuarioRepository.emailExiste(usuario.email)) {
-            throw new RuntimeException("Email já cadastrado")
+    Usuario cadastrarUsuario(Usuario novoUsuario) {
+        if (!novoUsuario.dadosValidos()) {
+            throw new IllegalArgumentException("Dados de usuário incompletos ou inválidos")
         }
-        return usuarioRepository.salvarUsuario(usuario)
+
+        if (usuarioRepository.emailExiste(novoUsuario.email)) {
+            throw new IllegalArgumentException("Email já cadastrado no sistema")
+        }
+
+        return usuarioRepository.salvarUsuario(novoUsuario)
     }
 
-    boolean atualizarUsuario(Usuario usuario) {
-        return usuarioRepository.editarUsuario(usuario)
+    boolean atualizarUsuario(Usuario usuarioAtualizado) {
+        if (!usuarioAtualizado.dadosValidos()) {
+            throw new IllegalArgumentException("Dados de usuário incompletos ou inválidos")
+        }
+
+        Usuario usuarioExistente = usuarioRepository.buscarUsuarioPorId(usuarioAtualizado.usuarioId)
+        if (!usuarioExistente) {
+            return false
+        }
+
+        if (usuarioExistente.email != usuarioAtualizado.email &&
+                usuarioRepository.emailExiste(usuarioAtualizado.email)) {
+            throw new IllegalArgumentException("Email já cadastrado para outro usuário")
+        }
+
+        return usuarioRepository.atualizarUsuario(usuarioAtualizado)
     }
 
     boolean removerUsuario(int usuarioId) {
-        return usuarioRepository.excluirUsuario(usuarioId)
+        return usuarioRepository.removerUsuario(usuarioId)
     }
 }

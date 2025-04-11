@@ -27,7 +27,6 @@ class UsuarioRepository implements IUsuarioRepository {
     }
 
     @Override
-    @Override
     Usuario salvarUsuario(Usuario usuario) {
         String sql = "INSERT INTO USUARIOS (EMAIL, SENHA, DESCRICAO) VALUES (?, ?, ?) RETURNING ID_USUARIO"
 
@@ -51,7 +50,7 @@ class UsuarioRepository implements IUsuarioRepository {
                 rs.close()
             }
 
-            conn.commit() // Commit explícito
+            conn.commit()
             return usuario
         } catch (SQLException e) {
             if (conn != null) {
@@ -65,7 +64,7 @@ class UsuarioRepository implements IUsuarioRepository {
         }
     }
     @Override
-    Usuario listarUsuariosPorId(int usuarioId) {
+    Usuario buscarUsuarioPorId(int usuarioId) {
         String sql = "SELECT * FROM USUARIOS WHERE ID_USUARIO = ?"
 
         try (Connection conn = connectionFactory.createConnection()) {
@@ -91,7 +90,7 @@ class UsuarioRepository implements IUsuarioRepository {
     }
 
     @Override
-    List<Usuario> listarUsuarios() {
+    List<Usuario> buscarTodosUsuarios() {
         String sql = "SELECT * FROM USUARIOS"
         List<Usuario> usuarios = []
 
@@ -116,7 +115,7 @@ class UsuarioRepository implements IUsuarioRepository {
     }
 
     @Override
-    boolean editarUsuario(Usuario usuario) {
+    boolean atualizarUsuario(Usuario usuario) {
         String sql = "UPDATE USUARIOS SET EMAIL = ?, SENHA = ?, DESCRICAO = ? WHERE ID_USUARIO = ?"
 
         try (Connection conn = connectionFactory.createConnection()) {
@@ -136,7 +135,7 @@ class UsuarioRepository implements IUsuarioRepository {
     }
 
     @Override
-    boolean excluirUsuario(int usuarioId) {
+    boolean removerUsuario(int usuarioId) {
         String sql = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?"
 
         try (Connection conn = connectionFactory.createConnection()) {

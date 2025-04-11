@@ -7,119 +7,136 @@ import model.Localizacao
 import java.sql.*
 
 class LocalizacaoRepository implements ILocalizacaoRepository {
-    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
+    private final ConnectionFactory connectionFactory
+
+    LocalizacaoRepository() {
+        this.connectionFactory = DatabaseFactory.createConnectionFactory()
+    }
+
+    LocalizacaoRepository(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory
+    }
 
     @Override
     Localizacao salvarLocalizacao(Localizacao localizacao) {
-        String sql = "INSERT INTO LOCALIZACAO (CEP, PAIS) VALUES (?, ?) RETURNING ID_LOCALIZACAO"
+        final String sql = "INSERT INTO LOCALIZACAO (CEP, PAIS) VALUES (?, ?) RETURNING ID_LOCALIZACAO"
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+            preencherParametrosLocalizacao(comando, localizacao)
 
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-
-            stmt.setString(1, localizacao.cep)
-            stmt.setString(2, localizacao.pais)
-
-            int affectedRows = stmt.executeUpdate()
-
-            if (affectedRows > 0) {
-                ResultSet rs = stmt.getGeneratedKeys()
-                if (rs.next()) {
-                    localizacao.localizacaoId = rs.getInt(1)
-                }
-                rs.close()
+            int linhasAfetadas = comando.executeUpdate()
+            if (linhasAfetadas > 0) {
+                atribuirIdGerado(comando, localizacao)
             }
 
             return localizacao
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao criar localização: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao salvar localização: " + e.getMessage(), e)
         }
-
     }
 
     @Override
-    List<Localizacao> listarLocalizacoes() {
-        String sql = "SELECT * FROM LOCALIZACAO"
+    List<Localizacao> buscarTodasLocalizacoes() {
+        final String sql = "SELECT * FROM LOCALIZACAO"
         List<Localizacao> localizacoes = []
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement consulta = conexao.prepareStatement(sql)
+            ResultSet resultado = consulta.executeQuery()
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()
-
-            while (rs.next()) {
-                Localizacao localizacao = new Localizacao()
-                localizacao.localizacaoId = rs.getInt("ID_LOCALIZACAO")
-                localizacao.cep = rs.getString("CEP")
-                localizacao.pais = rs.getString("PAIS")
-                localizacoes.add(localizacao)
+            while (resultado.next()) {
+                localizacoes.add(criarLocalizacaoAPartirDoResultado(resultado))
             }
 
             return localizacoes
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar localizações: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao listar localizações: " + e.getMessage(), e)
         }
     }
 
     @Override
-    Localizacao listarLocalizacaoPorId(int localizacaoId) {
-        String sql = "SELECT * FROM LOCALIZACAO WHERE ID_LOCALIZACAO = ?"
+    Localizacao buscarLocalizacaoPorId(int localizacaoId) {
+        final String sql = "SELECT * FROM LOCALIZACAO WHERE ID_LOCALIZACAO = ?"
 
-        try (Connection conn = connectionFactory.createConnection()) {
+        try (Connection conexao = obterConexao()) {
+            PreparedStatement consulta = conexao.prepareStatement(sql)
+            consulta.setInt(1, localizacaoId)
 
-            PreparedStatement stmt = conn.prepareStatement(sql)
-
-            stmt.setObject(1, localizacaoId ?: null)
-            ResultSet rs = stmt.executeQuery()
-
-            if (rs.next()) {
-                Localizacao localizacao = new Localizacao()
-                localizacao.localizacaoId = rs.getInt("ID_LOCALIZACAO")
-                localizacao.cep = rs.getString("CEP")
-                localizacao.pais = rs.getString("PAIS")
-                return localizacao
-            }
-
-            return null
+            ResultSet resultado = consulta.executeQuery()
+            return resultado.next() ? criarLocalizacaoAPartirDoResultado(resultado) : null
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar localização: " + e.getMessage(), e)
+            throw new RuntimeException("Falha ao buscar localização por ID: " + e.getMessage(), e)
         }
     }
 
     @Override
-    boolean editarLocalizacao(Localizacao localizacao, int localizacaoId) {
-        Connection conn = null
+    boolean atualizarLocalizacao(Localizacao localizacao, int localizacaoId) {
+        final String sql = "UPDATE LOCALIZACAO SET CEP = ?, PAIS = ? WHERE ID_LOCALIZACAO = ?"
+        Connection conexao = null
+
         try {
-            conn = connectionFactory.createConnection()
-            conn.setAutoCommit(false)
+            conexao = obterConexao()
+            conexao.setAutoCommit(false)
 
-            String sql = "UPDATE LOCALIZACAO SET CEP = ?, PAIS = ? WHERE ID_LOCALIZACAO = ?"
-            PreparedStatement stmt = conn.prepareStatement(sql)
-            stmt.setString(1, localizacao.cep)
-            stmt.setString(2, localizacao.pais)
-            stmt.setInt(3, localizacaoId)
+            PreparedStatement comando = conexao.prepareStatement(sql)
+            preencherParametrosLocalizacao(comando, localizacao)
+            comando.setInt(3, localizacaoId)
 
-            int affectedRows = stmt.executeUpdate()
+            int linhasAfetadas = comando.executeUpdate()
+            conexao.commit()
 
-            conn.commit()
-            return affectedRows > 0
-        } catch (Exception e) {
-            if (conn != null) {
-                try {
-                    conn.rollback()
-                } catch (SQLException ex) {
-                    throw new RuntimeException("Erro ao realizar rollback: " + ex.getMessage(), ex)
-                }
-            }
-            throw new RuntimeException("Erro ao atualizar localização: " + e.getMessage(), e)
+            return linhasAfetadas > 0
+        } catch (SQLException e) {
+            realizarRollback(conexao)
+            throw new RuntimeException("Falha ao atualizar localização: " + e.getMessage(), e)
         } finally {
-            if (conn != null) {
-                try {
-                    conn.setAutoCommit(true)
-                    conn.close()
-                } catch (SQLException e) {
-                    throw new RuntimeException("Erro ao fechar conexão: " + e.getMessage(), e)
-                }
+            fecharConexao(conexao)
+        }
+    }
+
+    private Connection obterConexao() throws SQLException {
+        return connectionFactory.createConnection()
+    }
+
+    private void preencherParametrosLocalizacao(PreparedStatement comando, Localizacao localizacao) throws SQLException {
+        comando.setString(1, localizacao.cep)
+        comando.setString(2, localizacao.pais)
+    }
+
+    private void atribuirIdGerado(PreparedStatement comando, Localizacao localizacao) throws SQLException {
+        ResultSet chavesGeradas = comando.getGeneratedKeys()
+        if (chavesGeradas.next()) {
+            localizacao.localizacaoId = chavesGeradas.getInt(1)
+        }
+        chavesGeradas.close()
+    }
+
+    private Localizacao criarLocalizacaoAPartirDoResultado(ResultSet resultado) throws SQLException {
+        return new Localizacao(
+                resultado.getInt("ID_LOCALIZACAO"),
+                resultado.getString("CEP"),
+                resultado.getString("PAIS")
+        )
+    }
+
+    private void realizarRollback(Connection conexao) {
+        if (conexao != null) {
+            try {
+                conexao.rollback()
+            } catch (SQLException e) {
+                throw new RuntimeException("Falha ao realizar rollback: " + e.getMessage(), e)
+            }
+        }
+    }
+
+    private void fecharConexao(Connection conexao) {
+        if (conexao != null) {
+            try {
+                conexao.setAutoCommit(true)
+                conexao.close()
+            } catch (SQLException e) {
+                throw new RuntimeException("Falha ao fechar conexão: " + e.getMessage(), e)
             }
         }
     }

@@ -5,11 +5,9 @@ import model.Localizacao
 interface ILocalizacaoRepository {
     Localizacao salvarLocalizacao(Localizacao localizacao)
 
-    List<Localizacao> listarLocalizacoes()
+    List<Localizacao> buscarTodasLocalizacoes()
 
-    Localizacao listarLocalizacaoPorId(int localizacaoId)
+    Localizacao buscarLocalizacaoPorId(int localizacaoId)
 
-    boolean editarLocalizacao(Localizacao localizacao, int candidatoId)
-
-
+    boolean atualizarLocalizacao(Localizacao localizacao, int localizacaoId)
 }
