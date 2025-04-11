@@ -25,8 +25,8 @@ class CandidatoController {
         } else {
             println("✦•····· Lista de Candidatos ·····•✦");
             candidatos.each { candidato ->
-                Usuario usuario = usuarioRepository.listarUsuariosPorId(candidato.usuarioId)
-                Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(candidato.localizacaoId)
+                Usuario usuario = usuarioRepository.buscarUsuarioPorId(candidato.usuarioId)
+                Localizacao localizacao = localizacaoRepository.buscarLocalizacaoPorId(candidato.localizacaoId)
                 println "ID: ${candidato.candidatoId}, \n" +
                         "Email: ${usuario.email}, \n" +
                         "CEP: ${localizacao.cep}, \n" +
@@ -144,8 +144,8 @@ class CandidatoController {
             return
         }
 
-        Usuario usuario = usuarioRepository.listarUsuariosPorId(candidatoParaEditar.usuarioId)
-        Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(candidatoParaEditar.localizacaoId)
+        Usuario usuario = usuarioRepository.buscarUsuarioPorId(candidatoParaEditar.usuarioId)
+        Localizacao localizacao = localizacaoRepository.buscarLocalizacaoPorId(candidatoParaEditar.localizacaoId)
 
         println "\nO que você deseja atualizar?"
         println "1. Nome"
@@ -259,8 +259,8 @@ class CandidatoController {
         }
 
         boolean sucessoCandidato = candidatoRepository.editarCandidato(candidatoParaEditar)
-        boolean sucessoUsuario = usuarioRepository.editarUsuario(usuario)
-        boolean sucessoLocalizacao = localizacaoRepository.editarLocalizacao(localizacao, localizacao.localizacaoId)
+        boolean sucessoUsuario = usuarioRepository.atualizarUsuario(usuario)
+        boolean sucessoLocalizacao = localizacaoRepository.atualizarLocalizacao(localizacao, localizacao.localizacaoId)
 
         if (sucessoCandidato && sucessoUsuario && sucessoLocalizacao) {
             println "Candidato atualizado com sucesso! （っ＾▿＾）"
@@ -277,8 +277,8 @@ class CandidatoController {
 
         println("✦•····· Lista de Candidatos ·····•✦");
         candidatos.each { candidato ->
-            Usuario usuario = usuarioRepository.listarUsuariosPorId(candidato.usuarioId)
-            Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(candidato.localizacaoId)
+            Usuario usuario = usuarioRepository.buscarUsuarioPorId(candidato.usuarioId)
+            Localizacao localizacao = localizacaoRepository.buscarLocalizacaoPorId(candidato.localizacaoId)
 
             println "ID: ${candidato.candidatoId}, \n" +
                     "Nome: ${candidato.nome} \n" +

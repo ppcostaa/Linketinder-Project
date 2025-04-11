@@ -21,8 +21,8 @@ class EmpresaController {
         } else {
             println "✦•····· Lista de Empresas ·····•✦"
             empresas.each { empresa ->
-                Usuario usuario = usuarioRepository.listarUsuariosPorId(empresa.usuarioId)
-                Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresa.localizacaoId)
+                Usuario usuario = usuarioRepository.buscarUsuarioPorId(empresa.usuarioId)
+                Localizacao localizacao = localizacaoRepository.buscarLocalizacaoPorId(empresa.localizacaoId)
                 println "ID: ${empresa.empresaId}, \n" +
                         "CNPJ: ${empresa.cnpj}, \n" +
                         "Email: ${usuario.email}, \n" +
@@ -74,8 +74,8 @@ class EmpresaController {
 
         println "✦•····· Lista de Empresas  ·····•✦"
         empresas.each { empresasLista ->
-            Usuario usuario = usuarioRepository.listarUsuariosPorId(empresasLista.usuarioId)
-            Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresasLista.localizacaoId)
+            Usuario usuario = usuarioRepository.buscarUsuarioPorId(empresasLista.usuarioId)
+            Localizacao localizacao = localizacaoRepository.buscarLocalizacaoPorId(empresasLista.localizacaoId)
 
             println "ID: ${empresasLista.empresaId}, \n" +
                     "Nome: ${empresasLista.empresaNome} \n" +
@@ -97,8 +97,8 @@ class EmpresaController {
             return
         }
 
-        Usuario usuario = usuarioRepository.listarUsuariosPorId(empresaPorId.usuarioId)
-        Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresaPorId.localizacaoId)
+        Usuario usuario = usuarioRepository.buscarUsuarioPorId(empresaPorId.usuarioId)
+        Localizacao localizacao = localizacaoRepository.buscarLocalizacaoPorId(empresaPorId.localizacaoId)
 
         println "\nO que você deseja atualizar?"
         println "1. Nome"
@@ -167,8 +167,8 @@ class EmpresaController {
 
         println("✦•····· Lista de Empresas ·····•✦");
         for (Empresa empresa : empresas) {
-            Usuario usuario = usuarioRepository.listarUsuariosPorId(empresa.getUsuarioId());
-            Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresa.getLocalizacaoId());
+            Usuario usuario = usuarioRepository.buscarUsuarioPorId(empresa.getUsuarioId());
+            Localizacao localizacao = localizacaoRepository.buscarLocalizacaoPorId(empresa.getLocalizacaoId());
 
             println("ID: " + empresa.getEmpresaId() + "\n" +
                     "Nome: " + empresa.getEmpresaNome() + "\n" +
