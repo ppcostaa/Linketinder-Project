@@ -9,12 +9,12 @@ import java.sql.SQLException
 
 
 interface ICompetenciaRepository {
-    List<Competencia> listarCompetencias(int candidatoId)
+    List<Competencia> listarCompetenciasPorCandidato(int candidatoId)
 
     Competencia listarCompetenciasPorId(int competenciaId)
 
     Competencia salvarCompetencia(Competencia competencia)
-    Competencia competenciaPorNome(String nome)
+    boolean editarCompetencia(Competencia competencia)
 
     boolean excluirCompetencia(int competenciaId)
 

@@ -24,7 +24,6 @@ class EmpresaController {
                 Usuario usuario = usuarioRepository.listarUsuariosPorId(empresa.usuarioId)
                 Localizacao localizacao = localizacaoRepository.listarLocalizacaoPorId(empresa.localizacaoId)
                 println "ID: ${empresa.empresaId}, \n" +
-                        "Nome: ${empresa.empresaNome} \n" +
                         "CNPJ: ${empresa.cnpj}, \n" +
                         "Email: ${usuario.email}, \n" +
                         "CEP: ${localizacao.cep}, \n" +

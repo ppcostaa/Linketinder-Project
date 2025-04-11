@@ -1,31 +1,56 @@
 package controllers
 
 import infra.CompetenciaRepository
+import infra.EmpresaRepository
 import infra.VagaRepository
 import model.Competencia
+import model.Empresa
 import model.Vaga
 
 class VagaController {
     Scanner scanner = new Scanner(System.in)
     VagaRepository vagaRepository = new VagaRepository()
     CompetenciaRepository competenciaRepository = new CompetenciaRepository()
+    EmpresaRepository empresaRepository = new EmpresaRepository()
 
     void salvarVaga() {
-        println "Informe os dados da Vaga:"
+        List<Empresa> empresas = empresaRepository.listarEmpresas()
+        if (empresas.isEmpty()) {
+            println "Nenhuma empresa cadastrada. É necessário cadastrar uma empresa primeiro."
+            return
+        }
+
+        println "Empresas disponíveis:"
+        empresas.each { empresa ->
+            println "${empresa.empresaId}: ${empresa.empresaNome}"
+        }
+
+        print "Selecione o ID da empresa para a qual a vaga será criada: "
+        int empresaId = scanner.nextInt()
+        scanner.nextLine()
+
+        Empresa empresaSelecionada = empresas.find { it.empresaId == empresaId }
+        if (!empresaSelecionada) {
+            println "Empresa não encontrada."
+            return
+        }
+
+        println "\nInforme os dados da Vaga:"
         print "Título: "
         String titulo = scanner.nextLine()
         print "Descrição: "
         String descricao = scanner.nextLine()
         print "Estado: "
-        String estado = scanner.nextInt()
+        String estado = scanner.nextLine()
         print "Cidade: "
-        String cidade = scanner.nextInt()
-        scanner.nextLine()
+        String cidade = scanner.nextLine()
+
         List<Competencia> competenciasDisponiveis = competenciaRepository.listarCompetencias()
-        println "Competências disponíveis:"
+        println "\nCompetências disponíveis:"
         competenciasDisponiveis.each { competencia ->
             println "${competencia.competenciaId}: ${competencia.competenciaNome}"
         }
+
         print "Digite os IDs das competências separados por vírgula: "
         String input = scanner.nextLine()
         List<Integer> idsCompetencias = input.split(',').collect { it.trim().toInteger() }
@@ -37,7 +62,22 @@ class VagaController {
             println "Nenhuma competência válida selecionada."
             return
         }
-        vagaRepository.salvarVaga()
+
+        Vaga vaga = new Vaga(
+                empresaId: empresaId,
+                titulo: titulo,
+                descricao: descricao,
+                estado: estado,
+                cidade: cidade,
+                competencias: competenciasSelecionadas
+        )
+
+        Vaga vagaSalva = vagaRepository.salvarVaga(vaga)
+        if (vagaSalva) {
+            println "Vaga criada com sucesso para a empresa ${empresaSelecionada.empresaNome}!"
+        } else {
+            println "Erro ao criar vaga."
+        }
     }
 
     def index() {
@@ -51,27 +91,28 @@ class VagaController {
                         "Título: ${vaga.titulo} \n" +
                         "Estado: ${vaga.estado}, \n" +
                         "Cidade: ${vaga.cidade}, \n" +
-                        "Competências: ${vaga.competenciasRequeridas}, \n" +
+                        "Competências: ${vaga.competencias}, \n"+
                         "Descrição: ${vaga.descricao}, \n" +
                         "✦•·····•✦•·····•✦"
             }
         }
     }
 
-    def editarVaga(Vaga vaga) {
+    def editarVaga() {
         List<Vaga> vagas = vagaRepository.listarVagas()
         if (vagas.isEmpty()) {
             println "Nenhuma vaga cadastrada para atualizar. (•◡•) /"
+            return
         }
 
         println("✦•····· Lista de Vagas ·····•✦");
-        vagas.each { listarVaga ->
-            println "ID: ${vaga.vagaId}, \n" +
-                    "Título: ${vaga.titulo} \n" +
-                    "Estado: ${vaga.estado}, \n" +
-                    "Cidade: ${vaga.cidade}, \n" +
-                    "Competências: ${vaga.competenciasRequeridas}, \n" +
-                    "Descrição: ${vaga.descricao}, \n" +
+        vagas.each { v ->
+            println "ID: ${v.vagaId}, \n" +
+                    "Título: ${v.titulo} \n" +
+                    "Estado: ${v.estado}, \n" +
+                    "Cidade: ${v.cidade}, \n" +
+                    "Competências: ${v.competencias}, \n" +
+                    "Descrição: ${v.descricao}, \n" +
                     "✦•·····•✦•·····•✦"
         }
 
@@ -82,6 +123,7 @@ class VagaController {
         Vaga vagaParaEditar = vagaRepository.listarVagaPorId(idVaga)
         if (vagaParaEditar == null) {
             println "Vaga não encontrada. (╥﹏╥)"
+            return
         }
 
         println "\nO que você deseja atualizar?"
@@ -129,14 +171,14 @@ class VagaController {
                 println "Nenhuma competência válida selecionada."
                 return
             }
-            vagaParaEditar.competenciasRequeridas = competenciasSelecionadas
+            vagaParaEditar.competencias = competenciasSelecionadas
         }
         if (opcoesSelecionadas.contains(5)) {
             print "Digite a nova Descrição: "
             vagaParaEditar.descricao = scanner.nextLine()
         }
 
-        boolean sucessoVaga = vagaRepository.editarVaga(vaga)
+        boolean sucessoVaga = vagaRepository.editarVaga(vagaParaEditar)
 
         if (sucessoVaga) {
             println "Vaga atualizada com sucesso! （っ＾▿＾）"
@@ -157,7 +199,7 @@ class VagaController {
                     "Título: ${vaga.titulo} \n" +
                     "Estado: ${vaga.estado}, \n" +
                     "Cidade: ${vaga.cidade}, \n" +
-                    "Competências: ${vaga.competenciasRequeridas}, \n" +
+                    "Competências: ${vaga.competencias}, \n" +
                     "Descrição: ${vaga.descricao}, \n" +
                     "✦•·····•✦•·····•✦"
         }
@@ -165,7 +207,7 @@ class VagaController {
         print "Informe o ID da vaga que deseja deletar: "
         int idVagaDeletar = scanner.nextInt()
         scanner.nextLine()
-        boolean sucesso = vagaRepository.excluirVagaMenu(idVagaDeletar)
+        boolean sucesso = vagaRepository.excluirVaga(idVagaDeletar)
         if (sucesso) {
             println "Vaga deletada com sucesso!（っ＾▿＾）"
         } else {

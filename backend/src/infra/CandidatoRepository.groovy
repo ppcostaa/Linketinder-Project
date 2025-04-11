@@ -1,14 +1,13 @@
 package infra
 
 import database.ConnectionFactory
+import database.DatabaseFactory
 import model.Candidato
 
 import java.sql.*
 
 class CandidatoRepository implements ICandidatoRepository {
-    ConnectionFactory connectionFactory = new ConnectionFactory(
-            'jdbc:postgresql://localhost:5432/linketinder', 'postgres', 'senha123'
-    )
+    ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
     CompetenciaRepository competenciaRepository = new CompetenciaRepository()
 
     @Override
@@ -138,7 +137,7 @@ class CandidatoRepository implements ICandidatoRepository {
                 candidato.dataNascimento = rs.getDate("DATA_NASCIMENTO")
                 candidato.cpf = rs.getString("CPF")
 
-                candidato.competencias = competenciaRepository.listarCompetencias(candidato.candidatoId)
+                candidato.competencias = competenciaRepository.listarCompetenciasPorCandidato(candidato.candidatoId)
 
                 return candidato
             }
@@ -174,7 +173,7 @@ class CandidatoRepository implements ICandidatoRepository {
                 candidato.dataNascimento = rs.getDate("DATA_NASCIMENTO")
                 candidato.cpf = rs.getString("CPF")
 
-                candidato.competencias = competenciaRepository.listarCompetencias(candidato.candidatoId)
+                candidato.competencias = competenciaRepository.listarCompetenciasPorCandidato(candidato.candidatoId)
 
                 candidatos.add(candidato)
             }
