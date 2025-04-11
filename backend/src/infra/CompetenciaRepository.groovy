@@ -16,11 +16,10 @@ class CompetenciaRepository implements ICompetenciaRepository {
             conn = connectionFactory.createConnection()
             conn.setAutoCommit(false)
 
-            String sqlCompetencia = "INSERT INTO COMPETENCIAS (ID_COMPETENCIA, NOME_COMPETENCIA) VALUES (?, ?) RETURNING ID_COMPETENCIA"
+                String sqlCompetencia = "INSERT INTO COMPETENCIAS (NOME_COMPETENCIA) VALUES (?) RETURNING ID_COMPETENCIA"
             PreparedStatement stmtCompetencia = conn.prepareStatement(sqlCompetencia, Statement.RETURN_GENERATED_KEYS)
 
-            stmtCompetencia.setInt(1, competencia.competenciaId)
-            stmtCompetencia.setString(2, competencia.competenciaNome)
+            stmtCompetencia.setString(1, competencia.competenciaNome)
 
             int affectedRows = stmtCompetencia.executeUpdate()
 
@@ -31,6 +30,7 @@ class CompetenciaRepository implements ICompetenciaRepository {
                 }
                 rs.close()
             }
+
 
             conn.commit()
 
@@ -56,7 +56,7 @@ class CompetenciaRepository implements ICompetenciaRepository {
         }
     }
 
-    List<Competencia> listarCompetencias(int candidatoId) {
+    List<Competencia> listarCompetenciasPorCandidato(int candidatoId) {
         String sql = """
         SELECT c.* 
         FROM COMPETENCIAS c
@@ -104,6 +104,33 @@ class CompetenciaRepository implements ICompetenciaRepository {
 
         return competencias
     }
+    List<Competencia> listarCompetenciasPorVaga(int vagaId) {
+        String sql = """
+        SELECT c.* 
+        FROM COMPETENCIAS c
+        JOIN VAGA_COMPETENCIAS vc ON c.ID_COMPETENCIA = vc.ID_COMPETENCIA
+        WHERE vc.ID_VAGA = ?
+    """
+
+        List<Competencia> competencias = new ArrayList<>()
+
+        try (Connection conn = connectionFactory.createConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql)
+            stmt.setInt(1, vagaId)
+            ResultSet rs = stmt.executeQuery()
+
+            while (rs.next()) {
+                Competencia competencia = new Competencia()
+                competencia.competenciaId = rs.getInt("ID_COMPETENCIA")
+                competencia.competenciaNome = rs.getString("NOME_COMPETENCIA")
+                competencias.add(competencia)
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar competências da vaga: " + e.getMessage(), e)
+        }
+
+        return competencias
+    }
 
     Competencia competenciaPorNome(String nome) {
         String sql = "SELECT * FROM COMPETENCIAS WHERE NOME_COMPETENCIA = ?"
@@ -126,6 +153,7 @@ class CompetenciaRepository implements ICompetenciaRepository {
         return null
     }
 
+    @Override
     boolean editarCompetencia(Competencia competencia) {
         Connection conn = null
 
@@ -138,16 +166,19 @@ class CompetenciaRepository implements ICompetenciaRepository {
             stmt.setString(1, competencia.competenciaNome)
             stmt.setInt(2, competencia.competenciaId)
 
+            int affectedRows = stmt.executeUpdate()
             conn.commit()
-        } catch (Exception e) {
+
+            return affectedRows > 0
+        } catch (SQLException e) {
             if (conn != null) {
                 try {
                     conn.rollback()
                 } catch (SQLException ex) {
-                    throw new RuntimeException("Erro ao realizar rollback: " + ex.getMessage(), ex)
+                    throw new RuntimeException("Erro ao fazer rollback: " + ex.getMessage(), ex)
                 }
             }
-            throw new RuntimeException("Erro ao atualizar competência: " + e.getMessage(), e)
+            throw new RuntimeException("Erro ao atualizar competência no banco de dados: " + e.getMessage(), e)
         } finally {
             if (conn != null) {
                 try {
@@ -159,7 +190,6 @@ class CompetenciaRepository implements ICompetenciaRepository {
             }
         }
     }
-
     @Override
     Competencia listarCompetenciasPorId(int competenciaId) {
         String sql = """SELECT * FROM COMPETENCIAS WHERE ID_COMPETENCIA = ?

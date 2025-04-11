@@ -137,7 +137,7 @@ class CandidatoRepository implements ICandidatoRepository {
                 candidato.dataNascimento = rs.getDate("DATA_NASCIMENTO")
                 candidato.cpf = rs.getString("CPF")
 
-                candidato.competencias = competenciaRepository.listarCompetencias(candidato.candidatoId)
+                candidato.competencias = competenciaRepository.listarCompetenciasPorCandidato(candidato.candidatoId)
 
                 return candidato
             }
@@ -173,7 +173,7 @@ class CandidatoRepository implements ICandidatoRepository {
                 candidato.dataNascimento = rs.getDate("DATA_NASCIMENTO")
                 candidato.cpf = rs.getString("CPF")
 
-                candidato.competencias = competenciaRepository.listarCompetencias(candidato.candidatoId)
+                candidato.competencias = competenciaRepository.listarCompetenciasPorCandidato(candidato.candidatoId)
 
                 candidatos.add(candidato)
             }

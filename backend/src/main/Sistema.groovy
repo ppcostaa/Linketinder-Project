@@ -66,6 +66,7 @@ static void iniciarSistema(String[] args) {
                 break
             case "8":
                 competenciaController.index()
+                break
             case "9":
                 candidatoController.editarCandidatoMenu()
                 break
