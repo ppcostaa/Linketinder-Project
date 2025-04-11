@@ -1,46 +1,65 @@
 package controllers
 
-import infra.LocalizacaoRepository
-import model.Usuario
+import model.Localizacao
 import services.LocalizacaoService
 
 class LocalizacaoController {
-    LocalizacaoService localizacaoService
+    private final LocalizacaoService localizacaoService
 
-    def index() {
-        respond localizacaoService.localizacaoRepository.listarLocalizacoes()
+    LocalizacaoController(LocalizacaoService localizacaoService) {
+        this.localizacaoService = localizacaoService
     }
 
-    def listarLocalizacaoPorId(int localizacaoId) {
-        def localizacao = localizacaoService.localizacaoRepository.listarLocalizacaoPorId(usuarioId)
-        if (localizacao) {
-            respond localizacao
-        } else {
-            render status: 404, text: "Localização não encontrada"
+    def listarTodasLocalizacoes() {
+        try {
+            respond localizacaoService.buscarTodasLocalizacoes()
+        } catch (Exception e) {
+            render status: 500, text: "Erro ao listar localizações: ${e.message}"
         }
     }
 
-    def salvarLocalizacao() {
-        def localizacao = new LocalizacaoRepository()
-        if (localizacao.salvarLocalizacao(flush: true)) {
-            respond localizacao, status: 201
-        } else {
-            respond localizacao.errors, status: 400
+    def buscarLocalizacaoPorId(int localizacaoId) {
+        try {
+            def localizacao = localizacaoService.buscarLocalizacaoPorId(localizacaoId)
+            if (localizacao) {
+                respond localizacao
+            } else {
+                render status: 404, text: "Localização com ID ${localizacaoId} não encontrada"
+            }
+        } catch (Exception e) {
+            render status: 500, text: "Erro ao buscar localização: ${e.message}"
         }
     }
 
-    def editarLocalizacao(Usuario usuario) {
-        def localizacoes = localizacaoService.localizacaoRepository.listarLocalizacaoPorId(localizacaoId)
-        if (!localizacoes) {
-            render status: 404, text: "Usuário não encontrado"
-            return
-        }
+    def cadastrarLocalizacao(Localizacao novaLocalizacao) {
+        try {
+            if (!novaLocalizacao) {
+                render status: 400, text: "Dados da localização não fornecidos"
+                return
+            }
 
-        localizacaoService.localizacaoRepository.properties = params
-        if (localizacaoService.localizacaoRepository.salvarLocalizacao(flush: true)) {
-            respond localizacoes
-        } else {
-            respond localizacoes.errors, status: 400
+            def localizacaoCriada = localizacaoService.cadastrarLocalizacao(novaLocalizacao)
+            respond localizacaoCriada, status: 201
+        } catch (Exception e) {
+            render status: 400, text: "Erro ao cadastrar localização: ${e.message}"
+        }
+    }
+
+    def atualizarLocalizacao(Localizacao localizacaoAtualizada, int localizacaoId) {
+        try {
+            if (!localizacaoAtualizada) {
+                render status: 400, text: "Dados da localização não fornecidos"
+                return
+            }
+
+            boolean sucesso = localizacaoService.atualizarLocalizacao(localizacaoAtualizada, localizacaoId)
+            if (sucesso) {
+                respond localizacaoService.buscarLocalizacaoPorId(localizacaoId)
+            } else {
+                render status: 404, text: "Localização com ID ${localizacaoId} não encontrada"
+            }
+        } catch (Exception e) {
+            render status: 400, text: "Erro ao atualizar localização: ${e.message}"
         }
     }
 }
