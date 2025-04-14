@@ -1,0 +1,2 @@
+ZErro ao criar conexão: FATAL: password authentication failed for user "usuario_invalido"
+^Erro ao criar conexão Sql: FATAL: password authentication failed for user "usuario_invalido"
