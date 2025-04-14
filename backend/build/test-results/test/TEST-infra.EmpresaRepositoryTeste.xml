@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="infra.EmpresaRepositoryTeste" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-04-14T01:54:00" hostname="pcosta-idea330" time="0.09">
+  <properties/>
+  <testcase name="deve salvar uma empresa com sucesso" classname="infra.EmpresaRepositoryTeste" time="0.03"/>
+  <testcase name="deve listar empresa por ID com sucesso" classname="infra.EmpresaRepositoryTeste" time="0.01"/>
+  <testcase name="deve retornar null quando empresa não existe" classname="infra.EmpresaRepositoryTeste" time="0.005"/>
+  <testcase name="deve listar todas as empresas com sucesso" classname="infra.EmpresaRepositoryTeste" time="0.011"/>
+  <testcase name="deve editar empresa com sucesso" classname="infra.EmpresaRepositoryTeste" time="0.009"/>
+  <testcase name="deve excluir empresa com sucesso" classname="infra.EmpresaRepositoryTeste" time="0.011"/>
+  <testcase name="deve tratar erro ao salvar empresa" classname="infra.EmpresaRepositoryTeste" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

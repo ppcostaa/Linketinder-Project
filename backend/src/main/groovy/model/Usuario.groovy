@@ -1,0 +1,28 @@
+package groovy.model
+
+class Usuario {
+    int usuarioId
+    String email
+    String senha
+    String descricao
+
+    Usuario() {}
+
+    Usuario(int usuarioId, String email, String senha, String descricao) {
+        this.usuarioId = usuarioId
+        this.email = email
+        this.senha = senha
+        this.descricao = descricao
+    }
+
+    Usuario(String email, String senha, String descricao) {
+        this.email = email
+        this.senha = senha
+        this.descricao = descricao
+    }
+
+    @Override
+    String toString() {
+        return "Usuario(id: $usuarioId, email: $email, descricao: $descricao)"
+    }
+}

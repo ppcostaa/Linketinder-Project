@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="infra.CandidatoRepositoryTeste" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-04-14T01:54:00" hostname="pcosta-idea330" time="0.284">
+  <properties/>
+  <testcase name="deve salvar um candidato com sucesso" classname="infra.CandidatoRepositoryTeste" time="0.082"/>
+  <testcase name="deve listar um candidato por ID" classname="infra.CandidatoRepositoryTeste" time="0.135"/>
+  <testcase name="deve excluir um candidato com sucesso" classname="infra.CandidatoRepositoryTeste" time="0.038"/>
+  <testcase name="deve editar um candidato com sucesso" classname="infra.CandidatoRepositoryTeste" time="0.028"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
