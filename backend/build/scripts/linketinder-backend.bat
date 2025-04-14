@@ -72,7 +72,7 @@ set CLASSPATH=%APP_HOME%\lib\linketinder-backend-1.0-SNAPSHOT.jar;%APP_HOME%\lib
 
 
 @rem Execute linketinder-backend
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %LINKETINDER_BACKEND_OPTS%  -classpath "%CLASSPATH%" Main %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %LINKETINDER_BACKEND_OPTS%  -classpath "%CLASSPATH%" main %*
 
 :end
 @rem End local scope for the variables with windows NT shell

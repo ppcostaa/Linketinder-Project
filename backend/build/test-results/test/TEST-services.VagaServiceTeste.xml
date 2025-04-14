@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="services.VagaServiceTeste" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-04-14T01:54:01" hostname="pcosta-idea330" time="0.097">
+  <properties/>
+  <testcase name="listarVagas deve exibir mensagem quando não houver vagas" classname="services.VagaServiceTeste" time="0.012"/>
+  <testcase name="listarVagas deve exibir informações das vagas corretamente" classname="services.VagaServiceTeste" time="0.009"/>
+  <testcase name="salvarVaga deve salvar quando empresa existe e dados são válidos" classname="services.VagaServiceTeste" time="0.018"/>
+  <testcase name="salvarVaga não deve salvar quando não há empresas cadastradas" classname="services.VagaServiceTeste" time="0.005"/>
+  <testcase name="editarVaga deve atualizar dados quando ID existe" classname="services.VagaServiceTeste" time="0.025"/>
+  <testcase name="excluirVaga deve deletar quando ID existe" classname="services.VagaServiceTeste" time="0.01"/>
+  <testcase name="excluirVaga não deve fazer nada quando ID não existe" classname="services.VagaServiceTeste" time="0.011"/>
+  <system-out><![CDATA[Nenhuma vaga cadastrada. (•◡•) /
+✦•····· Lista de Vagas ·····•✦
+ID: 1, 
+Título: Desenvolvedor Java 
+Estado: SP, 
+Cidade: São Paulo, 
+Competências: [Java], 
+Descrição: Vaga para desenvolvedor Java, 
+✦•·····•✦•·····•✦
+Empresas disponíveis:
+1: Empresa Teste
+Selecione o ID da empresa para a qual a vaga será criada: 
+Informe os dados da Vaga:
+Título: Descrição: Estado: Cidade: Vaga criada com sucesso para a empresa Empresa Teste!
+Nenhuma empresa cadastrada. É necessário cadastrar uma empresa primeiro.
+✦•····· Lista de Vagas ·····•✦
+ID: 1, 
+Título: Desenvolvedor Java 
+Estado: SP, 
+Cidade: São Paulo, 
+Competências: [null], 
+Descrição: Vaga para desenvolvedor Java, 
+✦•·····•✦•·····•✦
+Informe o ID da vaga que deseja atualizar: 
+O que você deseja atualizar?
+1. Título
+2. Estado
+3. Cidade
+4. Competências
+5. Descrição
+(Digite os números separados por vírgula): Digite o novo título: Digite o novo estado: Digite a nova Descrição: Vaga atualizada com sucesso! （っ＾▿＾）
+✦•····· Lista de Vagas ·····•✦
+ID: 1, 
+Título: Vaga Teste 
+Estado: null, 
+Cidade: null, 
+Competências: [], 
+Descrição: null, 
+✦•·····•✦•·····•✦
+Informe o ID da vaga que deseja deletar: Vaga deletada com sucesso!（っ＾▿＾）
+Nenhuma vaga cadastrada. (•◡•) /
+Informe o ID da vaga que deseja deletar: Vaga não encontrada. (╥﹏╥)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

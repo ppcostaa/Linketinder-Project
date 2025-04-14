@@ -64,8 +64,8 @@ class CandidatoServiceTeste extends Specification {
         def localizacao = new Localizacao(cep: "12345678", pais: "Brasil")
 
         candidatoRepository.listarCandidatos() >> [candidato]
-        usuarioRepository.buscarUsuarioPorId(1) >> usuario
-        localizacaoRepository.buscarLocalizacaoPorId(1) >> localizacao
+        usuarioRepository.listarUsuarioPorId(1) >> usuario
+        localizacaoRepository.listarLocalizacoesPorId(1) >> localizacao
 
         when: "Listar candidatos"
         candidatoService.listarCandidatos()
@@ -150,12 +150,12 @@ class CandidatoServiceTeste extends Specification {
 
         candidatoRepository.listarCandidatos() >> [candidatoExistente]
         candidatoRepository.listarCandidatoPorId(1) >> candidatoExistente
-        usuarioRepository.buscarUsuarioPorId(1) >> usuario
-        localizacaoRepository.buscarLocalizacaoPorId(1) >> localizacao
+        usuarioRepository.listarUsuarioPorId(1) >> usuario
+        localizacaoRepository.listarLocalizacoesPorId(1) >> localizacao
 
         candidatoRepository.editarCandidato(_) >> true
-        usuarioRepository.atualizarUsuario(_) >> true
-        localizacaoRepository.atualizarLocalizacao(*_) >> true
+        usuarioRepository.editarUsuario(_) >> true
+        localizacaoRepository.editarLocalizacao(*_) >> true
 
         def input = "1\n1,3\nJoão Atualizado\nnovo@email.com"
         candidatoService.scanner = new Scanner(input)
@@ -167,10 +167,10 @@ class CandidatoServiceTeste extends Specification {
         1 * candidatoRepository.editarCandidato(_) >> { Candidato c ->
             c.nome == "João Atualizado"
         }
-        1 * usuarioRepository.atualizarUsuario(_) >> { Usuario u ->
+        1 * usuarioRepository.editarUsuario(_) >> { Usuario u ->
             u.email == "novo@email.com"
         }
-        1 * localizacaoRepository.atualizarLocalizacao(*_)
+        1 * localizacaoRepository.editarLocalizacao(*_)
     }
 
     def "excluirCandidato deve deletar quando ID existe"() {
@@ -185,8 +185,8 @@ class CandidatoServiceTeste extends Specification {
         def localizacao = new Localizacao(localizacaoId: 1, cep: "12345678")
 
         candidatoRepository.listarCandidatos() >> [candidato]
-        usuarioRepository.buscarUsuarioPorId(1) >> usuario
-        localizacaoRepository.buscarLocalizacaoPorId(1) >> localizacao
+        usuarioRepository.listarUsuarioPorId(1) >> usuario
+        localizacaoRepository.listarLocalizacoesPorId(1) >> localizacao
 
         candidatoService.scanner = new Scanner("1\n")
         candidatoRepository.excluirCandidato(1) >> true

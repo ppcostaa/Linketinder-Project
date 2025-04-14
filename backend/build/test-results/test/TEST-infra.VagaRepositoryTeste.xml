@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="infra.VagaRepositoryTeste" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-04-14T01:54:00" hostname="pcosta-idea330" time="0.098">
+  <properties/>
+  <testcase name="deve salvar uma vaga com sucesso" classname="infra.VagaRepositoryTeste" time="0.029"/>
+  <testcase name="deve listar uma vaga por ID" classname="infra.VagaRepositoryTeste" time="0.022"/>
+  <testcase name="deve excluir uma vaga com sucesso" classname="infra.VagaRepositoryTeste" time="0.018"/>
+  <testcase name="deve editar uma vaga com sucesso" classname="infra.VagaRepositoryTeste" time="0.013"/>
+  <testcase name="deve listar todas as vagas" classname="infra.VagaRepositoryTeste" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

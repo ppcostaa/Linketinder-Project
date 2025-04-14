@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="groovy.infra.CompetenciaRepositoryTeste" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-04-14T01:53:59" hostname="pcosta-idea330" time="0.318">
+  <properties/>
+  <testcase name="deve salvar uma competência com sucesso" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.109"/>
+  <testcase name="deve lançar exceção e fazer rollback ao falhar ao salvar competência" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.028"/>
+  <testcase name="deve listar competências por candidato com sucesso" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.044"/>
+  <testcase name="deve listar todas as competências com sucesso" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.019"/>
+  <testcase name="deve listar competências por vaga com sucesso" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.019"/>
+  <testcase name="deve editar competência com sucesso" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.015"/>
+  <testcase name="deve retornar competência ao buscar por ID existente" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.023"/>
+  <testcase name="deve retornar null ao buscar por ID inexistente" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.025"/>
+  <testcase name="deve excluir competência com sucesso" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.014"/>
+  <testcase name="deve retornar false ao tentar excluir competência inexistente" classname="groovy.infra.CompetenciaRepositoryTeste" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

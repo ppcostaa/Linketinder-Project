@@ -62,10 +62,10 @@ class EmpresaServiceTeste extends Specification {
 
         and: "configuração dos mocks"
         mockEmpresaRepository.listarEmpresas() >> empresas
-        mockUsuarioRepository.buscarUsuarioPorId(10) >> usuarios[0]
-        mockUsuarioRepository.buscarUsuarioPorId(20) >> usuarios[1]
-        mockLocalizacaoRepository.buscarLocalizacaoPorId(100) >> localizacoes[0]
-        mockLocalizacaoRepository.buscarLocalizacaoPorId(200) >> localizacoes[1]
+        mockUsuarioRepository.listarUsuarioPorId(10) >> usuarios[0]
+        mockUsuarioRepository.listarUsuarioPorId(20) >> usuarios[1]
+        mockLocalizacaoRepository.listarLocalizacoesPorId(100) >> localizacoes[0]
+        mockLocalizacaoRepository.listarLocalizacoesPorId(200) >> localizacoes[1]
 
         when: "o método listarEmpresas é chamado"
         empresaService.listarEmpresas()
@@ -148,8 +148,8 @@ class EmpresaServiceTeste extends Specification {
         and: "configuração dos mocks"
         mockEmpresaRepository.listarEmpresas() >> [empresa]
         mockEmpresaRepository.listarEmpresaPorId(1) >> empresa
-        mockUsuarioRepository.buscarUsuarioPorId(10) >> usuario
-        mockLocalizacaoRepository.buscarLocalizacaoPorId(100) >> localizacao
+        mockUsuarioRepository.listarUsuarioPorId(10) >> usuario
+        mockLocalizacaoRepository.listarLocalizacoesPorId(100) >> localizacao
         mockEmpresaRepository.editarEmpresa(_) >> true
         mockUsuarioRepository.editarUsuario(_) >> true
         mockLocalizacaoRepository.editarLocalizacao(_, _) >> true

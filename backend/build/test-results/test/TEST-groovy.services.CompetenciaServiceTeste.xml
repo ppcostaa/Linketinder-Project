@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="groovy.services.CompetenciaServiceTeste" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-04-14T01:54:00" hostname="pcosta-idea330" time="0.143">
+  <properties/>
+  <testcase name="deve listar competências corretamente quando existem" classname="groovy.services.CompetenciaServiceTeste" time="0.024"/>
+  <testcase name="deve listar mensagem quando não há competências" classname="groovy.services.CompetenciaServiceTeste" time="0.007"/>
+  <testcase name="deve salvar competência com sucesso" classname="groovy.services.CompetenciaServiceTeste" time="0.017"/>
+  <testcase name="deve editar competência existente com sucesso" classname="groovy.services.CompetenciaServiceTeste" time="0.015"/>
+  <testcase name="deve mostrar mensagem ao tentar editar competência inexistente" classname="groovy.services.CompetenciaServiceTeste" time="0.012"/>
+  <testcase name="deve excluir competência existente com sucesso" classname="groovy.services.CompetenciaServiceTeste" time="0.013"/>
+  <testcase name="deve mostrar mensagem ao tentar excluir competência inexistente" classname="groovy.services.CompetenciaServiceTeste" time="0.011"/>
+  <testcase name="deve selecionar competências por usuário corretamente" classname="groovy.services.CompetenciaServiceTeste" time="0.033"/>
+  <system-out><![CDATA[✦•····· Lista de Competências ·····•✦
+ID: 1, Nome: Java
+ID: 2, Nome: Groovy
+✦•·····•✦•·····•✦
+✦•·····•✦•·····•✦
+Nenhuma competência cadastrada. (•◡•) /
+Informe os dados da Competência:
+Nome: Competência 'Java' cadastrada com sucesso! ID: 1
+✦•····· Lista de Competências ·····•✦
+ID: 1, Nome: Java
+✦•·····•✦•·····•✦
+Informe o ID da competência que deseja atualizar: Digite o novo nome: Competência atualizada com sucesso! （っ＾▿＾）
+✦•·····•✦•·····•✦
+Nenhuma competência cadastrada. (•◡•) /
+Informe o ID da competência que deseja atualizar: Competência não encontrada. (╥﹏╥)
+✦•····· Lista de Competências ·····•✦
+ID: 1, Nome: Java
+✦•·····•✦•·····•✦
+Informe o ID da competência que deseja deletar: Competência deletada com sucesso!（っ＾▿＾）
+✦•·····•✦•·····•✦
+Nenhuma competência cadastrada. (•◡•) /
+Informe o ID da competência que deseja deletar: Erro ao deletar competência. (╥﹏╥)
+Competências disponíveis:
+1: Java
+2: Groovy
+Digite os IDs das competências separados por vírgula: ]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
