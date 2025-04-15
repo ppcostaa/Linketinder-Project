@@ -1,4 +1,4 @@
-import { Pessoa } from "./Pessoa.js";
+import { Pessoa } from "./Pessoa";
 export class Empresa extends Pessoa {
     cnpj;
     pais;

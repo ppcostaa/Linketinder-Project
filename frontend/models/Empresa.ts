@@ -1,9 +1,6 @@
-import { Pessoa } from "./Pessoa.js";
+import { Pessoa } from "./Pessoa";
 
 export class Empresa extends Pessoa {
-  cnpj: string;
-  pais: string;
-
   constructor(
     nome: string,
     email: string,
@@ -11,12 +8,10 @@ export class Empresa extends Pessoa {
     cep: string,
     descricao: string,
     competencias: string[],
-    cnpj: string,
-    pais: string
+    public readonly cnpj: string,
+    public readonly pais: string
   ) {
     super(nome, email, estado, cep, descricao, competencias);
-    this.cnpj = cnpj;
-    this.pais = pais;
   }
 
   toString(): string {

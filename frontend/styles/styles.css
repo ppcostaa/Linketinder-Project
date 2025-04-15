@@ -122,7 +122,8 @@ label {
 }
 input,
 select,
-textarea {
+textarea,
+.descricao {
   color: var(--rosa);
   border: 2px solid var(--rosa);
   background: transparent;
@@ -139,7 +140,14 @@ input {
   margin-bottom: 7px;
   transition: border-color 0.3s, height 0.3s ease-out;
 }
-
+#descricaoEmpresa {
+  height: 175px;
+  width: 100%;
+  padding: 12px 1rem;
+  resize: vertical;
+  margin-top: auto;
+  margin-block: 4px;
+}
 textarea {
   height: 175px;
   width: 200%;
@@ -307,32 +315,84 @@ input[type="checkbox"] {
   border-bottom: 1px solid var(--rosa-claro);
 }
 
-.popup-erro {
-  background-color: #ffebee;
-  border: 2px solid #ff5252;
-  color: #b71c1c;
-  padding: 1rem;
-  border-radius: 8px;
+/* Estilos base do popup */
+.popup {
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #242323;
+  max-width: 300px;
+  animation: fadeIn 0.3s ease-in-out;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  position: relative;
+  z-index: 1000;
+}
+
+/* Variantes de popup */
+.popup-success {
+  background-color: #ff7af6;
+  color: #242323;
+  border: 1px solid #e22bd6;
+}
+
+.popup-error {
+  background-color: #e22bd6;
+  border: 1px solid #c41fc0;
+}
+
+/* Elementos internos */
+.popup-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #242323;
+}
+
+.popup-errors {
+  margin: 0;
+  padding-left: 20px;
+  color: #242323;
+}
+
+.popup-errors li {
+  margin-bottom: 4px;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+/* Container de popups */
+#popup-container {
   position: fixed;
   top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 20px;
   z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-}
-
-.popup-erro ul {
-  margin: 0.5rem 0 0 1rem;
-  padding-left: 1rem;
-}
-
-.popup-erro li {
-  list-style-type: disc;
-  margin-bottom: 0.3rem;
-}
-
-.campo-invalido {
-  border-color: #ff1744 !important;
-  background-color: #ffebee !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
