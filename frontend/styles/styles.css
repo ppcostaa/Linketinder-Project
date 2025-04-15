@@ -315,7 +315,6 @@ input[type="checkbox"] {
   border-bottom: 1px solid var(--rosa-claro);
 }
 
-/* Estilos base do popup */
 .popup {
   padding: 15px;
   border-radius: 5px;
@@ -330,7 +329,6 @@ input[type="checkbox"] {
   z-index: 1000;
 }
 
-/* Variantes de popup */
 .popup-success {
   background-color: #ff7af6;
   color: #242323;
@@ -342,7 +340,6 @@ input[type="checkbox"] {
   border: 1px solid #c41fc0;
 }
 
-/* Elementos internos */
 .popup-header {
   font-weight: bold;
   margin-bottom: 8px;
@@ -359,7 +356,6 @@ input[type="checkbox"] {
   margin-bottom: 4px;
 }
 
-/* Animações */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -386,7 +382,6 @@ input[type="checkbox"] {
   animation: fadeOut 0.3s ease-in-out;
 }
 
-/* Container de popups */
 #popup-container {
   position: fixed;
   top: 20px;
