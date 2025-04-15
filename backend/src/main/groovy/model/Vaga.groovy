@@ -1,4 +1,4 @@
-package groovy.model
+package model
 
 class Vaga {
     int vagaId

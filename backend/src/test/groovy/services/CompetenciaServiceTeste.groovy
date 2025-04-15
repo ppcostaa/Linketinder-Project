@@ -1,7 +1,8 @@
 package groovy.services
 
-import groovy.infra.CompetenciaRepository
-import groovy.model.Competencia
+import model.Competencia
+import repository.CompetenciaRepository
+import services.CompetenciaService
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -11,7 +12,7 @@ class CompetenciaServiceTeste extends Specification {
     CompetenciaService service
 
     CompetenciaRepository repository = Mock()
-    def scanner = GroovyMock(Scanner) // Changed to GroovyMock
+    def scanner = GroovyMock(Scanner)
 
     def setup() {
         service = new CompetenciaService()
@@ -68,7 +69,7 @@ class CompetenciaServiceTeste extends Specification {
         and: "competência existente e lista não vazia"
         def competenciaExistente = new Competencia(competenciaId: 1, competenciaNome: "Java")
         repository.listarCompetenciasPorId(1) >> competenciaExistente
-        repository.listarCompetencias() >> [competenciaExistente] // Add this mock
+        repository.listarCompetencias() >> [competenciaExistente]
         repository.editarCompetencia(_ as Competencia) >> true
 
         when: "edita a competência"
@@ -83,7 +84,7 @@ class CompetenciaServiceTeste extends Specification {
         scanner.nextInt() >> 999
         scanner.nextLine() >> ""
         repository.listarCompetenciasPorId(999) >> null
-        repository.listarCompetencias() >> [] // Add this mock
+        repository.listarCompetencias() >> []
 
         when: "tenta editar competência"
         service.editarCompetencia()
@@ -99,7 +100,7 @@ class CompetenciaServiceTeste extends Specification {
 
         and: "lista não vazia"
         def competenciaExistente = new Competencia(competenciaId: 1, competenciaNome: "Java")
-        repository.listarCompetencias() >> [competenciaExistente] // Add this mock
+        repository.listarCompetencias() >> [competenciaExistente]
         repository.excluirCompetencia(1) >> true
 
         when: "exclui a competência"
@@ -114,7 +115,7 @@ class CompetenciaServiceTeste extends Specification {
         scanner.nextInt() >> 999
         scanner.nextLine() >> ""
         repository.excluirCompetencia(999) >> false
-        repository.listarCompetencias() >> [] // Add this mock
+        repository.listarCompetencias() >> []
 
         when: "tenta excluir competência"
         service.excluirCompetencia()

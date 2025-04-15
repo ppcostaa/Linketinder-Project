@@ -1,4 +1,4 @@
-package groovy.model
+package model
 
 class Usuario {
     int usuarioId
@@ -7,19 +7,6 @@ class Usuario {
     String descricao
 
     Usuario() {}
-
-    Usuario(int usuarioId, String email, String senha, String descricao) {
-        this.usuarioId = usuarioId
-        this.email = email
-        this.senha = senha
-        this.descricao = descricao
-    }
-
-    Usuario(String email, String senha, String descricao) {
-        this.email = email
-        this.senha = senha
-        this.descricao = descricao
-    }
 
     @Override
     String toString() {

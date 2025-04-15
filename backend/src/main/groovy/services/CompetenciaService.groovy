@@ -1,7 +1,8 @@
-package groovy.services
+package services
 
-import groovy.infra.CompetenciaRepository
-import groovy.model.Competencia
+
+import repository.CompetenciaRepository
+import model.Competencia
 
 class CompetenciaService {
     CompetenciaRepository competenciaRepository = new CompetenciaRepository()
@@ -19,6 +20,7 @@ class CompetenciaService {
             println "✦•·····•✦•·····•✦"
         }
     }
+
     def editarCompetencia() {
         listarCompetencias()
 
@@ -66,7 +68,7 @@ class CompetenciaService {
 
     }
 
-    def salvarCompetenciaPorUsuario(){
+    def salvarCompetenciaPorUsuario() {
         List<Competencia> competenciasDisponiveis = competenciaRepository.listarCompetencias()
         println "Competências disponíveis:"
         competenciasDisponiveis.each { competencia ->

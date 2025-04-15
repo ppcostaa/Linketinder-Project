@@ -1,14 +1,14 @@
-package groovy.services
+package services
 
 
-import groovy.infra.CandidatoRepository
-import groovy.infra.CompetenciaRepository
-import groovy.infra.LocalizacaoRepository
-import groovy.infra.UsuarioRepository
-import groovy.model.Candidato
-import groovy.model.Competencia
-import groovy.model.Localizacao
-import groovy.model.Usuario
+import repository.CandidatoRepository
+import repository.CompetenciaRepository
+import repository.LocalizacaoRepository
+import repository.UsuarioRepository
+import model.Candidato
+import model.Competencia
+import model.Localizacao
+import model.Usuario
 
 import java.text.SimpleDateFormat
 
@@ -85,10 +85,6 @@ class CandidatoService {
         List<Competencia> competencias = competenciaService.salvarCompetenciaPorUsuario()
         print "Descrição: "
         String descricao = scanner.nextLine()
-
-
-        UsuarioRepository usuarioRepository = new UsuarioRepository()
-
 
         def candidato = new Candidato(
                 nome: nome,

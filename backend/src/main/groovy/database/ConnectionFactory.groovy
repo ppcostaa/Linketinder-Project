@@ -1,6 +1,7 @@
-package groovy.database
+package database
 
 import groovy.sql.Sql
+import interfaces.IConnectionFactory
 
 import java.sql.Connection
 import java.sql.DriverManager

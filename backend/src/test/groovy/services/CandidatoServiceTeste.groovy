@@ -1,15 +1,13 @@
 package services
 
-import groovy.infra.CandidatoRepository
-import groovy.infra.CompetenciaRepository
-import groovy.infra.LocalizacaoRepository
-import groovy.infra.UsuarioRepository
-import groovy.model.Candidato
-import groovy.model.Competencia
-import groovy.model.Localizacao
-import groovy.model.Usuario
-import groovy.services.CandidatoService
-import groovy.services.CompetenciaService
+import model.Candidato
+import model.Competencia
+import model.Localizacao
+import model.Usuario
+import repository.CandidatoRepository
+import repository.CompetenciaRepository
+import repository.LocalizacaoRepository
+import repository.UsuarioRepository
 import spock.lang.Specification
 import spock.lang.Subject
 

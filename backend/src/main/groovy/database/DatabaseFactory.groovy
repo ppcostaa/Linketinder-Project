@@ -1,4 +1,5 @@
-package groovy.database
+package database
+
 
 class DatabaseFactory {
     static ConnectionFactory createConnectionFactory() {

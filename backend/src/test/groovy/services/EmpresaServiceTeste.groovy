@@ -1,12 +1,11 @@
 package services
 
-import groovy.services.EmpresaService
-import groovy.infra.EmpresaRepository
-import groovy.infra.LocalizacaoRepository
-import groovy.infra.UsuarioRepository
-import groovy.model.Empresa
-import groovy.model.Localizacao
-import groovy.model.Usuario
+import model.Empresa
+import model.Localizacao
+import model.Usuario
+import repository.EmpresaRepository
+import repository.LocalizacaoRepository
+import repository.UsuarioRepository
 import spock.lang.Specification
 
 class EmpresaServiceTeste extends Specification {

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cfbbefbc-d3d2-4f64-826e-f5dfd821f523" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/Main.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/groovy_4_0_14.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/postgresql_42_6_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/spockframework_spock_core.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Linketinder-Project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Linketinder-Project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/groovy_3_0_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/groovy/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/groovy/main/groovy/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/ConnectionFactory.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/database/ConnectionFactory.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/DatabaseFactory.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/database/DatabaseFactory.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/EnvReader.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/database/EnvReader.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/IConnectionFactory.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/database/IConnectionFactory.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/CandidatoRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/repository/CandidatoRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/CompetenciaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/repository/CompetenciaRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/EmpresaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/repository/EmpresaRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/ICandidatoRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/infra/ICandidatoRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/ICompetenciaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/infra/ICompetenciaRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/IEmpresaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/infra/IEmpresaRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/ILocalizacaoRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/infra/ILocalizacaoRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/IUsuarioRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/infra/IUsuarioRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/IVagaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/infra/IVagaRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/LocalizacaoRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/repository/LocalizacaoRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/UsuarioRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/repository/UsuarioRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/infra/VagaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/repository/VagaRepository.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/main/Main.groovy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/main/Sistema.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/Sistema.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Candidato.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/model/Candidato.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Competencia.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/model/Competencia.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Empresa.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/model/Empresa.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Localizacao.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/model/Localizacao.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Usuario.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/model/Usuario.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Vaga.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/model/Vaga.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/CandidatoService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/CompetenciaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/EmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/EmpresaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/VagaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/VagaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/infra/CandidatoRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/infra/CandidatoRepositoryTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/infra/EmpresaRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/infra/EmpresaRepositoryTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/infra/VagaRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/infra/VagaRepositoryTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/CandidatoTeste.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/EmpresaTeste.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/GerenciadorTeste.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/SistemaTeste.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_editarCandidatoMenu_closure10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_editarCandidatoMenu_closure5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_editarCandidatoMenu_closure6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_editarCandidatoMenu_closure7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_editarCandidatoMenu_closure8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_editarCandidatoMenu_closure9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_excluirCandidatoMenu_closure11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_index_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_salvarCandidatoMenu_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_salvarCandidatoMenu_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController$_salvarCandidatoMenu_closure4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CandidatoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CompetenciaController$_editarCompetencia_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CompetenciaController$_excluirCompetencia_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CompetenciaController$_index_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/CompetenciaController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/EmpresaController$_editarEmpresaMenu_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/EmpresaController$_editarEmpresaMenu_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/EmpresaController$_editarEmpresaMenu_closure4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/EmpresaController$_index_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/EmpresaController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/LikeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/LocalizacaoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/MatchController$_verificarMatches_closure1$_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/MatchController$_verificarMatches_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/MatchController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/UsuarioController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_editarVaga_closure10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_editarVaga_closure5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_editarVaga_closure6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_editarVaga_closure7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_editarVaga_closure8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_editarVaga_closure9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_excluirVaga_closure11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_index_closure4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_salvarVaga_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_salvarVaga_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController$_salvarVaga_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/controllers/VagaController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/database/ConnectionFactory$_findDriverInGradleCache_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/database/ConnectionFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/database/IConnectionFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/CandidatoRepository$_editarCandidato_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/CandidatoRepository$_editarCandidato_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/CandidatoRepository$_salvarCandidato_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/CandidatoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/CompetenciaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/EmpresaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/ICandidatoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/ICompetenciaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/IEmpresaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/ILocalizacaoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/IMatchRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/IUsuarioRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/IVagaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/LocalizacaoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/MatchRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/UsuarioRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/VagaRepository$_salvarVaga_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/infra/VagaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/main/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/main/Sistema.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Candidato.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Competencia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Empresa.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Like.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Localizacao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Match.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Usuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/model/Vaga.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/services/CandidatoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/services/CompetenciaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/services/EmpresaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/services/LocalizacaoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/services/MatchService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/services/UsuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Linketinder-Project/services/VagaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sql/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sql/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sql/.idea/sql.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sql/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sql/linketinder_bancodedados.sql" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="linketinder-backend" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="linketinder-backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="linketinder-backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ppcostaa&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ppcostaa/Linketinder-Project.git&quot;,
+    &quot;accountId&quot;: &quot;38bf22bc-3823-41cc-bc6e-bb8264473378&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2voTcBANXpkUaOSoLIohYeNgBDg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.backend [run].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="backend [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.backend [run]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cfbbefbc-d3d2-4f64-826e-f5dfd821f523" name="Changes" comment="" />
+      <created>1744810506946</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744810506946</updated>
+      <workItem from="1744810510413" duration="2485000" />
+      <workItem from="1745070309162" duration="1102000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

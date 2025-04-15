@@ -1,4 +1,4 @@
-package groovy.model;
+package model
 
 class Empresa extends Usuario {
     int empresaId

@@ -1,11 +1,12 @@
-package groovy.services
+package services
 
-import groovy.infra.CompetenciaRepository
-import groovy.infra.EmpresaRepository
-import groovy.infra.VagaRepository
-import groovy.model.Competencia
-import groovy.model.Empresa
-import groovy.model.Vaga
+
+import repository.CompetenciaRepository
+import repository.EmpresaRepository
+import repository.VagaRepository
+import model.Competencia
+import model.Empresa
+import model.Vaga
 
 class VagaService {
     Scanner scanner = new Scanner(System.in)
@@ -25,7 +26,7 @@ class VagaService {
                         "Título: ${vaga.titulo} \n" +
                         "Estado: ${vaga.estado}, \n" +
                         "Cidade: ${vaga.cidade}, \n" +
-                        "Competências: ${vaga.competencias}, \n"+
+                        "Competências: ${vaga.competencias}, \n" +
                         "Descrição: ${vaga.descricao}, \n" +
                         "✦•·····•✦•·····•✦"
             }

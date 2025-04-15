@@ -1,4 +1,4 @@
-package groovy.database
+package database
 
 class EnvReader {
     private Properties properties = new Properties()

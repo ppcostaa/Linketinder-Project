@@ -1,12 +1,12 @@
-package groovy.services
+package services
 
 
-import groovy.infra.EmpresaRepository
-import groovy.infra.LocalizacaoRepository
-import groovy.infra.UsuarioRepository
-import groovy.model.Empresa
-import groovy.model.Localizacao
-import groovy.model.Usuario
+import repository.EmpresaRepository
+import repository.LocalizacaoRepository
+import repository.UsuarioRepository
+import model.Empresa
+import model.Localizacao
+import model.Usuario
 
 class EmpresaService {
     Scanner scanner = new Scanner(System.in)
@@ -39,6 +39,7 @@ class EmpresaService {
             }
         }
     }
+
     def salvarEmpresa() {
         println "Informe os dados da Empresa:"
         print "Nome: "

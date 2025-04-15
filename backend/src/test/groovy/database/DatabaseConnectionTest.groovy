@@ -1,4 +1,4 @@
-package groovy.database
+package database
 
 import spock.lang.Specification
 import spock.lang.Shared

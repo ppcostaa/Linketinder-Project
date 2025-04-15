@@ -1,18 +1,14 @@
 plugins {
     id 'groovy'
     id 'application'
-    id 'idea'
 }
 
 group 'com.linketinder'
 version '1.0-SNAPSHOT'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
+run {
+    standardInput = System.in
 }
-
 repositories {
     mavenCentral()
 }
@@ -31,33 +27,12 @@ dependencies {
 }
 
 application {
-    mainClass = 'main'
-}
-
-sourceSets {
-    main {
-        groovy {
-            srcDirs = ['src/main']
-        }
-    }
-    test {
-        groovy {
-            srcDirs = ['src/test/groovy']
-        }
-    }
+    mainClass = 'groovy.main.Main'
 }
 
 test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
-    }
-}
-
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-        testSourceDirs += file('src/test/groovy')
     }
 }

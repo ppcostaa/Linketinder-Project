@@ -1,13 +1,11 @@
 package services
 
-import groovy.infra.CompetenciaRepository
-import groovy.infra.EmpresaRepository
-import groovy.infra.VagaRepository
-import groovy.model.Competencia
-import groovy.model.Empresa
-import groovy.model.Vaga
-import groovy.services.CompetenciaService
-import groovy.services.VagaService
+import model.Competencia
+import model.Empresa
+import model.Vaga
+import repository.CompetenciaRepository
+import repository.EmpresaRepository
+import repository.VagaRepository
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -169,10 +167,11 @@ class VagaServiceTeste extends Specification {
         cleanup:
         System.setIn(System.in)
     }
+
     def "excluirVaga não deve fazer nada quando ID não existe"() {
         given: "Vaga não existe"
-        def vagas = []  // Empty list for first call to listarVagas
-        vagaRepository.listarVagas() >> vagas  // This ensures a non-null empty list is returned
+        def vagas = []
+        vagaRepository.listarVagas() >> vagas
         vagaRepository.listarVagaPorId(999) >> null
 
         def input = "999\n"
