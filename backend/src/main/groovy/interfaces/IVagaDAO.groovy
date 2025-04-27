@@ -3,7 +3,7 @@ package interfaces
 
 import model.Vaga
 
-interface IVagaRepository {
+interface IVagaDAO {
     Vaga salvarVaga(Vaga vaga)
 
     Vaga listarVagaPorId(int vagaId)

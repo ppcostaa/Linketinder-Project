@@ -1,17 +1,17 @@
-package interfaces
+package DAO
 
 import database.ConnectionFactory
 import model.Localizacao
-import repository.LocalizacaoRepository
+import DAO.LocalizacaoDAO
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.sql.*
 
-class LocalizacaoRepositoryTeste extends Specification {
+class LocalizacaoDAOTeste extends Specification {
 
     @Subject
-    LocalizacaoRepository repository
+    LocalizacaoDAO repository
 
     ConnectionFactory connectionFactory = Mock()
     Connection connection = Mock()
@@ -19,7 +19,7 @@ class LocalizacaoRepositoryTeste extends Specification {
     ResultSet resultSet = Mock()
 
     def setup() {
-        repository = new LocalizacaoRepository(connectionFactory)
+        repository = new LocalizacaoDAO(connectionFactory)
     }
 
     def "deve salvar uma localizacao com sucesso"() {

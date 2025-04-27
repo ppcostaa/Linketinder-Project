@@ -1,17 +1,17 @@
-package interfaces
+package DAO
 
 import database.ConnectionFactory
 import model.Competencia
-import repository.CompetenciaRepository
+import DAO.CompetenciaDAO
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.sql.*
 
-class CompetenciaRepositoryTeste extends Specification {
+class CompetenciaDAOTeste extends Specification {
 
     @Subject
-    CompetenciaRepository repository
+    CompetenciaDAO repository
 
     ConnectionFactory connectionFactory = Mock()
     Connection connection = Mock()
@@ -19,7 +19,7 @@ class CompetenciaRepositoryTeste extends Specification {
     ResultSet resultSet = Mock()
 
     def setup() {
-        repository = new CompetenciaRepository()
+        repository = new CompetenciaDAO()
         repository.connectionFactory = connectionFactory
     }
 

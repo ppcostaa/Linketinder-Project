@@ -3,7 +3,7 @@ package interfaces
 import model.Candidato
 
 
-interface ICandidatoRepository {
+interface ICandidatoDAO {
     Candidato salvarCandidato(Candidato candidato, String email, String senha, String descricao, String cep, String pais)
 
     Candidato listarCandidatoPorId(int id)

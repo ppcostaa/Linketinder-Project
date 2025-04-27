@@ -3,17 +3,17 @@ package services
 import model.Empresa
 import model.Localizacao
 import model.Usuario
-import repository.EmpresaRepository
-import repository.LocalizacaoRepository
-import repository.UsuarioRepository
+import DAO.EmpresaDAO
+import DAO.LocalizacaoDAO
+import DAO.UsuarioDAO
 import spock.lang.Specification
 
 class EmpresaServiceTeste extends Specification {
 
     EmpresaService empresaService
-    EmpresaRepository mockEmpresaRepository
-    UsuarioRepository mockUsuarioRepository
-    LocalizacaoRepository mockLocalizacaoRepository
+    EmpresaDAO mockEmpresaRepository
+    UsuarioDAO mockUsuarioRepository
+    LocalizacaoDAO mockLocalizacaoRepository
     InputStream originalIn
     PrintStream originalOut
     ByteArrayOutputStream outputStream
@@ -25,9 +25,9 @@ class EmpresaServiceTeste extends Specification {
         outputStream = new ByteArrayOutputStream()
         System.setOut(new PrintStream(outputStream))
 
-        mockEmpresaRepository = Mock(EmpresaRepository)
-        mockUsuarioRepository = Mock(UsuarioRepository)
-        mockLocalizacaoRepository = Mock(LocalizacaoRepository)
+        mockEmpresaRepository = Mock(EmpresaDAO)
+        mockUsuarioRepository = Mock(UsuarioDAO)
+        mockLocalizacaoRepository = Mock(LocalizacaoDAO)
 
         empresaService = new EmpresaService(
                 empresaRepository: mockEmpresaRepository,

@@ -1,15 +1,15 @@
-package repository
+package DAO
 
 import database.ConnectionFactory
 import database.DatabaseFactory
-import interfaces.ICandidatoRepository
+import interfaces.ICandidatoDAO
 import model.Candidato
 
 import java.sql.*
 
-class CandidatoRepository implements ICandidatoRepository {
+class CandidatoDAO implements ICandidatoDAO {
     ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
-    CompetenciaRepository competenciaRepository = new CompetenciaRepository()
+    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
 
     @Override
     Candidato salvarCandidato(Candidato candidato, String email, String senha, String descricao, String cep, String pais) {

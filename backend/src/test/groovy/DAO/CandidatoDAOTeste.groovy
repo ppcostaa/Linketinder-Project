@@ -1,9 +1,9 @@
-package interfaces
+package DAO
 
 import database.ConnectionFactory
 import model.Candidato
 import model.Competencia
-import repository.CandidatoRepository
+import DAO.CandidatoDAO
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -13,10 +13,10 @@ import java.sql.ResultSet
 import java.sql.Statement
 import java.text.SimpleDateFormat
 
-class CandidatoRepositoryTeste extends Specification {
+class CandidatoDAOTeste extends Specification {
 
     @Subject
-    CandidatoRepository candidatoRepository
+    CandidatoDAO candidatoRepository
 
     ConnectionFactory connectionFactory
     Connection connection
@@ -29,7 +29,7 @@ class CandidatoRepositoryTeste extends Specification {
         preparedStatement = Mock(PreparedStatement)
         resultSet = Mock(ResultSet)
 
-        candidatoRepository = new CandidatoRepository()
+        candidatoRepository = new CandidatoDAO()
         candidatoRepository.connectionFactory = connectionFactory
     }
 

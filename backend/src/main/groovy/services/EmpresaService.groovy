@@ -1,18 +1,18 @@
 package services
 
 
-import repository.EmpresaRepository
-import repository.LocalizacaoRepository
-import repository.UsuarioRepository
+import DAO.EmpresaDAO
+import DAO.LocalizacaoDAO
+import DAO.UsuarioDAO
 import model.Empresa
 import model.Localizacao
 import model.Usuario
 
 class EmpresaService {
     Scanner scanner = new Scanner(System.in)
-    EmpresaRepository empresaRepository = new EmpresaRepository()
-    LocalizacaoRepository localizacaoRepository = new LocalizacaoRepository()
-    UsuarioRepository usuarioRepository = new UsuarioRepository()
+    EmpresaDAO empresaRepository = new EmpresaDAO()
+    LocalizacaoDAO localizacaoRepository = new LocalizacaoDAO()
+    UsuarioDAO usuarioRepository = new UsuarioDAO()
 
     def listarEmpresas() {
         List<Empresa> empresas = empresaRepository.listarEmpresas()

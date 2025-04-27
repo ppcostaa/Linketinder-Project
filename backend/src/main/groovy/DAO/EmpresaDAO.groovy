@@ -1,13 +1,13 @@
-package repository
+package DAO
 
 import database.ConnectionFactory
 import database.DatabaseFactory
-import interfaces.IEmpresaRepository
+import interfaces.IEmpresaDAO
 import model.Empresa
 
 import java.sql.*
 
-class EmpresaRepository implements IEmpresaRepository {
+class EmpresaDAO implements IEmpresaDAO {
     ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
 
     @Override

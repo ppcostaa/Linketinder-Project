@@ -3,7 +3,7 @@ package interfaces
 import model.Competencia
 
 
-interface ICompetenciaRepository {
+interface ICompetenciaDAO {
     List<Competencia> listarCompetenciasPorCandidato(int candidatoId)
 
     Competencia listarCompetenciasPorId(int competenciaId)

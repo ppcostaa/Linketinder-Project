@@ -1,10 +1,10 @@
 package services
 
 
-import repository.CandidatoRepository
-import repository.CompetenciaRepository
-import repository.LocalizacaoRepository
-import repository.UsuarioRepository
+import DAO.CandidatoDAO
+import DAO.CompetenciaDAO
+import DAO.LocalizacaoDAO
+import DAO.UsuarioDAO
 import model.Candidato
 import model.Competencia
 import model.Localizacao
@@ -14,10 +14,10 @@ import java.text.SimpleDateFormat
 
 class CandidatoService {
     Scanner scanner = new Scanner(System.in)
-    CompetenciaRepository competenciaRepository = new CompetenciaRepository()
-    CandidatoRepository candidatoRepository = new CandidatoRepository()
-    UsuarioRepository usuarioRepository = new UsuarioRepository()
-    LocalizacaoRepository localizacaoRepository = new LocalizacaoRepository()
+    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
+    CandidatoDAO candidatoRepository = new CandidatoDAO()
+    UsuarioDAO usuarioRepository = new UsuarioDAO()
+    LocalizacaoDAO localizacaoRepository = new LocalizacaoDAO()
     CompetenciaService competenciaService = new CompetenciaService()
 
     def listarCandidatos() {

@@ -4,10 +4,10 @@ import model.Candidato
 import model.Competencia
 import model.Localizacao
 import model.Usuario
-import repository.CandidatoRepository
-import repository.CompetenciaRepository
-import repository.LocalizacaoRepository
-import repository.UsuarioRepository
+import DAO.CandidatoDAO
+import DAO.CompetenciaDAO
+import DAO.LocalizacaoDAO
+import DAO.UsuarioDAO
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -18,10 +18,10 @@ class CandidatoServiceTeste extends Specification {
     @Subject
     CandidatoService candidatoService
 
-    CandidatoRepository candidatoRepository = Mock()
-    UsuarioRepository usuarioRepository = Mock()
-    LocalizacaoRepository localizacaoRepository = Mock()
-    CompetenciaRepository competenciaRepository = Mock()
+    CandidatoDAO candidatoRepository = Mock()
+    UsuarioDAO usuarioRepository = Mock()
+    LocalizacaoDAO localizacaoRepository = Mock()
+    CompetenciaDAO competenciaRepository = Mock()
     CompetenciaService competenciaService = Mock()
 
     def setup() {

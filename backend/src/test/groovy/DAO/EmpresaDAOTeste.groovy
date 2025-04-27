@@ -1,15 +1,15 @@
-package interfaces
+package DAO
 
 import database.ConnectionFactory
 import model.Empresa
-import repository.EmpresaRepository
+import DAO.EmpresaDAO
 import spock.lang.Specification
 
 import java.sql.*
 
-class EmpresaRepositoryTeste extends Specification {
+class EmpresaDAOTeste extends Specification {
 
-    EmpresaRepository empresaRepository
+    EmpresaDAO empresaRepository
     ConnectionFactory connectionFactory
     Connection mockConnection
     PreparedStatement mockPreparedStatement
@@ -22,7 +22,7 @@ class EmpresaRepositoryTeste extends Specification {
         mockResultSet = Mock(ResultSet)
 
         connectionFactory.createConnection() >> mockConnection
-        empresaRepository = new EmpresaRepository(connectionFactory: connectionFactory)
+        empresaRepository = new EmpresaDAO(connectionFactory: connectionFactory)
     }
 
     def "deve salvar uma empresa com sucesso"() {

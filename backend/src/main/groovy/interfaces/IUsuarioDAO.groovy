@@ -2,7 +2,7 @@ package interfaces
 
 import model.Usuario
 
-interface IUsuarioRepository {
+interface IUsuarioDAO {
     boolean emailExiste(String email)
 
     Usuario listarUsuarioPorId(int usuarioId)

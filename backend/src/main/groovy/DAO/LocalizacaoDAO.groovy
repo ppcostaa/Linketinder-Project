@@ -1,8 +1,8 @@
-package repository
+package DAO
 
 import database.ConnectionFactory
 import database.DatabaseFactory
-import interfaces.ILocalizacaoRepository
+import interfaces.ILocalizacaoDAO
 import model.Localizacao
 
 import java.sql.Connection
@@ -10,14 +10,14 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class LocalizacaoRepository implements ILocalizacaoRepository {
+class LocalizacaoDAO implements ILocalizacaoDAO {
     private final ConnectionFactory connectionFactory
 
-    LocalizacaoRepository() {
+    LocalizacaoDAO() {
         this(DatabaseFactory.createConnectionFactory())
     }
 
-    LocalizacaoRepository(ConnectionFactory connectionFactory) {
+    LocalizacaoDAO(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory
     }
 

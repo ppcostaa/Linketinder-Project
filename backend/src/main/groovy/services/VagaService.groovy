@@ -1,19 +1,19 @@
 package services
 
 
-import repository.CompetenciaRepository
-import repository.EmpresaRepository
-import repository.VagaRepository
+import DAO.CompetenciaDAO
+import DAO.EmpresaDAO
+import DAO.VagaDAO
 import model.Competencia
 import model.Empresa
 import model.Vaga
 
 class VagaService {
     Scanner scanner = new Scanner(System.in)
-    VagaRepository vagaRepository = new VagaRepository()
-    CompetenciaRepository competenciaRepository = new CompetenciaRepository()
+    VagaDAO vagaRepository = new VagaDAO()
+    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
     CompetenciaService competenciaService = new CompetenciaService()
-    EmpresaRepository empresaRepository = new EmpresaRepository()
+    EmpresaDAO empresaRepository = new EmpresaDAO()
 
     def listarVagas() {
         List<Vaga> vagas = vagaRepository.listarVagas()

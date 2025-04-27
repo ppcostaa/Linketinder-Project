@@ -1,8 +1,8 @@
-package repository
+package DAO
 
 import database.ConnectionFactory
 import database.DatabaseFactory
-import interfaces.IUsuarioRepository
+import interfaces.IUsuarioDAO
 import model.Usuario
 
 import java.sql.Connection
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class UsuarioRepository implements IUsuarioRepository {
+class UsuarioDAO implements IUsuarioDAO {
     ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
 
     @Override

@@ -1,17 +1,17 @@
-package interfaces
+package DAO
 
 import database.ConnectionFactory
 import model.Usuario
-import repository.UsuarioRepository
+import DAO.UsuarioDAO
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.sql.*
 
-class UsuarioRepositoryTeste extends Specification {
+class UsuarioDAOTeste extends Specification {
 
     @Subject
-    UsuarioRepository repository
+    UsuarioDAO repository
 
     ConnectionFactory connectionFactory = Mock()
     Connection connection = Mock()
@@ -19,7 +19,7 @@ class UsuarioRepositoryTeste extends Specification {
     ResultSet resultSet = Mock()
 
     def setup() {
-        repository = new UsuarioRepository()
+        repository = new UsuarioDAO()
         repository.connectionFactory = connectionFactory
     }
 

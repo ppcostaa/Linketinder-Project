@@ -1,7 +1,7 @@
 package groovy.services
 
 import model.Competencia
-import repository.CompetenciaRepository
+import DAO.CompetenciaDAO
 import services.CompetenciaService
 import spock.lang.Specification
 import spock.lang.Subject
@@ -11,7 +11,7 @@ class CompetenciaServiceTeste extends Specification {
     @Subject
     CompetenciaService service
 
-    CompetenciaRepository repository = Mock()
+    CompetenciaDAO repository = Mock()
     def scanner = GroovyMock(Scanner)
 
     def setup() {

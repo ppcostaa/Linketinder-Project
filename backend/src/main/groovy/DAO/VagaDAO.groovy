@@ -1,16 +1,16 @@
-package repository
+package DAO
 
 import database.DatabaseFactory
-import interfaces.IVagaRepository
+import interfaces.IVagaDAO
 import model.Competencia
 import model.Vaga
 
 import java.sql.*
 
-class VagaRepository implements IVagaRepository {
+class VagaDAO implements IVagaDAO {
 
     database.ConnectionFactory connectionFactory = DatabaseFactory.createConnectionFactory()
-    CompetenciaRepository competenciaRepository = new CompetenciaRepository()
+    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
 
     @Override
     Vaga salvarVaga(Vaga vaga) {

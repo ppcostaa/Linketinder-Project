@@ -3,7 +3,7 @@ package interfaces
 import model.Empresa
 
 
-interface IEmpresaRepository {
+interface IEmpresaDAO {
     Empresa salvarEmpresa(Empresa empresa, String email, String senha, String descricao, String cep, String pais)
 
     Empresa listarEmpresaPorId(int empresaId)

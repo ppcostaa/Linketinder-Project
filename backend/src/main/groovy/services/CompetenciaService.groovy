@@ -1,11 +1,11 @@
 package services
 
 
-import repository.CompetenciaRepository
+import DAO.CompetenciaDAO
 import model.Competencia
 
 class CompetenciaService {
-    CompetenciaRepository competenciaRepository = new CompetenciaRepository()
+    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
     Scanner scanner = new Scanner(System.in)
 
     def listarCompetencias() {

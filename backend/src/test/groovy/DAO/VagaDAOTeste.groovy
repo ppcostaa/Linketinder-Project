@@ -1,10 +1,10 @@
-package interfaces
+package DAO
 
 import database.ConnectionFactory
 import model.Competencia
 import model.Vaga
-import repository.CompetenciaRepository
-import repository.VagaRepository
+import DAO.CompetenciaDAO
+import DAO.VagaDAO
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -13,10 +13,10 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
 
-class VagaRepositoryTeste extends Specification {
+class VagaDAOTeste extends Specification {
 
     @Subject
-    VagaRepository vagaRepository
+    VagaDAO vagaRepository
 
     ConnectionFactory connectionFactory
     Connection connection
@@ -29,7 +29,7 @@ class VagaRepositoryTeste extends Specification {
         preparedStatement = Mock(PreparedStatement)
         resultSet = Mock(ResultSet)
 
-        vagaRepository = new VagaRepository()
+        vagaRepository = new VagaDAO()
         vagaRepository.connectionFactory = connectionFactory
     }
 
@@ -189,7 +189,7 @@ class VagaRepositoryTeste extends Specification {
     def "deve listar todas as vagas"() {
         given: "várias vagas no banco de dados"
         def vagaResultSet = Mock(ResultSet)
-        def competenciaRepository = Mock(CompetenciaRepository)
+        def competenciaRepository = Mock(CompetenciaDAO)
         vagaRepository.competenciaRepository = competenciaRepository
 
         when: "o método listarVagas é chamado"

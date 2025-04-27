@@ -3,9 +3,9 @@ package services
 import model.Competencia
 import model.Empresa
 import model.Vaga
-import repository.CompetenciaRepository
-import repository.EmpresaRepository
-import repository.VagaRepository
+import DAO.CompetenciaDAO
+import DAO.EmpresaDAO
+import DAO.VagaDAO
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -14,10 +14,10 @@ class VagaServiceTeste extends Specification {
     @Subject
     VagaService vagaService
 
-    VagaRepository vagaRepository = Mock()
-    CompetenciaRepository competenciaRepository = Mock()
+    VagaDAO vagaRepository = Mock()
+    CompetenciaDAO competenciaRepository = Mock()
     CompetenciaService competenciaService = Mock()
-    EmpresaRepository empresaRepository = Mock()
+    EmpresaDAO empresaRepository = Mock()
 
     def setup() {
         vagaService = new VagaService(
