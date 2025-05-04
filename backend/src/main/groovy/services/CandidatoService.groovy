@@ -20,6 +20,30 @@ class CandidatoService {
     LocalizacaoDAO localizacaoRepository = new LocalizacaoDAO()
     CompetenciaService competenciaService = new CompetenciaService()
 
+    List<Candidato> buscarTodosCandidatos() {
+        return candidatoRepository.listarCandidatos()
+    }
+
+    Candidato buscarCandidatoPorId(int id) {
+        return candidatoRepository.listarCandidatoPorId(id)
+    }
+
+    Candidato salvarCandidato(Candidato candidato, String email, String senha, String descricao, String cep, String pais) {
+        if (usuarioRepository.emailExiste(email)) {
+            throw new RuntimeException("Email já cadastrado. Tente outro email.")
+        }
+
+        return candidatoRepository.salvarCandidato(candidato, email, senha, descricao, cep, pais)
+    }
+
+    boolean editarCandidato(Candidato candidato) {
+        return candidatoRepository.editarCandidato(candidato)
+    }
+
+    boolean excluirCandidato(int id) {
+        return candidatoRepository.excluirCandidato(id)
+    }
+
     def listarCandidatos() {
         List<Candidato> candidatos = candidatoRepository.listarCandidatos()
         if (candidatos.isEmpty()) {
