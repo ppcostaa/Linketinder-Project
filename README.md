@@ -4,15 +4,42 @@ O **Linketinder** é uma aplicação que simula um sistema de cadastro e busca p
 
 ## Funcionalidades
 
-- **Cadastro de Candidatos**: Permite que os candidatos insiram seus dados pessoais, competências e experiência profissional.
-- **Cadastro de Empresas**: Permite que as empresas se cadastrem com informações como nome, CNPJ, competências desejadas e descrição da empresa.
-- **Listar Candidatos**: Exibe todos os candidatos cadastrados no sistema.
-- **Listar Empresas**: Exibe todas as empresas cadastradas no sistema.
-- **Opções de navegação**: Um menu de navegação onde o usuário pode escolher as ações que deseja realizar.
-- **Interface Web**: Agora o projeto conta com uma interface interativa, com gráficos, telas de cadastro e de acesso ao perfil.
-- **Validação de dados**: Atualmente, o projeto conta com uma validação de dados feita por regex!
-- **Integração com banco de dados**: O projeto agora conta com um banco de dados integrado ao backend!
+### 1. 🚀 API RESTful
 
+   - CRUD completo para Candidatos, Empresas e Vagas;
+
+   - Validação de dados integrada;
+
+   - Respostas em JSON padronizadas;
+
+   - Status HTTP semânticos.
+
+### 2. 👨‍💻 Para Candidatos
+
+   - Cadastro com competências;
+
+   - Busca por ID ou listagem completa;
+
+   - Atualização de perfil;
+
+   - Exclusão de conta.
+
+### 3. 🏢 Para Empresas
+
+   - Cadastro com dados corporativos;
+
+   - Publicação de vagas;
+
+   - Gestão de oportunidades.
+
+### 4. 🔍 Vagas
+
+   - Criação por empresas;
+
+   - Listagem filtrada;
+   - 
+   - Atualização de status.
+     
 ## Como Usar
 
 ### Instruções:
@@ -47,6 +74,37 @@ Na feature mais recente, comecei a trabalhar com banco de dados. Ainda não foi 
 Aqui uma demonstração de como me planejei e organizei o MySQL
 
 ![alt text](image.png)
+
+## Documentação da API
+
+- Endpoints Base: http://localhost:8080/linketinder/api/
+
+### Como Usar a API
+
+#### Pré-requisitos
+
+   - Java 11+
+
+   - PostgreSQL 12+
+
+   - Tomcat 9+
+     
+#### Instalação
+
+**1.** Clone o repositório: 
+```
+git clone https://github.com/ppcostaa/Linketinder-Project.git
+```
+**2.** Configure o banco de dados:
+   - Execute o script SQL em src/main/resources/schema.sql
+   - Configure as credenciais em .env
+**3.** Inicie a aplicação:
+```
+./gradlew clean war
+cp build/libs/linketinder.war $TOMCAT_HOME/webapps/
+```
+**4.** Testando endpoints:
+ - Use curl ou Postman para testar!
 
 ### Autora
 
