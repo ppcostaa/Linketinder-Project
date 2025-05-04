@@ -149,7 +149,6 @@ class CandidatoDAO implements ICandidatoDAO {
         }
     }
 
-    @Override
     List<Candidato> listarCandidatos() {
         String sql = """
         SELECT c.*, u.EMAIL, u.DESCRICAO, l.CEP, l.PAIS 

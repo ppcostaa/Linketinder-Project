@@ -1,29 +1,37 @@
 plugins {
     id 'groovy'
     id 'application'
+    id 'war'
 }
-
 group 'com.linketinder'
 version '1.0-SNAPSHOT'
-
 run {
     standardInput = System.in
 }
 repositories {
     mavenCentral()
 }
+configurations {
+    all {
+        exclude group: 'org.apache.groovy', module: 'groovy-xml'
+    }
+}
 
-def groovyVersion = '4.0.9'
 
 dependencies {
-    implementation "org.apache.groovy:groovy-all:$groovyVersion"
+    implementation 'org.apache.groovy:groovy-all:4.0.14'
     implementation 'org.postgresql:postgresql:42.6.0'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
 
     testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     testRuntimeOnly 'net.bytebuddy:byte-buddy:1.11.22'
     testRuntimeOnly 'org.objenesis:objenesis:3.2'
+    compileOnly 'org.apache.tomcat:tomcat-catalina:8.5.82'
+
 }
 
 application {
@@ -36,3 +44,28 @@ test {
         events "passed", "skipped", "failed"
     }
 }
+
+war {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveFileName = 'linketinder.war'
+    from 'src/main/webapp'
+    from('.') {
+        include '.env'
+        into 'WEB-INF/classes'
+    }
+}
+
+task deploy(type: Exec) {
+    dependsOn war
+    description = 'Builds the WAR and deploys it to Tomcat webapps.'
+    group = 'deployment'
+
+    commandLine 'bash', '-c', "sudo cp ${war.archiveFile.get().asFile.absolutePath} /var/lib/tomcat9/webapps/"
+}
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+

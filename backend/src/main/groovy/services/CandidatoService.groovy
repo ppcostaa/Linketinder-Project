@@ -14,21 +14,45 @@ import java.text.SimpleDateFormat
 
 class CandidatoService {
     Scanner scanner = new Scanner(System.in)
-    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
-    CandidatoDAO candidatoRepository = new CandidatoDAO()
-    UsuarioDAO usuarioRepository = new UsuarioDAO()
-    LocalizacaoDAO localizacaoRepository = new LocalizacaoDAO()
+    CompetenciaDAO competenciaDAO = new CompetenciaDAO()
+    CandidatoDAO candidatoDAO = new CandidatoDAO()
+    UsuarioDAO usuarioDAO = new UsuarioDAO()
+    LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO()
     CompetenciaService competenciaService = new CompetenciaService()
 
+    List<Candidato> buscarTodosCandidatos() {
+        return candidatoDAO.listarCandidatos()
+    }
+
+    Candidato buscarCandidatoPorId(int id) {
+        return candidatoDAO.listarCandidatoPorId(id)
+    }
+
+    Candidato salvarCandidato(Candidato candidato, String email, String senha, String descricao, String cep, String pais) {
+        if (usuarioDAO.emailExiste(email)) {
+            throw new RuntimeException("Email já cadastrado. Tente outro email.")
+        }
+
+        return candidatoDAO.salvarCandidato(candidato, email, senha, descricao, cep, pais)
+    }
+
+    boolean editarCandidato(Candidato candidato) {
+        return candidatoDAO.editarCandidato(candidato)
+    }
+
+    boolean excluirCandidato(int id) {
+        return candidatoDAO.excluirCandidato(id)
+    }
+
     def listarCandidatos() {
-        List<Candidato> candidatos = candidatoRepository.listarCandidatos()
+        List<Candidato> candidatos = candidatoDAO.listarCandidatos()
         if (candidatos.isEmpty()) {
             println "Nenhum candidato cadastrado. (•◡•) /"
         } else {
             println("✦•····· Lista de Candidatos ·····•✦");
             candidatos.each { candidato ->
-                Usuario usuario = usuarioRepository.listarUsuarioPorId(candidato.usuarioId)
-                Localizacao localizacao = localizacaoRepository.listarLocalizacoesPorId(candidato.localizacaoId)
+                Usuario usuario = usuarioDAO.listarUsuarioPorId(candidato.usuarioId)
+                Localizacao localizacao = localizacaoDAO.listarLocalizacoesPorId(candidato.localizacaoId)
                 println "ID: ${candidato.candidatoId}, \n" +
                         "Email: ${usuario.email}, \n" +
                         "CEP: ${localizacao.cep}, \n" +
@@ -63,7 +87,7 @@ class CandidatoService {
         String sobrenome = scanner.nextLine()
         print "Email: "
         String email = scanner.nextLine()
-        if (usuarioRepository.emailExiste(email)) {
+        if (usuarioDAO.emailExiste(email)) {
             println "Email já cadastrado. Tente outro email. (•◡•) /"
             return
         }
@@ -94,7 +118,7 @@ class CandidatoService {
                 competencias: competencias
         )
 
-        candidatoRepository.salvarCandidato(candidato, email, senha, descricao, cep, pais)
+        candidatoDAO.salvarCandidato(candidato, email, senha, descricao, cep, pais)
         println "Candidato cadastrado com sucesso! （っ＾▿＾）"
     }
 
@@ -103,14 +127,14 @@ class CandidatoService {
         print "Informe o ID do candidato que deseja atualizar: "
         int idCandidato = scanner.nextInt()
         scanner.nextLine()
-        Candidato candidatoParaEditar = candidatoRepository.listarCandidatoPorId(idCandidato)
+        Candidato candidatoParaEditar = candidatoDAO.listarCandidatoPorId(idCandidato)
         if (candidatoParaEditar == null) {
             println "Candidato não encontrado. (╥﹏╥)"
             return
         }
 
-        Usuario usuario = usuarioRepository.listarUsuarioPorId(candidatoParaEditar.usuarioId)
-        Localizacao localizacao = localizacaoRepository.listarLocalizacoesPorId(candidatoParaEditar.localizacaoId)
+        Usuario usuario = usuarioDAO.listarUsuarioPorId(candidatoParaEditar.usuarioId)
+        Localizacao localizacao = localizacaoDAO.listarLocalizacoesPorId(candidatoParaEditar.localizacaoId)
 
         println "\nO que você deseja atualizar?"
         println "1. Nome"
@@ -181,7 +205,7 @@ class CandidatoService {
                     scanner.nextLine()
 
                     if (opcaoCompetencia == 1) {
-                        List<Competencia> todasCompetencias = competenciaRepository.listarCompetencias()
+                        List<Competencia> todasCompetencias = competenciaDAO.listarCompetencias()
                         List<Competencia> competenciasAtuais = candidatoParaEditar.competencias
                         List<Competencia> competenciasDisponiveis = todasCompetencias.findAll { competencia ->
                             !competenciasAtuais.any { it.competenciaId == competencia.competenciaId }
@@ -223,9 +247,9 @@ class CandidatoService {
             }
         }
 
-        boolean sucessoCandidato = candidatoRepository.editarCandidato(candidatoParaEditar)
-        boolean sucessoUsuario = usuarioRepository.editarUsuario(usuario)
-        boolean sucessoLocalizacao = localizacaoRepository.editarLocalizacao(localizacao, localizacao.localizacaoId)
+        boolean sucessoCandidato = candidatoDAO.editarCandidato(candidatoParaEditar)
+        boolean sucessoUsuario = usuarioDAO.editarUsuario(usuario)
+        boolean sucessoLocalizacao = localizacaoDAO.editarLocalizacao(localizacao, localizacao.localizacaoId)
 
         if (sucessoCandidato && sucessoUsuario && sucessoLocalizacao) {
             println "Candidato atualizado com sucesso! （っ＾▿＾）"
@@ -240,13 +264,13 @@ class CandidatoService {
         int idCandidatoDeletar = scanner.nextInt()
         scanner.nextLine()
 
-        def candidatos = candidatoRepository.listarCandidatos()
+        def candidatos = candidatoDAO.listarCandidatos()
         if (!candidatos.any { it.candidatoId == idCandidatoDeletar }) {
             println "Candidato não encontrado. (╥﹏╥)"
             return
         }
 
-        boolean sucesso = candidatoRepository.excluirCandidato(idCandidatoDeletar)
+        boolean sucesso = candidatoDAO.excluirCandidato(idCandidatoDeletar)
         if (sucesso) {
             println "Candidato deletado com sucesso!（っ＾▿＾）"
         } else {

@@ -5,11 +5,11 @@ import DAO.CompetenciaDAO
 import model.Competencia
 
 class CompetenciaService {
-    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
+    CompetenciaDAO competenciaDAO = new CompetenciaDAO()
     Scanner scanner = new Scanner(System.in)
 
     def listarCompetencias() {
-        def competencias = competenciaRepository.listarCompetencias()
+        def competencias = competenciaDAO.listarCompetencias()
         if (competencias == null || competencias.isEmpty()) {
             println "✦•·····•✦•·····•✦\nNenhuma competência cadastrada. (•◡•) /"
         } else {
@@ -28,7 +28,7 @@ class CompetenciaService {
         int idCompetencia = scanner.nextInt()
         scanner.nextLine()
 
-        Competencia competenciaParaEditar = competenciaRepository.listarCompetenciasPorId(idCompetencia)
+        Competencia competenciaParaEditar = competenciaDAO.listarCompetenciasPorId(idCompetencia)
 
         if (competenciaParaEditar == null) {
             println "Competência não encontrada. (╥﹏╥)"
@@ -43,7 +43,7 @@ class CompetenciaService {
                 competenciaNome: novoNome
         )
 
-        boolean sucessoCompetencia = competenciaRepository.editarCompetencia(competenciaAtualizada)
+        boolean sucessoCompetencia = competenciaDAO.editarCompetencia(competenciaAtualizada)
 
         if (sucessoCompetencia) {
             println "Competência atualizada com sucesso! （っ＾▿＾）"
@@ -58,7 +58,7 @@ class CompetenciaService {
         String nome = scanner.nextLine()
         Competencia novaCompetencia = new Competencia(competenciaNome: nome)
 
-        Competencia competenciaSalva = competenciaRepository.salvarCompetencia(novaCompetencia)
+        Competencia competenciaSalva = competenciaDAO.salvarCompetencia(novaCompetencia)
 
         if (competenciaSalva) {
             println "Competência '${competenciaSalva.competenciaNome}' cadastrada com sucesso! ID: ${competenciaSalva.competenciaId}"
@@ -69,7 +69,7 @@ class CompetenciaService {
     }
 
     def salvarCompetenciaPorUsuario() {
-        List<Competencia> competenciasDisponiveis = competenciaRepository.listarCompetencias()
+        List<Competencia> competenciasDisponiveis = competenciaDAO.listarCompetencias()
         println "Competências disponíveis:"
         competenciasDisponiveis.each { competencia ->
             println "${competencia.competenciaId}: ${competencia.competenciaNome}"
@@ -95,7 +95,7 @@ class CompetenciaService {
         int idCompetenciaDeletar = scanner.nextInt()
         scanner.nextLine()
 
-        boolean sucesso = competenciaRepository.excluirCompetencia(idCompetenciaDeletar)
+        boolean sucesso = competenciaDAO.excluirCompetencia(idCompetenciaDeletar)
         if (sucesso) {
             println "Competência deletada com sucesso!（っ＾▿＾）"
             return

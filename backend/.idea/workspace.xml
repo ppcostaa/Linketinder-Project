@@ -4,30 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfbbefbc-d3d2-4f64-826e-f5dfd821f523" name="Changes" comment="Ajustando pastas e melhorando o design patterns">
+    <list default="true" id="cfbbefbc-d3d2-4f64-826e-f5dfd821f523" name="Changes" comment="feat/14: testando novo build.gradle">
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/controller/EmpresaController.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/groovy/controller/VagaController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/ICandidatoRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/interfaces/ICandidatoDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/ICompetenciaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/interfaces/ICompetenciaDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/repository/CandidatoRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/DAO/CandidatoDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/repository/CompetenciaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/DAO/CompetenciaDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/repository/EmpresaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/DAO/EmpresaDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/repository/LocalizacaoRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/DAO/LocalizacaoDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/repository/UsuarioRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/DAO/UsuarioDAO.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/repository/VagaRepository.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/DAO/VagaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/EnvReader.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/database/EnvReader.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/CandidatoService.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/CompetenciaService.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/services/EmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/EmpresaService.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/services/VagaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/VagaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/interfaces/CandidatoRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/CandidatoDAOTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/interfaces/CompetenciaRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/CompetenciaDAOTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/interfaces/EmpresaRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/EmpresaDAOTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/interfaces/LocalizacaoRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/LocalizacaoDAOTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/interfaces/UsuarioRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/UsuarioDAOTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/interfaces/VagaRepositoryTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/VagaDAOTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/services/CandidatoServiceTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/services/CandidatoServiceTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/services/CompetenciaServiceTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/services/CompetenciaServiceTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/services/EmpresaServiceTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/services/EmpresaServiceTeste.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/services/VagaServiceTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/services/VagaServiceTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +59,11 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="feature/14" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -94,52 +87,152 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.backend [run].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.CandidatoDAOTeste.deve salvar um candidato com sucesso.executor": "Run",
+    "Gradle.CandidatoDAOTeste.executor": "Run",
+    "Gradle.CandidatoServiceTeste.executor": "Run",
+    "Gradle.DatabaseConnectionTest.executor": "Run",
+    "Gradle.LocalizacaoDAOTeste.deve retornar localizacao ao buscar por ID existente.executor": "Run",
+    "Gradle.LocalizacaoDAOTeste.deve salvar uma localizacao com sucesso.executor": "Run",
+    "Gradle.LocalizacaoDAOTeste.executor": "Run",
+    "Gradle.backend [:utils.Aplicacao.main()].executor": "Run",
+    "Gradle.backend [run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHELLCHECK.PATH": "/home/pcosta/.local/share/JetBrains/IntelliJIdea2024.3/Shell Script/shellcheck",
+    "git-widget-placeholder": "feature/14",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "web.server",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="backend [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+}]]></component>
+  <component name="RunManager" selected="Application.Aplicacao">
+    <configuration name="Aplicacao" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="utils.Aplicacao" />
+      <module name="linketinder-backend.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CandidatoDAOTeste" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="run" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;DAO.CandidatoDAOTeste&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="CandidatoDAOTeste.deve salvar um candidato com sucesso" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;DAO.CandidatoDAOTeste.deve salvar um candidato com sucesso&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="CandidatoServiceTeste" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;services.CandidatoServiceTeste&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="DatabaseConnectionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;database.DatabaseConnectionTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.backend [run]" />
+        <item itemvalue="Application.Aplicacao" />
+        <item itemvalue="Gradle.CandidatoDAOTeste" />
+        <item itemvalue="Gradle.CandidatoServiceTeste" />
+        <item itemvalue="Gradle.CandidatoDAOTeste.deve salvar um candidato com sucesso" />
+        <item itemvalue="Gradle.DatabaseConnectionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -161,7 +254,12 @@
       <workItem from="1744810510413" duration="2485000" />
       <workItem from="1745070309162" duration="2758000" />
       <workItem from="1745312996462" duration="78000" />
-      <workItem from="1745778301263" duration="321000" />
+      <workItem from="1745778301263" duration="1506000" />
+      <workItem from="1746237102814" duration="2384000" />
+      <workItem from="1746239510880" duration="1622000" />
+      <workItem from="1746241158362" duration="9237000" />
+      <workItem from="1746314630702" duration="2676000" />
+      <workItem from="1746368810432" duration="13450000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustando pastas e melhorando o design patterns">
       <option name="closed" value="true" />
@@ -171,7 +269,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745072446327</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Ajustando pastas e melhorando o design patterns">
+      <option name="closed" value="true" />
+      <created>1745778701280</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745778701280</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat/14: testando novo build.gradle">
+      <option name="closed" value="true" />
+      <created>1746376337954</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746376337954</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +294,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="retirando comentarios" />
     <MESSAGE value="Ajustando pastas e melhorando o design patterns" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajustando pastas e melhorando o design patterns" />
+    <MESSAGE value="feat/14: testando novo build.gradle" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat/14: testando novo build.gradle" />
   </component>
 </project>

@@ -4,25 +4,50 @@ package services
 import DAO.EmpresaDAO
 import DAO.LocalizacaoDAO
 import DAO.UsuarioDAO
+import model.Candidato
 import model.Empresa
 import model.Localizacao
 import model.Usuario
 
 class EmpresaService {
     Scanner scanner = new Scanner(System.in)
-    EmpresaDAO empresaRepository = new EmpresaDAO()
-    LocalizacaoDAO localizacaoRepository = new LocalizacaoDAO()
-    UsuarioDAO usuarioRepository = new UsuarioDAO()
+    EmpresaDAO empresaDAO = new EmpresaDAO()
+    LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO()
+    UsuarioDAO usuarioDAO = new UsuarioDAO()
+
+    List<Empresa> buscarTodasEmpresas() {
+        return empresaDAO.listarEmpresas()
+    }
+
+    Empresa buscarEmpresaPorId(int id) {
+        return empresaDAO.listarEmpresaPorId(id)
+    }
+
+    Empresa salvarEmpresa(Empresa empresa, String email, String senha, String descricao, String cep, String pais) {
+        if (usuarioDAO.emailExiste(email)) {
+            throw new RuntimeException("Email já cadastrado. Tente outro email.")
+        }
+
+        return empresaDAO.salvarEmpresa(empresa, email, senha, descricao, cep, pais)
+    }
+
+    boolean editarEmpresa(Empresa empresa) {
+        return empresaDAO.editarEmpresa(empresa)
+    }
+
+    boolean excluirEmpresa(int id) {
+        return empresaDAO.excluirEmpresa(id)
+    }
 
     def listarEmpresas() {
-        List<Empresa> empresas = empresaRepository.listarEmpresas()
+        List<Empresa> empresas = empresaDAO.listarEmpresas()
         if (empresas.isEmpty()) {
             println "Nenhuma empresa cadastrada. (•◡•) /"
         } else {
             println "✦•····· Lista de Empresas ·····•✦"
             empresas.each { empresa ->
-                Usuario usuario = usuarioRepository.listarUsuarioPorId(empresa.usuarioId)
-                Localizacao localizacao = localizacaoRepository.listarLocalizacoesPorId(empresa.localizacaoId)
+                Usuario usuario = usuarioDAO.listarUsuarioPorId(empresa.usuarioId)
+                Localizacao localizacao = localizacaoDAO.listarLocalizacoesPorId(empresa.localizacaoId)
 
                 if (usuario == null || localizacao == null) {
                     println "Dados incompletos para empresa ID: ${empresa.empresaId}"
@@ -57,7 +82,7 @@ class EmpresaService {
         print "Descrição: "
         String descricao = scanner.nextLine()
 
-        if (usuarioRepository.emailExiste(email)) {
+        if (usuarioDAO.emailExiste(email)) {
             println "Email já cadastrado. Tente outro email. (•◡•) /"
             return
         }
@@ -66,7 +91,7 @@ class EmpresaService {
         empresa.empresaNome = nome
         empresa.cnpj = cnpj
 
-        empresaRepository.salvarEmpresa(empresa, email, senha, descricao, cep, pais)
+        empresaDAO.salvarEmpresa(empresa, email, senha, descricao, cep, pais)
         println "Empresa cadastrada com sucesso! （っ＾▿＾）"
     }
 
@@ -77,14 +102,14 @@ class EmpresaService {
         int empresaIdParaEditar = scanner.nextInt()
         scanner.nextLine()
 
-        Empresa empresaPorId = empresaRepository.listarEmpresaPorId(empresaIdParaEditar)
+        Empresa empresaPorId = empresaDAO.listarEmpresaPorId(empresaIdParaEditar)
         if (empresaPorId == null) {
             println "Empresa não encontrada. (╥﹏╥)"
             return
         }
 
-        Usuario usuario = usuarioRepository.listarUsuarioPorId(empresaPorId.usuarioId)
-        Localizacao localizacao = localizacaoRepository.listarLocalizacoesPorId(empresaPorId.localizacaoId)
+        Usuario usuario = usuarioDAO.listarUsuarioPorId(empresaPorId.usuarioId)
+        Localizacao localizacao = localizacaoDAO.listarLocalizacoesPorId(empresaPorId.localizacaoId)
 
         println "\nO que você deseja atualizar?"
         println "1. Nome"
@@ -134,9 +159,9 @@ class EmpresaService {
             usuario.descricao = scanner.nextLine()
         }
 
-        boolean sucessoEmpresa = empresaRepository.editarEmpresa(empresaPorId)
-        boolean sucessoUsuario = usuarioRepository.editarUsuario(usuario)
-        boolean sucessoLocalizacao = localizacaoRepository.editarLocalizacao(localizacao, empresaPorId.empresaId)
+        boolean sucessoEmpresa = empresaDAO.editarEmpresa(empresaPorId)
+        boolean sucessoUsuario = usuarioDAO.editarUsuario(usuario)
+        boolean sucessoLocalizacao = localizacaoDAO.editarLocalizacao(localizacao, empresaPorId.empresaId)
 
         if (sucessoEmpresa && sucessoUsuario && sucessoLocalizacao) {
             println "Empresa atualizada com sucesso! （っ＾▿＾）"
@@ -152,7 +177,7 @@ class EmpresaService {
         int idEmpresaDeletar = scanner.nextInt();
         scanner.nextLine();
 
-        boolean sucesso = empresaRepository.excluirEmpresa(idEmpresaDeletar);
+        boolean sucesso = empresaDAO.excluirEmpresa(idEmpresaDeletar);
         if (sucesso) {
             println("Empresa deletada com sucesso! （っ＾▿＾）");
         } else {
