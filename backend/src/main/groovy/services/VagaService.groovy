@@ -10,13 +10,33 @@ import model.Vaga
 
 class VagaService {
     Scanner scanner = new Scanner(System.in)
-    VagaDAO vagaRepository = new VagaDAO()
-    CompetenciaDAO competenciaRepository = new CompetenciaDAO()
+    VagaDAO vagaDAO = new VagaDAO()
+    CompetenciaDAO competenciaDAO = new CompetenciaDAO()
     CompetenciaService competenciaService = new CompetenciaService()
-    EmpresaDAO empresaRepository = new EmpresaDAO()
+    EmpresaDAO empresaDAO = new EmpresaDAO()
+
+    List<Vaga> buscarTodasVagas() {
+        return vagaDAO.listarVagas()
+    }
+
+    Vaga buscarVagaPorId(int id) {
+        return vagaDAO.listarVagaPorId(id)
+    }
+
+    Vaga salvarVaga(Vaga Vaga) {
+        return vagaDAO.salvarVaga(Vaga)
+    }
+
+    boolean editarVaga(Vaga Vaga) {
+        return vagaDAO.editarVaga(Vaga)
+    }
+
+    boolean excluirVaga(int id) {
+        return vagaDAO.excluirVaga(id)
+    }
 
     def listarVagas() {
-        List<Vaga> vagas = vagaRepository.listarVagas()
+        List<Vaga> vagas = vagaDAO.listarVagas()
         if (vagas == null || vagas.isEmpty()) {
             println "Nenhuma vaga cadastrada. (•◡•) /"
         } else {
@@ -34,7 +54,7 @@ class VagaService {
     }
 
     void salvarVaga() {
-        List<Empresa> empresas = empresaRepository.listarEmpresas()
+        List<Empresa> empresas = empresaDAO.listarEmpresas()
         if (empresas.isEmpty()) {
             println "Nenhuma empresa cadastrada. É necessário cadastrar uma empresa primeiro."
             return
@@ -75,7 +95,7 @@ class VagaService {
                 competencias: competencias
         )
 
-        Vaga vagaSalva = vagaRepository.salvarVaga(vaga)
+        Vaga vagaSalva = vagaDAO.salvarVaga(vaga)
         if (vagaSalva) {
             println "Vaga criada com sucesso para a empresa ${empresaSelecionada.empresaNome}!"
         } else {
@@ -89,7 +109,7 @@ class VagaService {
         int idVaga = scanner.nextInt()
         scanner.nextLine()
 
-        Vaga vagaParaEditar = vagaRepository.listarVagaPorId(idVaga)
+        Vaga vagaParaEditar = vagaDAO.listarVagaPorId(idVaga)
         if (vagaParaEditar == null) {
             println "Vaga não encontrada. (╥﹏╥)"
             return
@@ -125,7 +145,7 @@ class VagaService {
             vagaParaEditar.cidade = scanner.nextLine()
         }
         if (opcoesSelecionadas.contains(4)) {
-            List<Competencia> competenciasDisponiveis = competenciaRepository.listarCompetencias()
+            List<Competencia> competenciasDisponiveis = competenciaDAO.listarCompetencias()
             println "Competências disponíveis:"
             competenciasDisponiveis.each { competencia ->
                 println "${competencia.competenciaId}: ${competencia.competenciaNome}"
@@ -147,7 +167,7 @@ class VagaService {
             vagaParaEditar.descricao = scanner.nextLine()
         }
 
-        boolean sucessoVaga = vagaRepository.editarVaga(vagaParaEditar)
+        boolean sucessoVaga = vagaDAO.editarVaga(vagaParaEditar)
 
         if (sucessoVaga) {
             println "Vaga atualizada com sucesso! （っ＾▿＾）"
@@ -162,13 +182,13 @@ class VagaService {
         int idVagaExcluir = scanner.nextInt()
         scanner.nextLine()
 
-        def vagaParaExcluir = vagaRepository.listarVagaPorId(idVagaExcluir)
+        def vagaParaExcluir = vagaDAO.listarVagaPorId(idVagaExcluir)
         if (!vagaParaExcluir) {
             println "Vaga não encontrada. (╥﹏╥)"
             return false
         }
 
-        def sucesso = vagaRepository.excluirVaga(idVagaExcluir)
+        def sucesso = vagaDAO.excluirVaga(idVagaExcluir)
         if (sucesso) {
             println "Vaga deletada com sucesso!（っ＾▿＾）"
             return true

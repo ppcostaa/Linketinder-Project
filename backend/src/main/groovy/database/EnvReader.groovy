@@ -4,18 +4,15 @@ class EnvReader {
     private Properties properties = new Properties()
 
     EnvReader() {
-        this(new File("/home/pcosta/acelera/Linketinder-Project/backend/.env"))
-    }
-
-    EnvReader(File envFile) {
-        try {
-            if (envFile.exists()) {
-                properties.load(new FileReader(envFile))
-            } else {
-                throw new RuntimeException("Arquivo .env não encontrado")
+        def envStream = getClass().getResourceAsStream('/.env')
+        if (envStream) {
+            try {
+                properties.load(new InputStreamReader(envStream, "UTF-8"))
+            } catch (Exception e) {
+                throw new RuntimeException("Erro ao ler arquivo .env do classpath: " + e.getMessage(), e)
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao ler arquivo .env: " + e.getMessage(), e)
+        } else {
+            throw new RuntimeException("Arquivo .env não encontrado no classpath")
         }
     }
 

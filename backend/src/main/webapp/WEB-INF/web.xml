@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1"
-         metadata-complete="false">
+         metadata-complete="true">
 
     <display-name>Linketinder API</display-name>
     <description>API RESTful para o sistema Linketinder</description>
@@ -22,5 +22,22 @@
         <servlet-name>CandidatoController</servlet-name>
         <url-pattern>/candidatos/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>EmpresaController</servlet-name>
+        <servlet-class>controller.EmpresaController</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>EmpresaController</servlet-name>
+        <url-pattern>/empresas/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>VagaController</servlet-name>
+        <servlet-class>controller.VagaController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VagaController</servlet-name>
+        <url-pattern>/vagas/*</url-pattern>
+    </servlet-mapping>
 </web-app>
