@@ -2,7 +2,6 @@ package DAO
 
 import database.ConnectionFactory
 import model.Usuario
-import DAO.UsuarioDAO
 import spock.lang.Specification
 import spock.lang.Subject
 

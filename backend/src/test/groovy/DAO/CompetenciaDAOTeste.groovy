@@ -2,7 +2,6 @@ package DAO
 
 import database.ConnectionFactory
 import model.Competencia
-import DAO.CompetenciaDAO
 import spock.lang.Specification
 import spock.lang.Subject
 

@@ -3,8 +3,6 @@ package DAO
 import database.ConnectionFactory
 import model.Competencia
 import model.Vaga
-import DAO.CompetenciaDAO
-import DAO.VagaDAO
 import spock.lang.Specification
 import spock.lang.Subject
 

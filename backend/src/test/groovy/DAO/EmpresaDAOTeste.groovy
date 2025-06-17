@@ -2,7 +2,6 @@ package DAO
 
 import database.ConnectionFactory
 import model.Empresa
-import DAO.EmpresaDAO
 import spock.lang.Specification
 
 import java.sql.*

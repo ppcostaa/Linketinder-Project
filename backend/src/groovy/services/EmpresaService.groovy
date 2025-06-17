@@ -4,7 +4,6 @@ package services
 import DAO.EmpresaDAO
 import DAO.LocalizacaoDAO
 import DAO.UsuarioDAO
-import model.Candidato
 import model.Empresa
 import model.Localizacao
 import model.Usuario

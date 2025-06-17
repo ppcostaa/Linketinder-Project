@@ -1,1 +1,7 @@
 .env
+.idea/
+extracted_war/
+build/
+lib/
+.gradle
+.settings

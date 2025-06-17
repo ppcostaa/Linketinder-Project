@@ -3,7 +3,6 @@ package DAO
 import database.ConnectionFactory
 import model.Candidato
 import model.Competencia
-import DAO.CandidatoDAO
 import spock.lang.Specification
 import spock.lang.Subject
 

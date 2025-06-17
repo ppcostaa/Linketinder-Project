@@ -2,7 +2,6 @@ package DAO
 
 import database.ConnectionFactory
 import model.Localizacao
-import DAO.LocalizacaoDAO
 import spock.lang.Specification
 import spock.lang.Subject
 

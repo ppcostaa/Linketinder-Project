@@ -3,51 +3,65 @@ plugins {
     id 'application'
     id 'war'
 }
+
 group 'com.linketinder'
 version '1.0-SNAPSHOT'
+
 run {
     standardInput = System.in
 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 repositories {
     mavenCentral()
 }
+
 configurations {
     all {
         exclude group: 'org.apache.groovy', module: 'groovy-xml'
     }
 }
 
-
 dependencies {
     implementation 'org.apache.groovy:groovy-all:4.0.14'
+
     implementation 'org.postgresql:postgresql:42.6.0'
+
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
-    implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
 
-    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    testRuntimeOnly 'net.bytebuddy:byte-buddy:1.11.22'
-    testRuntimeOnly 'org.objenesis:objenesis:3.2'
+    implementation 'com.google.code.gson:gson:2.8.8'
+
     compileOnly 'org.apache.tomcat:tomcat-catalina:8.5.82'
 
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testRuntimeOnly 'net.bytebuddy:byte-buddy:1.11.22'
+    testRuntimeOnly 'org.objenesis:objenesis:3.2'
 }
 
 application {
-    mainClass = 'groovy.main.Main'
+    mainClass = 'Main'
 }
 
 test {
     useJUnitPlatform()
     testLogging {
-        events "passed", "skipped", "failed"
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        showStandardStreams = false
+        exceptionFormat = "full"
     }
 }
 
 war {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveFileName = 'linketinder.war'
+
     from 'src/main/webapp'
     from('.') {
         include '.env'
@@ -60,12 +74,32 @@ task deploy(type: Exec) {
     description = 'Builds the WAR and deploys it to Tomcat webapps.'
     group = 'deployment'
 
-    commandLine 'bash', '-c', "sudo cp ${war.archiveFile.get().asFile.absolutePath} /var/lib/tomcat9/webapps/"
+    commandLine 'bash', '-c', """
+        sudo cp ${war.archiveFile.get().asFile.absolutePath} /var/lib/tomcat9/webapps/ && 
+        echo 'Deploy realizado com sucesso!'
+    """
 }
 
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+task cleanBuild {
+    dependsOn clean, build
+    description = 'Clean and build the project'
+    group = 'build'
 }
 
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/groovy']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+            srcDir '.'
+            include '.env'
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['src/test']
+        }
+    }
+}

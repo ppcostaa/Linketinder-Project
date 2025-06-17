@@ -5,17 +5,162 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfbbefbc-d3d2-4f64-826e-f5dfd821f523" name="Changes" comment="feat/14: testando novo build.gradle">
-      <change afterPath="$PROJECT_DIR$/src/main/groovy/controller/EmpresaController.groovy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/groovy/controller/VagaController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/EnvReader.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/database/EnvReader.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/CandidatoService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/CompetenciaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/EmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/EmpresaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/VagaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/services/VagaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/CandidatoDAO$_editarCandidato_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/CandidatoDAO$_salvarCandidato_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/CandidatoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/CompetenciaDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/EmpresaDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/LocalizacaoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/UsuarioDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/VagaDAO$_salvarVaga_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/DAO/VagaDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/Sistema.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/CandidatoController$_doPost_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/CandidatoController$_doPut_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/CandidatoController$_validarDadosCandidato_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/CandidatoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/EmpresaController$_doPost_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/EmpresaController$_doPut_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/EmpresaController$_validarDadosEmpresa_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/EmpresaController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/VagaController$_doPost_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/VagaController$_doPut_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/VagaController$_validarDadosVaga_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/controller/VagaController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/database/ConnectionFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/database/DatabaseFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/database/EnvReader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/interfaces/ICandidatoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/interfaces/ICompetenciaDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/interfaces/IConnectionFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/interfaces/IEmpresaDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/interfaces/ILocalizacaoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/interfaces/IUsuarioDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/interfaces/IVagaDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/model/Candidato.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/model/Competencia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/model/Empresa.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/model/Localizacao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/model/Usuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/model/Vaga.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure6$_closure13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4$_closure9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_editarCandidato_closure4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_excluirCandidato_closure5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService$_listarCandidatos_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CandidatoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CompetenciaService$_listarCompetencias_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CompetenciaService$_salvarCompetenciaPorUsuario_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CompetenciaService$_salvarCompetenciaPorUsuario_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CompetenciaService$_salvarCompetenciaPorUsuario_closure4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/CompetenciaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/EmpresaService$_editarEmpresa_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/EmpresaService$_editarEmpresa_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/EmpresaService$_listarEmpresas_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/EmpresaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_editarVaga_closure4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_editarVaga_closure5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_editarVaga_closure6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_editarVaga_closure7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_editarVaga_closure8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_listarVagas_closure1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_salvarVaga_closure2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService$_salvarVaga_closure3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/services/VagaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/groovy/main/utils/datasJson.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/war/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/war/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/DAO/CandidatoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/DAO/CandidatoDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/DAO/CompetenciaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/DAO/CompetenciaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/DAO/EmpresaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/DAO/EmpresaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/DAO/LocalizacaoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/DAO/LocalizacaoDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/DAO/UsuarioDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/DAO/UsuarioDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/DAO/VagaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/DAO/VagaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/Main.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/Main.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/Sistema.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/Sistema.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/controller/CandidatoController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/controller/CandidatoController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/controller/EmpresaController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/controller/EmpresaController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/controller/VagaController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/controller/VagaController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/ConnectionFactory.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/database/ConnectionFactory.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/DatabaseFactory.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/database/DatabaseFactory.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/database/EnvReader.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/database/EnvReader.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/ICandidatoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/interfaces/ICandidatoDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/ICompetenciaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/interfaces/ICompetenciaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/IConnectionFactory.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/interfaces/IConnectionFactory.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/IEmpresaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/interfaces/IEmpresaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/ILocalizacaoDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/interfaces/ILocalizacaoDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/IUsuarioDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/interfaces/IUsuarioDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/interfaces/IVagaDAO.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/interfaces/IVagaDAO.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Candidato.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/model/Candidato.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Competencia.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/model/Competencia.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Empresa.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/model/Empresa.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Localizacao.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/model/Localizacao.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Usuario.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/model/Usuario.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/model/Vaga.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/model/Vaga.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CandidatoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/services/CandidatoService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/CompetenciaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/services/CompetenciaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/EmpresaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/services/EmpresaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/services/VagaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/services/VagaService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/utils/datasJson.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/groovy/utils/datasJson.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/DAO/CandidatoDAOTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/CandidatoDAOTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/DAO/CompetenciaDAOTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/CompetenciaDAOTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/DAO/EmpresaDAOTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/EmpresaDAOTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/DAO/LocalizacaoDAOTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/LocalizacaoDAOTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/DAO/UsuarioDAOTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/UsuarioDAOTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/DAO/VagaDAOTeste.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/DAO/VagaDAOTeste.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/controllers/CandidatoController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/controllers/EmpresaController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/controllers/MainController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/ICandidatoService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/IChartService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/IEmpresaService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/INavegationService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/INotificationService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/IPessoa.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/IStorageService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/interfaces/IValidator.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/models/Candidato.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/models/Empresa.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/models/Pessoa.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/repositories/CandidatoRepository.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/repositories/EmpresaRepository.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/services/CandidatoService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/services/ChartService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/services/EmpresaService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/services/LocalStorageService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/services/NavigationService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/services/NotificacaoService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/styles/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/utils/CandidatoValidator.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/utils/EmpresaValidator.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/utils/validadores.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/views/cadastroCandidato.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/views/cadastroEmpresa.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/views/components/PerfilCandidatoComponent.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/views/components/PerfilEmpresaComponent.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +248,8 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SHELLCHECK.PATH": "/home/pcosta/.local/share/JetBrains/IntelliJIdea2024.3/Shell Script/shellcheck",
-    "git-widget-placeholder": "feature/14",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/pcosta/acelera/Linketinder-Project/backend/src/groovy/Main.groovy",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -116,7 +262,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Aplicacao">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.backend [run]">
     <configuration name="Aplicacao" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="utils.Aplicacao" />
       <module name="linketinder-backend.main" />
@@ -202,7 +353,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="DatabaseConnectionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="backend [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -213,26 +364,54 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;database.DatabaseConnectionTest&quot;" />
+            <option value="run" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <EXTENSION ID="com.intellij.execution.ExternalSystemRunConfigurationJavaExtension">
+        <extension name="net.ashald.envfile">
+          <option name="IS_ENABLED" value="false" />
+          <option name="IS_SUBST" value="false" />
+          <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+          <option name="IS_IGNORE_MISSING_FILES" value="false" />
+          <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+          <ENTRIES>
+            <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+          </ENTRIES>
+        </extension>
+      </EXTENSION>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="Unnamed" type="GroovyScriptRunConfiguration" factoryName="Groovy" nameIsGenerated="true">
+      <setting name="path" value="file://$PROJECT_DIR$/src/groovy/Main.groovy" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Aplicacao" />
+      <item itemvalue="Gradle.backend [run]" />
+      <item itemvalue="Gradle.CandidatoDAOTeste" />
+      <item itemvalue="Gradle.CandidatoDAOTeste.deve salvar um candidato com sucesso" />
+      <item itemvalue="Gradle.CandidatoServiceTeste" />
+      <item itemvalue="Groovy.Unnamed" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.backend [run]" />
         <item itemvalue="Application.Aplicacao" />
         <item itemvalue="Gradle.CandidatoDAOTeste" />
         <item itemvalue="Gradle.CandidatoServiceTeste" />
         <item itemvalue="Gradle.CandidatoDAOTeste.deve salvar um candidato com sucesso" />
-        <item itemvalue="Gradle.DatabaseConnectionTest" />
       </list>
     </recent_temporary>
   </component>
